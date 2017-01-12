@@ -35,7 +35,7 @@ function saveList(updateData, callback, id) {
 
 function loadList() {
   if (!localStorage['todoAppList']) {
-    localStorage['todoAppList'] = '';
+    localStorage.setItem('todoAppList', '');
   }
 
   if (localStorage['todoAppList'] !== '') {
