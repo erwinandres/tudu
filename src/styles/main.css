@@ -105,8 +105,9 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	min-width: 56px;
 	width: 56px;
-	margin: 1.5em 0;
+	margin: 0;
 	-webkit-appearance: none;
 	appearance: none;
 }
@@ -132,7 +133,9 @@ body {
 
 .todoApp-list-item-destroy {
 	display: block;
+	min-width: 56px;
 	width: 56px;
+	padding: 0;
 	background: none;
 	border: none;
 	font-size: 2em;
