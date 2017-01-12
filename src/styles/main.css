@@ -56,7 +56,7 @@ body {
 	transition: color .3s;
 }
 
-.todoApp-newTask-active .todoApp-label {
+.todoApp-newTask-active .todoApp-newTask-label {
 	color: #ffc107;
 }
 
