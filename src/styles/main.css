@@ -61,7 +61,7 @@ body {
 }
 
 .todoApp-newTask-input {
-	padding: 0 .8em;
+	padding: 0;
 	width: 100%;
 	height: 60px;
 	font-size: 40px;
