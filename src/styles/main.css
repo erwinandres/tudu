@@ -15,6 +15,18 @@ html {
 	font-size: 100%;
 }
 
+@media (min-width: 40em) {
+	html {
+		font-size: 125%;
+	}
+}
+
+@media (min-width: 70em) {
+	html {
+		font-size: 150%;
+	}
+}
+
 body {
 	margin: 0;
 	background-color: #fafafa;
