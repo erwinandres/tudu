@@ -34,6 +34,10 @@ function saveList(updateData, callback, id) {
 }
 
 function loadList() {
+  if (!localStorage['todoAppList']) {
+    localStorage['todoAppList'] = '';
+  }
+
   if (localStorage['todoAppList'] !== '') {
     var data = JSON.parse(localStorage['todoAppList']);
     showTask(data);
