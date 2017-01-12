@@ -89,7 +89,7 @@ body {
 }
 
 .todoApp-list-item {
-	position: relative;
+	display: flex;
 	text-align: left;
 	font-size: 32px;
 	list-style: none;
@@ -102,10 +102,10 @@ body {
 }
 
 .todoApp-list-item-check {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: .9em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
 	margin: 1.5em 0;
 	-webkit-appearance: none;
 	appearance: none;
@@ -121,8 +121,8 @@ body {
 
 .todoApp-list-item-label {
 	display: block;
-	margin-left: 1.75em;
 	padding: .3em 0;
+	flex-grow: 1;
 }
 
 .todoApp-list-item.completed .todoApp-list-item-label {
@@ -132,10 +132,7 @@ body {
 
 .todoApp-list-item-destroy {
 	display: block;
-	position: absolute;
-	top: 0;
-	right: 10px;
-	bottom: 0;
+	width: 56px;
 	background: none;
 	border: none;
 	font-size: 1em;
