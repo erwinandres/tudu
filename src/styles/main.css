@@ -64,7 +64,7 @@ body {
 	padding: 0;
 	width: 100%;
 	height: 60px;
-	font-size: 40px;
+	font-size: 1em;
 	border: 0;
 	color: #212121;
 	background-color: transparent;
@@ -91,7 +91,7 @@ body {
 .todoApp-list-item {
 	display: flex;
 	text-align: left;
-	font-size: 32px;
+	font-size: 1em;
 	list-style: none;
 	margin: 0;
 	border-bottom: 1px solid #BDBDBD;
@@ -135,7 +135,7 @@ body {
 	width: 56px;
 	background: none;
 	border: none;
-	font-size: 1em;
+	font-size: 2em;
 	color: #F44336;
 }
 
