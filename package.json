@@ -1,0 +1,11 @@
+{
+  "name": "tudu",
+  "version": "1.0.0",
+  "description": "Progressive TO-DO app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Erwin Larios",
+  "license": "ISC"
+}
