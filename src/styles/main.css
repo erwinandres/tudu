@@ -33,7 +33,7 @@ body {
 }
 
 ::-webkit-input-placeholder {
-	color: #BDBDBD;
+	color: #bdbdbd;
 };
 
 /********
@@ -48,9 +48,9 @@ body {
 /* Header */
 .todoApp-header {
 	color: #fff;
-	background-color: #F44336;
+	background-color: #f44336;
 	text-align: center;
-	box-shadow: 0 1px 15px 0px #9E9E9E;
+	box-shadow: 0 1px 15px 0px #9e9e9e;
     padding: .5em 0;
 }
 
@@ -106,7 +106,7 @@ body {
 	font-size: 1em;
 	list-style: none;
 	margin: 0;
-	border-bottom: 1px solid #BDBDBD;
+	border-bottom: 1px solid #bdbdbd;
 }
 
 .todoApp-list-item:last-child {
@@ -140,7 +140,7 @@ body {
 
 .todoApp-list-item.completed .todoApp-list-item-label {
 	text-decoration: line-through;
-	color: #BDBDBD;
+	color: #bdbdbd;
 }
 
 .todoApp-list-item-destroy {
@@ -151,7 +151,7 @@ body {
 	background: none;
 	border: none;
 	font-size: 2em;
-	color: #F44336;
+	color: #f44336;
 }
 
 .todoApp-list-item-destroy:before {
