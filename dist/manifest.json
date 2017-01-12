@@ -1,5 +1,6 @@
 {
-  "name": "Tud\u00fa",
+  "short_name": "Tud\u00fa",
+  "name": "Tud\u00fa Progressive Web App",
   "icons": [
     {
       "src": "android-chrome-192x192.png",
@@ -12,6 +13,7 @@
       "type": "image\/png"
     }
   ],
+  "start_url": "/index.html",
   "theme_color": "#f44336",
   "display": "standalone"
 }
