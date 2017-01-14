@@ -2,26 +2,18 @@ var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
 var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
+var gulpIf = require('gulp-if');
 var cache = require('gulp-cache');
 var imagemin = require('gulp-imagemin');
+var useref = require('gulp-useref');
 var del = require('del');
 
-gulp.task('html', function() {
+gulp.task('useref', function() {
   return gulp.src('src/*.html')
-    .pipe(htmlmin({ colapsewhitespace: true }))
-    .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('styles', function() {
-  return gulp.src('src/styles/*.css')
-    .pipe(cleanCSS({ compatibility: 'ie8' }))
-    .pipe(gulp.dest('dist/assets/css'));
-});
-
-gulp.task('scripts', function() {
-  return gulp.src('src/scripts/*.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/assets/js'));
+    .pipe(useref())
+    .pipe(gulpIf('*.js', uglify()))
+    .pipe(gulpIf('*.css', cleanCSS({ compatibility: 'ie8' })))
+    .pipe(gulp.dest('dist/'))
 });
 
 gulp.task('images', function(){
@@ -35,5 +27,5 @@ gulp.task('clean', function(){
 });
 
 gulp.task('default', ['clean'], function() {
-  gulp.start('html', 'styles', 'scripts', 'images');
+  gulp.start('useref', 'images');
 });
