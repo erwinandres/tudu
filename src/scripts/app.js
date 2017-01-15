@@ -1,10 +1,16 @@
 var tasksInput = document.getElementById('new-task-input');
 var taskList = document.getElementById('task-list');
+var listsList = document.getElementById('lists-list');
+var saveListInput = document.getElementById('save-list-input');
+var saveListButton = document.getElementById('save-list-button');
+var currentListInput = document.getElementById('current-list-input');
 
-function saveList(updateData, callback, id) {
+function saveTasks(updateData, callback, id) {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
-
   var callback = callback || function() {};
+
+  var currentList = currentListInput.value;
+  var taskToShow = [];
 
   if (id) {
     for (var i = data.tasks.length - 1; i >= 0; i--) {
@@ -17,16 +23,43 @@ function saveList(updateData, callback, id) {
     }
 
     localStorage.setItem('todoAppList', JSON.stringify(data)); 
-    callback.call(this, data);
+    callback.call(this, data.tasks, currentList);
 
   } else {
     updateData.id = new Date().getTime().toString();
+    updateData.list = currentList;
 
     data.tasks.push(updateData);
 
     localStorage.setItem('todoAppList', JSON.stringify(data));
-    callback.call(this, data.tasks);
+    callback.call(this, data.tasks, currentList);
   }
+}
+
+function saveList(listName, callback1, callback2) {
+  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  var callback1 = callback1 || function() {};
+  var callback2 = callback2 || function() {};
+  var currentList = currentListInput.value;
+
+  var id = new Date().getTime().toString();
+
+  var newData = {
+    id: id,
+    name: listName
+  }
+
+  data.lists.push(newData);
+
+  console.log(newData)
+
+  for (var i = data.tasks.length - 1; i >= 0; i--) {
+    data.tasks[i].list = newData.id;
+  }
+
+  localStorage.setItem('todoAppList', JSON.stringify(data));
+  callback1.call(this, data.tasks, currentList);
+  callback2.call(this, data.lists);
 }
 
 function setDB() {
@@ -34,7 +67,12 @@ function setDB() {
   var lists = '';
   var db = {
     tasks: [],
-    lists: []
+    lists: [
+      {
+        id: '1',
+        name: 'default'
+      }
+    ]
   };
 
   db = JSON.stringify(db);
@@ -42,46 +80,77 @@ function setDB() {
   localStorage.setItem('todoAppList', db);
 }
 
-function loadList() {
+function loadtasksList() {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
-  showTask(data.tasks);
+  showTask(data.tasks, "1");
+  showLists(data.lists);
 }
 
-function showTask(tasks) {
+function showTask(tasks, listId) {
   taskList.innerHTML = '';
+
   tasks.forEach(function(task) {
-    var taskLabel = document.createElement('label');
-    taskLabel.className = 'todoApp-list-item-label';
-    taskLabel.appendChild(document.createTextNode(task.text));
+    if (task.list === listId) {
+      var taskLabel = document.createElement('label');
+      taskLabel.className = 'todoApp-list-item-label';
+      taskLabel.appendChild(document.createTextNode(task.text));
 
-    //Create the checkbox
-    var circle = document.createElement('input');
-    circle.className = 'todoApp-list-item-check';
-    circle.setAttribute('type', 'checkbox');
-    circle.addEventListener('click', function() {
-      completeTask(task)
-    });
+      //Create the checkbox
+      var circle = document.createElement('input');
+      circle.className = 'todoApp-list-item-check';
+      circle.setAttribute('type', 'checkbox');
+      circle.addEventListener('click', function() {
+        completeTask(task)
+      });
 
-    //Create the delete button
-    var destroy = document.createElement('button');
-    destroy.className = 'todoApp-list-item-destroy';
-    destroy.addEventListener('click', function() {
-      removeTask(task.id, showTask);
-    });
+      //Create the delete button
+      var destroy = document.createElement('button');
+      destroy.className = 'todoApp-list-item-destroy';
+      destroy.addEventListener('click', function() {
+        removeTask(task.id, showTask);
+      });
 
-    //Create the list item
-    var li = document.createElement('li');
-    li.id = task.id;
-    li.className = 'todoApp-list-item';
-    if (task.completed) {
-      li.classList.add('completed');
-      circle.setAttribute('checked', true);
+      //Create the list item
+      var li = document.createElement('li');
+      li.id = task.id;
+      li.className = 'todoApp-list-item';
+      if (task.completed) {
+        li.classList.add('completed');
+        circle.setAttribute('checked', true);
+      }
+      li.appendChild(circle);
+      li.appendChild(taskLabel);
+      li.appendChild(destroy);
+
+      taskList.appendChild(li);
     }
-    li.appendChild(circle);
-    li.appendChild(taskLabel);
-    li.appendChild(destroy);
+  });
+}
 
-    taskList.appendChild(li);
+function showLists(lists) {
+  listsList.innerHTML = '';
+  lists.forEach(function(list) {
+    var listLabel = document.createElement('label');
+    listLabel.appendChild(document.createTextNode(list.name));
+
+    var li = document.createElement('li');
+    li.className = 'todoApp-listList-item';
+    li.id = list.id;
+    li.appendChild(listLabel);
+
+    listsList.appendChild(li);
+  });
+
+  var listItems = listsList.querySelectorAll('.todoApp-listList-item');
+  listItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      var listId = this.id;
+      var data = JSON.parse(localStorage.getItem('todoAppList'));
+
+      currentListInput.value = listId;
+
+      showTask(data.tasks, listId);
+    })
   });
 }
 
@@ -89,23 +158,24 @@ function addTask(text) {
   var data = {
     text: text,
     completed: false,
+    list: '1'
   }
 
-  saveList(data, showTask);
+  saveTasks(data, showTask);
 }
 
 function completeTask(task) {
-  var savedItems = JSON.parse(localStorage.getItem('todoAppList'));
+  var data = JSON.parse(localStorage.getItem('todoAppList'));
 
-  for (var i = savedItems.tasks.length - 1; i >= 0; i--) {
-    if (savedItems.tasks[i].id === task.id) {
+  for (var i = data.tasks.length - 1; i >= 0; i--) {
+    if (data.tasks[i].id === task.id) {
       if (task.completed) {
         task.completed = false;
       } else {
         task.completed = true;  
       }
 
-      saveList(task, showTask, task.id);
+      saveTasks(task, showTask, task.id);
       break;
     }
   }
@@ -113,7 +183,7 @@ function completeTask(task) {
 
 function removeTask(id, callback) {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
-
+  var currentList = currentListInput.value;
   var callback = callback || function() {};
 
   for (var i = data.tasks.length - 1; i >= 0; i--) {
@@ -124,7 +194,7 @@ function removeTask(id, callback) {
   }
 
   localStorage.setItem('todoAppList', JSON.stringify(data));
-  callback.call(this, data.tasks);
+  callback.call(this, data.tasks, currentList);
 }
 
 tasksInput.addEventListener('focus', function() {
@@ -146,6 +216,17 @@ tasksInput.onkeyup = function(event) {
   }
 }
 
+saveListButton.addEventListener('click', function(evt) {
+  var newListName = saveListInput.value.trim();
+
+  console.log(newListName);
+
+  if (newListName !== '') {
+    saveList(newListName, showTask, showLists);    
+    saveListInput.value = '';
+  }
+})
+
 //Register service worker if available.
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
@@ -166,5 +247,5 @@ document.body.onload = function() {
     setDB();
   }
 
-  loadList();
+  loadtasksList();
 };

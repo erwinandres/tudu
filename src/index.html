@@ -25,9 +25,15 @@
 	<div class="todoApp-newTask">
 		<label class="todoApp-newTask-label" for="new-task-input">Task</label>
 		<input class="todoApp-newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" autofocus>
+		<input id="current-list-input" type="hidden" value="1">
 	</div>
 
 	<ul class="todoApp-list" id="task-list"></ul>
+
+	<ul class="todoApp-listsList" id="lists-list"></ul>
+
+	<input class="todoApp-newList-name" id="save-list-input" type="text" placeholder="E.j.: Lista de compras">
+	<button class="todoApp-newList-saveButton" id="save-list-button">Save list</button>
 
 	<!--build:js assets/js/app.js -->
 	<script src="scripts/app.js"></script>
