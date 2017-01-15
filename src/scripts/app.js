@@ -2,46 +2,49 @@ var tasksInput = document.getElementById('new-task-input');
 var taskList = document.getElementById('task-list');
 
 function saveList(updateData, callback, id) {
-  var data = [];
+  var data = JSON.parse(localStorage.getItem('todoAppList'));
 
   var callback = callback || function() {};
 
-  if (localStorage['todoAppList'] !== '') {
-    data = JSON.parse(localStorage['todoAppList']);
-  }
-
   if (id) {
-    for (var i = data.length - 1; i >= 0; i--) {
-      if (data[i].id === id) {
+    for (var i = data.tasks.length - 1; i >= 0; i--) {
+      if (data.tasks[i].id === id) {
         for (var key in updateData) {
-          data[i][key] = updateData[key];
+          data.tasks[i][key] = updateData[key];
         }
         break;
       }
     }
 
-    localStorage['todoAppList'] = JSON.stringify(data);
+    localStorage.setItem('todoAppList', JSON.stringify(data)); 
     callback.call(this, data);
 
   } else {
     updateData.id = new Date().getTime().toString();
 
-    data.push(updateData);
+    data.tasks.push(updateData);
 
-    localStorage['todoAppList'] = JSON.stringify(data);
-    callback.call(this, data);
+    localStorage.setItem('todoAppList', JSON.stringify(data));
+    callback.call(this, data.tasks);
   }
 }
 
-function loadList() {
-  if (!localStorage['todoAppList']) {
-    localStorage.setItem('todoAppList', '');
-  }
+function setDB() {
+  var tasks = '';
+  var lists = '';
+  var db = {
+    tasks: [],
+    lists: []
+  };
 
-  if (localStorage['todoAppList'] !== '') {
-    var data = JSON.parse(localStorage['todoAppList']);
-    showTask(data);
-  }
+  db = JSON.stringify(db);
+
+  localStorage.setItem('todoAppList', db);
+}
+
+function loadList() {
+  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  showTask(data.tasks);
 }
 
 function showTask(tasks) {
@@ -92,10 +95,10 @@ function addTask(text) {
 }
 
 function completeTask(task) {
-  var savedItems = JSON.parse(localStorage['todoAppList']);
+  var savedItems = JSON.parse(localStorage.getItem('todoAppList'));
 
-  for (var i = savedItems.length - 1; i >= 0; i--) {
-    if (savedItems[i].id === task.id) {
+  for (var i = savedItems.tasks.length - 1; i >= 0; i--) {
+    if (savedItems.tasks[i].id === task.id) {
       if (task.completed) {
         task.completed = false;
       } else {
@@ -109,19 +112,19 @@ function completeTask(task) {
 }
 
 function removeTask(id, callback) {
-  var data = JSON.parse(localStorage['todoAppList']);
+  var data = JSON.parse(localStorage.getItem('todoAppList'));
 
   var callback = callback || function() {};
 
-  for (var i = data.length - 1; i >= 0; i--) {
-    if (data[i].id === id) {
-      data.splice(i, 1);
+  for (var i = data.tasks.length - 1; i >= 0; i--) {
+    if (data.tasks[i].id === id) {
+      data.tasks.splice(i, 1);
       break;
     }
   }
 
-  localStorage['todoAppList'] = JSON.stringify(data);
-  callback.call(this, data);
+  localStorage.setItem('todoAppList', JSON.stringify(data));
+  callback.call(this, data.tasks);
 }
 
 tasksInput.addEventListener('focus', function() {
@@ -158,4 +161,10 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-document.body.onload = loadList;
+document.body.onload = function() {
+  if (!localStorage['todoAppList']) {
+    setDB();
+  }
+
+  loadList();
+};
