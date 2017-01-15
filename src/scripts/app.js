@@ -6,6 +6,7 @@ var saveListButton = document.getElementById('save-list-button');
 var currentListInput = document.getElementById('current-list-input');
 var deleteListButton = document.getElementById('delete-list-button');
 var taskListTitle = document.getElementById('task-list-title');
+var clearListButton = document.getElementById('clear-list-button');
 
 function saveTasks(updateData, callback, id) {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
@@ -34,7 +35,7 @@ function saveTasks(updateData, callback, id) {
     data.tasks.push(updateData);
 
     localStorage.setItem('todoAppList', JSON.stringify(data));
-    callback.call(this, data.tasks, currentList);
+    callback.call(this, data, currentList);
   }
 }
 
@@ -42,7 +43,6 @@ function saveList(listName, callback1, callback2) {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
   var callback1 = callback1 || function() {};
   var callback2 = callback2 || function() {};
-  var currentList = currentListInput.value;
 
   var id = new Date().getTime().toString();
 
@@ -59,8 +59,11 @@ function saveList(listName, callback1, callback2) {
     data.tasks[i].list = newData.id;
   }
 
+  currentListInput.value = id;
+  var currentList = currentListInput.value;
+
   localStorage.setItem('todoAppList', JSON.stringify(data));
-  callback1.call(this, data.tasks, currentList);
+  callback1.call(this, data, currentList);
   callback2.call(this, data.lists);
 }
 
@@ -139,6 +142,16 @@ function showTask(data, listId) {
       taskList.appendChild(li);
     }
   });
+
+  if (currentListInput.value === "1") {
+    deleteListButton.setAttribute('disabled', true);
+    saveListInput.removeAttribute('disabled')
+    saveListButton.removeAttribute('disabled');
+  } else {
+    deleteListButton.removeAttribute('disabled');
+    saveListInput.setAttribute('disabled', true);
+    saveListButton.setAttribute('disabled', true);
+  }
 }
 
 function showLists(lists) {
@@ -207,7 +220,46 @@ function removeTask(id, callback) {
   }
 
   localStorage.setItem('todoAppList', JSON.stringify(data));
-  callback.call(this, data.tasks, currentList);
+  callback.call(this, data, currentList);
+}
+
+function clearList(listId, callback) {
+  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  var currentList = currentListInput.value;
+  var callback = callback || function() {};
+
+  for (var i = data.tasks.length - 1; i >= 0; i--) {
+    if (data.tasks[i].list === listId) {
+      data.tasks.splice(i, 1);
+    }
+  }
+
+  localStorage.setItem('todoAppList', JSON.stringify(data));
+  callback.call(this, data, currentList);
+}
+
+function removList(id, callback1, callback2) {
+  if (id !== "1") {
+    clearList(id, showTask);
+
+    var data = JSON.parse(localStorage.getItem('todoAppList'));
+    var callback1 = callback1 || function() {};
+    var callback2 = callback2 || function() {};
+
+    for (var i = data.lists.length - 1; i >= 0; i--) {
+      if (data.lists[i].id === id) {
+        data.lists.splice(i, 1);
+        break;
+      }
+    }
+
+    currentListInput.value = "1";
+    var currentList = currentListInput.value;
+
+    localStorage.setItem('todoAppList', JSON.stringify(data));
+    callback1.call(this, data, currentList);
+    callback2.call(this, data.lists, currentList);
+  }
 }
 
 tasksInput.addEventListener('focus', function() {
@@ -229,6 +281,13 @@ tasksInput.onkeyup = function(event) {
   }
 }
 
+deleteListButton.addEventListener('click', function(evt) {
+  evt.preventDefault();
+
+  var id = currentListInput.value;
+  removList(id, showTask, showLists);
+});
+
 saveListButton.addEventListener('click', function(evt) {
   var newListName = saveListInput.value.trim();
 
@@ -238,7 +297,14 @@ saveListButton.addEventListener('click', function(evt) {
     saveList(newListName, showTask, showLists);    
     saveListInput.value = '';
   }
-})
+});
+
+clearListButton.addEventListener('click', function(evt) {
+  evt.preventDefault();
+
+  var currentList = currentListInput.value;
+  clearList(currentList, showTask);
+});
 
 //Register service worker if available.
 if ('serviceWorker' in navigator) {
