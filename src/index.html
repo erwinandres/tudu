@@ -28,17 +28,21 @@
 		<input id="current-list-input" type="hidden" value="1">
 	</div>
 
-	<ul class="todoApp-list" id="task-list"></ul>
+	<div class="todoApp-listSection">
+		<h2 class="todoApp-listSection-title" id="task-list-title">Default</h2>
+		<ul class="todoApp-listSection-list todoApp-list" id="task-list"></ul>
 
-	<div class="todoApp-listMenu">
-		<button class="todoApp-clearList-button">Clear list</button>
-		<button class="todoApp-deleteList-button" id="delete-list-button">Delete this list</button>
+		<div class="todoApp-listSection-options">
+			<button class="todoApp-clearList-button">Clear list</button>
+			<button class="todoApp-deleteList-button" id="delete-list-button">Delete this list</button>
 
-		<div class="todoApp-newList">
-			<input class="todoApp-newList-name" id="save-list-input" type="text" placeholder="E.j.: Lista de compras">
-			<button class="todoApp-newList-saveButton" id="save-list-button">Save list</button>
-		</div>
+			<div class="todoApp-newList">
+				<input class="todoApp-newList-name" id="save-list-input" type="text" placeholder="E.j.: Lista de compras">
+				<button class="todoApp-newList-saveButton" id="save-list-button">Save list</button>
+			</div>
+		</div>		
 	</div>
+
 	<ul class="todoApp-listsList" id="lists-list"></ul>
 
 	<!--build:js assets/js/app.js -->

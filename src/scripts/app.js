@@ -5,6 +5,7 @@ var saveListInput = document.getElementById('save-list-input');
 var saveListButton = document.getElementById('save-list-button');
 var currentListInput = document.getElementById('current-list-input');
 var deleteListButton = document.getElementById('delete-list-button');
+var taskListTitle = document.getElementById('task-list-title');
 
 function saveTasks(updateData, callback, id) {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
@@ -24,7 +25,7 @@ function saveTasks(updateData, callback, id) {
     }
 
     localStorage.setItem('todoAppList', JSON.stringify(data)); 
-    callback.call(this, data.tasks, currentList);
+    callback.call(this, data, currentList);
 
   } else {
     updateData.id = new Date().getTime().toString();
@@ -71,7 +72,7 @@ function setDB() {
     lists: [
       {
         id: '1',
-        name: 'default'
+        name: 'Default'
       }
     ]
   };
@@ -83,14 +84,26 @@ function setDB() {
 
 function loadtasksList() {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
-  showTask(data.tasks, "1");
+  showTask(data, "1");
   showLists(data.lists);
 }
 
-function showTask(tasks, listId) {
+function showTask(data, listId) {
   taskList.innerHTML = '';
+  taskListTitle.innerHTML = '';
 
-  tasks.forEach(function(task) {
+  var listTitle;
+  for (var i = data.lists.length - 1; i >= 0; i--) {
+    if (data.lists[i].id === listId) {
+      listTitle = data.lists[i].name;
+      break;
+    }
+  }
+
+  listTitle = document.createTextNode(listTitle);
+  taskListTitle.appendChild(listTitle);
+
+  data.tasks.forEach(function(task) {
     if (task.list === listId) {
       var taskLabel = document.createElement('label');
       taskLabel.className = 'todoApp-list-item-label';
@@ -149,7 +162,7 @@ function showLists(lists) {
 
       currentListInput.value = listId;
 
-      showTask(data.tasks, listId);
+      showTask(data, listId);
     })
   });
 }
