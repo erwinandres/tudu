@@ -4,6 +4,7 @@ var listsList = document.getElementById('lists-list');
 var saveListInput = document.getElementById('save-list-input');
 var saveListButton = document.getElementById('save-list-button');
 var currentListInput = document.getElementById('current-list-input');
+var deleteListButton = document.getElementById('delete-list-button');
 
 function saveTasks(updateData, callback, id) {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
@@ -130,18 +131,17 @@ function showTask(tasks, listId) {
 function showLists(lists) {
   listsList.innerHTML = '';
   lists.forEach(function(list) {
-    var listLabel = document.createElement('label');
-    listLabel.appendChild(document.createTextNode(list.name));
-
+    var listText = document.createTextNode(list.name);
     var li = document.createElement('li');
-    li.className = 'todoApp-listList-item';
+
+    li.className = 'todoApp-listsList-item';
     li.id = list.id;
-    li.appendChild(listLabel);
+    li.appendChild(listText);
 
     listsList.appendChild(li);
   });
 
-  var listItems = listsList.querySelectorAll('.todoApp-listList-item');
+  var listItems = listsList.querySelectorAll('.todoApp-listsList-item');
   listItems.forEach(function(item) {
     item.addEventListener('click', function() {
       var listId = this.id;

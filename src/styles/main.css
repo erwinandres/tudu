@@ -157,3 +157,7 @@ body {
 .todoApp-list-item-destroy:before {
 	content: '×';
 }
+
+.todoApp-listsList-item {
+	cursor: default;
+}
