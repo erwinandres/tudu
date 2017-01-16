@@ -1,3 +1,4 @@
+var menuButton = document.getElementById('menu-button');
 var tasksInput = document.getElementById('new-task-input');
 var taskList = document.getElementById('task-list');
 var listsList = document.getElementById('lists-list');
@@ -52,8 +53,6 @@ function saveList(listName, callback1, callback2) {
   }
 
   data.lists.push(newData);
-
-  console.log(newData)
 
   for (var i = data.tasks.length - 1; i >= 0; i--) {
     data.tasks[i].list = newData.id;
@@ -160,7 +159,7 @@ function showLists(lists) {
     var listText = document.createTextNode(list.name);
     var li = document.createElement('li');
 
-    li.className = 'todoApp-listsList-item';
+    li.className = 'todoApp-listsList-item todoApp-mainNav-list-item';
     li.id = list.id;
     li.appendChild(listText);
 
@@ -304,6 +303,15 @@ clearListButton.addEventListener('click', function(evt) {
 
   var currentList = currentListInput.value;
   clearList(currentList, showTask);
+});
+
+menuButton.addEventListener('click', function(evt) {
+  evt.preventDefault();
+
+  this.classList.toggle('todoApp-menuButton-open');
+
+  var mainNav = document.getElementById('main-nav');
+  mainNav.classList.toggle('todoApp-mainNav-open');
 });
 
 //Register service worker if available.
