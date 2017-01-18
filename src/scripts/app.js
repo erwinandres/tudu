@@ -290,8 +290,6 @@ deleteListButton.addEventListener('click', function(evt) {
 saveListButton.addEventListener('click', function(evt) {
   var newListName = saveListInput.value.trim();
 
-  console.log(newListName);
-
   if (newListName !== '') {
     saveList(newListName, showTask, showLists);    
     saveListInput.value = '';

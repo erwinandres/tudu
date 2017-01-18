@@ -58,11 +58,16 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 1;
+	background:url(../img/menu.svg) center no-repeat;
+	border:0;
+	width: 24px;
+	height: 24px;
+	text-indent: -3000px;
 }
 
 .todoApp-header-title {
 	margin: 0;
+	font-size: 2em;
 }
 
 /* New Task form */
