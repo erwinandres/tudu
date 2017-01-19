@@ -34,27 +34,45 @@
 		<h2 class="todoApp-listSection-title" id="task-list-title">Default</h2>
 		<ul class="todoApp-listSection-list todoApp-list" id="task-list"></ul>
 
-		<div class="todoApp-listSection-options">
-			<button class="todoApp-clearList-button" id="clear-list-button">Clear list</button>
-			<button class="todoApp-deleteList-button" id="delete-list-button">Delete this list</button>
-
-			<div class="todoApp-newList">
-				<input class="todoApp-newList-name" id="save-list-input" type="text" placeholder="E.j.: Lista de compras">
-				<button class="todoApp-newList-saveButton" id="save-list-button">Save list</button>
-			</div>
+		<div class="todoApp-listSection-actions">
+			<button class="todoApp-clearList-button todoApp-listSection-actionButton" id="clear-list-button">Clear list</button>
+			<button class="todoApp-deleteList-button todoApp-listSection-actionButton" id="delete-list-button">Delete this list</button>
+			<button class="todoApp-saveList-button todoApp-listSection-actionButton" id="open-savelist-dialog-button">Save list</button>
 		</div>		
 	</div>
 
-	<nav class="todoApp-mainNav" id="main-nav">
-		<h2 class="todoApp-mainNav-title">Menu</h2>
-		<ul class="todoApp-mainNav-list">
-			<ul class="todoApp-listsList">
-				<h3 class="todoApp-mainNav-list-title">My lists</h3>
-				<div id="lists-list"></div>
+	<div class="todoApp-mainNav" id="main-nav">
+		<nav class="todoApp-mainNav-content" id="main-nav-content">
+			<div class="todoApp-mainNav-header">
+				<h2 class="todoApp-mainNav-title">Tudú</h2>
+			</div>
+			<ul class="todoApp-mainNav-list">
+				<ul class="todoApp-listsList">
+					<h3 class="todoApp-mainNav-list-title">My lists</h3>
+					<div id="lists-list"></div>
+				</ul>
 			</ul>
-			<li class="todoApp-mainNav-list-item">About</li>
-		</ul>
-	</nav>
+			<p class="todoApp-mainNav-versionMark">Version 0.5.3 (beta)</p>
+		</nav>
+	</div>
+
+	<div class="todoApp-dialogContainer" id="save-list-dialog">
+		<div class="todoApp-newList todoApp-dialogContainer-content" id="save-list-dialog-content">
+			<div class="todoApp-newList-header todoApp-dialogContainer-header">
+				<h2 class="todoApp-dialogContainer-header-title">Save this list</h2>
+			</div>
+			<div class="todoApp-newList-body todoApp-dialogContainer-body">
+				<div class="todoApp-newList-fromGroup">
+					<label  class="todoApp-newList-label" for="save-list-input">List name</label>
+					<input class="todoApp-newList-name" id="save-list-input" type="text" placeholder="E.g.: Groceries">
+				</div>
+			</div>
+			<div class="todoApp-newList-actions">
+				<button class="todoApp-newList-button todoApp-newList-cancel" id="cancel-save-list-button">Cancel</button>
+				<button class="todoApp-newList-button todoApp-newList-save" id="save-list-button">Save list</button>
+			</div>
+		</div>
+	</div>
 
 	<!--build:js assets/js/app.js -->
 	<script src="scripts/app.js"></script>
