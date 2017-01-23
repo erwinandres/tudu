@@ -5,15 +5,15 @@ var listsList = document.getElementById('lists-list');
 var saveListInput = document.getElementById('save-list-input');
 var openSaveListDialogButton = document.getElementById('open-savelist-dialog-button');
 var currentListInput = document.getElementById('current-list-input');
-var deleteListButton = document.getElementById('delete-list-button');
 var taskListTitle = document.getElementById('task-list-title');
-var clearListButton = document.getElementById('clear-list-button');
 var mainNav = document.getElementById('main-nav');
 var mainNavContent = document.getElementById('main-nav-content');
 var saveListDialog = document.getElementById('save-list-dialog');
 var saveListDialogContent = document.getElementById('save-list-dialog-content');
 var cancelSaveListButton = document.getElementById('cancel-save-list-button');
 var saveListButton = document.getElementById('save-list-button');
+var listView = document.getElementById('list-view');
+var closeListViewButton = document.getElementById('close-list-view');
 
 function saveTasks(updateData, callback, id) {
   var data = JSON.parse(localStorage.getItem('todoAppList'));
@@ -60,14 +60,10 @@ function saveList(listName, callback1, callback2) {
 
   data.lists.push(newData);
 
-  for (var i = data.tasks.length - 1; i >= 0; i--) {
-    if (data.tasks[i].list === "1") {
-      data.tasks[i].list = newData.id;
-    }
-  }
-
   currentListInput.value = id;
   var currentList = currentListInput.value;
+
+  listView.classList.add('listView-show');
 
   localStorage.setItem('todoAppList', JSON.stringify(data));
   callback1.call(this, data, currentList);
@@ -160,20 +156,8 @@ function showTask(data, listId) {
       taskList.appendChild(p);
   }
 
-  if (currentListInput.value === '1') {
-    taskListTitle.innerHTML = '';
-
-    deleteListButton.setAttribute('disabled', true);
-    saveListInput.removeAttribute('disabled')
-    saveListButton.removeAttribute('disabled');
-  } else {
-    listTitle = document.createTextNode(listTitle);
-    taskListTitle.appendChild(listTitle);
-    
-    deleteListButton.removeAttribute('disabled');
-    saveListInput.setAttribute('disabled', true);
-    saveListButton.setAttribute('disabled', true);
-  }
+  listTitle = document.createTextNode(listTitle);
+  taskListTitle.appendChild(listTitle);
 }
 
 function showLists(lists) {
@@ -198,7 +182,7 @@ function showLists(lists) {
       currentListInput.value = listId;
 
       mainNav.classList.remove('todoApp-mainNav-open');
-
+      listView.classList.add('listView-show');
       showTask(data, listId);
     })
   });
@@ -305,13 +289,6 @@ tasksInput.onkeyup = function(event) {
   }
 }
 
-deleteListButton.addEventListener('click', function(evt) {
-  evt.preventDefault();
-
-  var id = currentListInput.value;
-  removList(id, showTask, showLists);
-});
-
 openSaveListDialogButton.addEventListener('click', function(evt) {
   evt.stopPropagation();
 
@@ -337,13 +314,6 @@ saveListButton.addEventListener('click', function() {
   }
 });
 
-clearListButton.addEventListener('click', function(evt) {
-  evt.preventDefault();
-
-  var currentList = currentListInput.value;
-  clearList(currentList, showTask);
-});
-
 document.body.addEventListener('click', function() {
   var mainNav = document.getElementById('main-nav');
   mainNav.classList.remove('todoApp-mainNav-open');
@@ -359,6 +329,10 @@ menuButton.addEventListener('click', function(evt) {
 
   this.classList.toggle('todoApp-menuButton-open');
   mainNav.classList.toggle('todoApp-mainNav-open');
+});
+
+closeListViewButton.addEventListener('click', function() {
+  listView.classList.remove('listView-show');
 });
 
 //Register service worker if available.

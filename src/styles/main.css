@@ -51,6 +51,7 @@ body {
 
 /* Header */
 .todoApp-header {
+	position: relative;
 	color: #fff;
 	background-color: #f44336;
 	text-align: center;
@@ -62,6 +63,7 @@ body {
 	align-content: center;
 	justify-content: flex-start;
 	align-items: stretch;
+	z-index: 1;
 }
 
 .todoApp-menuButton {
@@ -77,6 +79,45 @@ body {
 	font-size: 2em;
 	line-height: 1;
 	flex:1;
+}
+
+.todoApp-addButton {
+	display: inline-block;
+	position: fixed;
+	right: 24px;
+	bottom: 24px;
+}
+
+.todoApp-addButton-icon {
+	display: inline-block;
+	position: relative;
+	width: 56px;
+	height: 56px;
+	text-align: center;
+	background-color: #ffc107;
+	border-radius:50%;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+	transition: all .2s ease;
+}
+
+.todoApp-addButton-icon-img {
+	margin-top: 16px;
+}
+
+.listView {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-top: 3em;
+	width: 100%;
+	min-height: 100%;
+	background: #fff;
+	box-sizing: border-box;
+}
+
+.listView-show {
+	display: block;
 }
 
 /* New Task form */
@@ -131,10 +172,11 @@ body {
 }
 
 .todoApp-listSection-actionButton{
-	width: 33.333%;
-	height: 56px;
-	border:0;
-	text-indent: -3000px;
+	border: 0;
+    font-size: 1em;
+    padding: 0 .5em;
+    border-radius: 3px;
+    line-height: 1.7em;
 }
 
 .todoApp-list {
@@ -209,6 +251,7 @@ body {
 	top: 0;
 	left: 0;
 	pointer-events:none;
+	z-index:2;
 }
 
 .todoApp-mainNav:before {
@@ -303,26 +346,6 @@ body {
 	margin: 0;
 }
 
-.todoApp-clearList-button {
-	background:url(../img/clear.svg) center no-repeat;
-}
-
-.todoApp-deleteList-button {
-	background:url(../img/delete.svg) center no-repeat;
-}
-
-.todoApp-deleteList-button:disabled {
-	background:url(../img/delete-disabled.svg) center no-repeat;
-}
-
-.todoApp-saveList-button {
-	background:url(../img/save.svg) center no-repeat;
-}
-
-.todoApp-saveList-button:disabled {
-	background:url(../img/save-disabled.svg) center no-repeat;
-}
-
 .todoApp-dialogContainer {
 	position: fixed;
 	top: 0;
@@ -332,6 +355,7 @@ body {
 	background:rgba(0, 0, 0, .57);
 	pointer-events: none;
 	opacity:0;
+	z-index:3;
 }
 
 .todoApp-dialogContainer-visible {

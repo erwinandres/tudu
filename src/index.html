@@ -24,21 +24,34 @@
 		<h1 class="todoApp-header-title">Tudú</h1>
 	</header>
 
-	<div class="todoApp-newTask">
-		<label class="todoApp-newTask-label" for="new-task-input">Task</label>
-		<input class="todoApp-newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" autofocus>
-		<input id="current-list-input" type="hidden" value="1">
+	<div id="lists-list"></div>
+
+	<div class="todoApp-startScreen">
+		<div class="todoApp-addButton" id="open-savelist-dialog-button">
+			<i class="todoApp-addButton-icon">
+				<img class="todoApp-addButton-icon-img" src="img/add.svg">
+			</i>
+		</div>
 	</div>
 
-	<div class="todoApp-listSection">
-		<h2 class="todoApp-listSection-title" id="task-list-title">Default</h2>
-		<ul class="todoApp-listSection-list todoApp-list" id="task-list"></ul>
+	<div class="listView" id="list-view">
+		<button id="close-list-view">Cerrar</button>
+		<div class="todoApp-newTask">
+			<label class="todoApp-newTask-label" for="new-task-input">Task</label>
+			<input class="todoApp-newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" autofocus>
+			<input id="current-list-input" type="hidden" value="1">
+		</div>
 
-		<div class="todoApp-listSection-actions">
-			<button class="todoApp-clearList-button todoApp-listSection-actionButton" id="clear-list-button">Clear list</button>
-			<button class="todoApp-deleteList-button todoApp-listSection-actionButton" id="delete-list-button">Delete this list</button>
-			<button class="todoApp-saveList-button todoApp-listSection-actionButton" id="open-savelist-dialog-button">Save list</button>
-		</div>		
+		<div class="todoApp-listSection">
+			<h2 class="todoApp-listSection-title" id="task-list-title"></h2>
+			<ul class="todoApp-listSection-list todoApp-list" id="task-list"></ul>
+
+			<div class="todoApp-listSection-actions">
+				<button class="todoApp-listSection-actionButton">Active</button>
+				<button class="todoApp-listSection-actionButton">Completed</button>
+				<button class="todoApp-listSection-actionButton">All</button>
+			</div>
+		</div>
 	</div>
 
 	<div class="todoApp-mainNav" id="main-nav">
@@ -59,7 +72,7 @@
 	<div class="todoApp-dialogContainer" id="save-list-dialog">
 		<div class="todoApp-newList todoApp-dialogContainer-content" id="save-list-dialog-content">
 			<div class="todoApp-newList-header todoApp-dialogContainer-header">
-				<h2 class="todoApp-dialogContainer-header-title">Save this list</h2>
+				<h2 class="todoApp-dialogContainer-header-title">Create a list</h2>
 			</div>
 			<div class="todoApp-newList-body todoApp-dialogContainer-body">
 				<div class="todoApp-newList-fromGroup">
@@ -69,7 +82,7 @@
 			</div>
 			<div class="todoApp-newList-actions">
 				<button class="todoApp-newList-button todoApp-newList-cancel" id="cancel-save-list-button">Cancel</button>
-				<button class="todoApp-newList-button todoApp-newList-save" id="save-list-button">Save list</button>
+				<button class="todoApp-newList-button todoApp-newList-save" id="save-list-button">Create list</button>
 			</div>
 		</div>
 	</div>
