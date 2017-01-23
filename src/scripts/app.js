@@ -70,6 +70,7 @@ function showTask(tasks) {
     var li = document.createElement('li');
     li.id = task.id;
     li.className = 'todoApp-list-item';
+    li.setAttribute('draggable', true);
     if (task.completed) {
       li.classList.add('completed');
       circle.setAttribute('checked', true);
@@ -77,6 +78,36 @@ function showTask(tasks) {
     li.appendChild(circle);
     li.appendChild(taskLabel);
     li.appendChild(destroy);
+
+    li.addEventListener('dragenter', function(e) {
+      this.classList.add('todoApp-list-item-over');
+    }, false);
+
+    li.addEventListener('dragover', function(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+
+      e.dataTransfer.dropEffect = 'move';
+
+      return false;
+    }, false);
+
+    li.addEventListener('dragleave', function(e) {
+      this.classList.remove('todoApp-list-item-over');
+    }, false);
+
+    li.addEventListener('drop', function(e) {
+      e.stopPropagation();
+
+      return false;
+    }, false);
+
+    li.addEventListener('dragend', function(e) {
+      [].forEach.call(taskList, function(item) {
+        item.classList.remove('todoApp-list-item-over');
+      });
+    }, false);
 
     taskList.appendChild(li);
   });
