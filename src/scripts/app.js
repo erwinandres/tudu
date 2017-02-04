@@ -14,6 +14,7 @@ var cancelSaveListButton = document.getElementById('cancel-save-list-button');
 var saveListButton = document.getElementById('save-list-button');
 var listView = document.getElementById('list-view');
 var closeListViewButton = document.getElementById('close-list-view');
+var listViewButtons = document.querySelectorAll('.todoApp-listSection-actionButton');
 
 var dbName = 'tuduDB';
 
@@ -96,10 +97,11 @@ function loadtasksList() {
   showLists(data.lists);
 }
 
-function showTask(data, listId) {
+function showTask(data, listId, filter) {
   taskList.innerHTML = '';
   taskListTitle.innerHTML = '';
 
+  var filter = filter || 'active';
   var listTitle;
   for (var i = data.lists.length - 1; i >= 0; i--) {
     if (data.lists[i].id === listId) {
@@ -112,6 +114,12 @@ function showTask(data, listId) {
 
   data.tasks.forEach(function(task) {
     if (task.list === listId) {
+      if (filter === 'active' && task.completed) {
+        return;
+      } else if (filter === 'completed' && !task.completed) {
+        return;
+      }
+
       count++;
       var taskLabel = document.createElement('label');
       taskLabel.className = 'todoApp-list-item-label';
@@ -149,7 +157,7 @@ function showTask(data, listId) {
   });
 
   if (count <= 0) {
-      var message = document.createTextNode('This list is empty.');
+      var message = document.createTextNode('There is nothing here.');
       var p = document.createElement('p');
       p.className = 'todoApp-list-message';
 
@@ -335,6 +343,15 @@ menuButton.addEventListener('click', function(evt) {
 
 closeListViewButton.addEventListener('click', function() {
   listView.classList.remove('listView-show');
+});
+
+listViewButtons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    var data = JSON.parse(localStorage.getItem(dbName));
+    var value = this.value;
+    var currentList = currentListInput.value;
+    showTask(data, currentList, value);
+  });
 });
 
 //Register service worker if available.
