@@ -176,7 +176,7 @@ function showLists(lists) {
     var listText = document.createTextNode(list.name);
     var li = document.createElement('li');
 
-    li.className = 'todoApp-listsList-item todoApp-mainNav-list-item';
+    li.className = 'todoApp-listsList-item';
     li.id = list.id;
     li.appendChild(listText);
 

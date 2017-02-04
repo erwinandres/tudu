@@ -322,13 +322,6 @@ body {
 	color:#f44336;
 }
 
-.todoApp-listsList {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	border-bottom: 1px solid #bdbdbd;
-}
-
 .todoApp-mainNav-list-item {
 	cursor: default;
 	padding: .5em 0 .5em 1em;
@@ -344,6 +337,29 @@ body {
 	bottom: .5em;
 	right: .5em;
 	margin: 0;
+}
+
+.todoApp-listsList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #bdbdbd;
+}
+
+.todoApp-listsList-item {
+    cursor: pointer;
+    list-style: none;
+    width: 90%;
+    max-width: 150px;
+    height: 150px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFCDD2;
+    margin: 4px;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+    font-weight: bold;
 }
 
 .todoApp-dialogContainer {
