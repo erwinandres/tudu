@@ -15,8 +15,10 @@ var saveListButton = document.getElementById('save-list-button');
 var listView = document.getElementById('list-view');
 var closeListViewButton = document.getElementById('close-list-view');
 
+var dbName = 'tuduDB';
+
 function saveTasks(updateData, callback, id) {
-  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  var data = JSON.parse(localStorage.getItem(dbName));
   var callback = callback || function() {};
 
   var currentList = currentListInput.value;
@@ -32,7 +34,7 @@ function saveTasks(updateData, callback, id) {
       }
     }
 
-    localStorage.setItem('todoAppList', JSON.stringify(data)); 
+    localStorage.setItem(dbName, JSON.stringify(data)); 
     callback.call(this, data, currentList);
 
   } else {
@@ -41,13 +43,13 @@ function saveTasks(updateData, callback, id) {
 
     data.tasks.push(updateData);
 
-    localStorage.setItem('todoAppList', JSON.stringify(data));
+    localStorage.setItem(dbName, JSON.stringify(data));
     callback.call(this, data, currentList);
   }
 }
 
 function saveList(listName, callback1, callback2) {
-  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  var data = JSON.parse(localStorage.getItem(dbName));
   var callback1 = callback1 || function() {};
   var callback2 = callback2 || function() {};
 
@@ -65,7 +67,7 @@ function saveList(listName, callback1, callback2) {
 
   listView.classList.add('listView-show');
 
-  localStorage.setItem('todoAppList', JSON.stringify(data));
+  localStorage.setItem(dbName, JSON.stringify(data));
   callback1.call(this, data, currentList);
   callback2.call(this, data.lists);
 }
@@ -85,11 +87,11 @@ function setDB() {
 
   db = JSON.stringify(db);
 
-  localStorage.setItem('todoAppList', db);
+  localStorage.setItem(dbName, db);
 }
 
 function loadtasksList() {
-  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  var data = JSON.parse(localStorage.getItem(dbName));
   showTask(data, "1");
   showLists(data.lists);
 }
@@ -177,7 +179,7 @@ function showLists(lists) {
   listItems.forEach(function(item) {
     item.addEventListener('click', function() {
       var listId = this.id;
-      var data = JSON.parse(localStorage.getItem('todoAppList'));
+      var data = JSON.parse(localStorage.getItem(dbName));
 
       currentListInput.value = listId;
 
@@ -199,7 +201,7 @@ function addTask(text) {
 }
 
 function completeTask(task) {
-  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  var data = JSON.parse(localStorage.getItem(dbName));
 
   for (var i = data.tasks.length - 1; i >= 0; i--) {
     if (data.tasks[i].id === task.id) {
@@ -216,7 +218,7 @@ function completeTask(task) {
 }
 
 function removeTask(id, callback) {
-  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  var data = JSON.parse(localStorage.getItem(dbName));
   var currentList = currentListInput.value;
   var callback = callback || function() {};
 
@@ -227,12 +229,12 @@ function removeTask(id, callback) {
     }
   }
 
-  localStorage.setItem('todoAppList', JSON.stringify(data));
+  localStorage.setItem(dbName, JSON.stringify(data));
   callback.call(this, data, currentList);
 }
 
 function clearList(listId, callback) {
-  var data = JSON.parse(localStorage.getItem('todoAppList'));
+  var data = JSON.parse(localStorage.getItem(dbName));
   var currentList = currentListInput.value;
   var callback = callback || function() {};
 
@@ -242,7 +244,7 @@ function clearList(listId, callback) {
     }
   }
 
-  localStorage.setItem('todoAppList', JSON.stringify(data));
+  localStorage.setItem(dbName, JSON.stringify(data));
   callback.call(this, data, currentList);
 }
 
@@ -250,7 +252,7 @@ function removList(id, callback1, callback2) {
   if (id !== "1") {
     clearList(id, showTask);
 
-    var data = JSON.parse(localStorage.getItem('todoAppList'));
+    var data = JSON.parse(localStorage.getItem(dbName));
     var callback1 = callback1 || function() {};
     var callback2 = callback2 || function() {};
 
@@ -264,7 +266,7 @@ function removList(id, callback1, callback2) {
     currentListInput.value = "1";
     var currentList = currentListInput.value;
 
-    localStorage.setItem('todoAppList', JSON.stringify(data));
+    localStorage.setItem(dbName, JSON.stringify(data));
     callback1.call(this, data, currentList);
     callback2.call(this, data.lists, currentList);
   }
@@ -351,7 +353,7 @@ if ('serviceWorker' in navigator) {
 }
 
 document.body.onload = function() {
-  if (!localStorage['todoAppList']) {
+  if (!localStorage[dbName]) {
     setDB();
   }
 
