@@ -120,6 +120,63 @@ body {
 	display: block;
 }
 
+.listView-header {
+	position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    border-bottom: 1px solid #bdbdbd;
+}
+
+.listView-header-button {
+	height: 48px;
+	width: 48px;
+}
+
+.listView-closeButton {
+	background: url(../img/close.svg) transparent center no-repeat;
+	border:0;
+	text-indent: -3000px;
+}
+
+.listView-moreButton {
+	background: url(../img/more.svg) transparent center no-repeat;
+	border:0;
+	text-indent: -3000px;
+}
+
+.listView-options {
+	display: none;
+    position: absolute;
+    background: #fff;
+    border-radius: 3px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    top: 48px;
+    right: 0;
+}
+
+.listView-options-show {
+	display: block;
+}
+
+.listView-options-list {
+	padding: .5rem 0;
+	margin: 0;
+}
+
+.listView-options-list-item {
+	display: block;
+	padding: 0 1rem;
+	height: 48px;
+	line-height: 48px;
+	cursor: pointer;
+}
+
+.listView-options-list-item:hover {
+	background-color: #eee;
+}
+
 /* New Task form */
 .todoApp-newTask {
 	margin: 30px 1em;
@@ -168,15 +225,32 @@ body {
 
 .todoApp-listSection-actions {
 	display: flex;
-	justify-content: space-between;
+	align-items: flex-end;
+	justify-content: center;
+	border-bottom: 1px solid #bdbdbd;
 }
 
 .todoApp-listSection-actionButton{
+	position: relative;
 	border: 0;
-    font-size: 1em;
-    padding: 0 .5em;
-    border-radius: 3px;
-    line-height: 1.7em;
+	font-size: 1em;
+	padding: 0 .5em;
+	border-radius: 3px;
+	line-height: 1.7em;
+	height: 48px;
+	background: transparent;
+	width: 33.333%;
+}
+
+.todoApp-listSection-actionButton-active:after {
+    content: '';
+    height: 2px;
+    width: 100%;
+    background-color: #f44336;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .todoApp-list {
@@ -452,3 +526,4 @@ body {
 .todoApp-newList-cancel {
 	/*color: #757575;*/
 }
+

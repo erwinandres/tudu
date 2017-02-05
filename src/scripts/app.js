@@ -15,6 +15,10 @@ var saveListButton = document.getElementById('save-list-button');
 var listView = document.getElementById('list-view');
 var closeListViewButton = document.getElementById('close-list-view');
 var listViewButtons = document.querySelectorAll('.todoApp-listSection-actionButton');
+var listViewOptions = document.getElementById('list-view-options');
+var moreListOptionsButton = document.getElementById('more-list-options');
+var clearListButton = document.getElementById('clear-list');
+var deleteListButton = document.getElementById('delete-list');
 
 var dbName = 'tuduDB';
 
@@ -97,11 +101,12 @@ function loadtasksList() {
   showLists(data.lists);
 }
 
-function showTask(data, listId, filter) {
+function showTask(data, listId) {
   taskList.innerHTML = '';
   taskListTitle.innerHTML = '';
 
-  var filter = filter || 'active';
+  var currentViewInput = document.getElementById('current-list-view');
+  var filter = currentViewInput.value;
   var listTitle;
   for (var i = data.lists.length - 1; i >= 0; i--) {
     if (data.lists[i].id === listId) {
@@ -256,28 +261,23 @@ function clearList(listId, callback) {
   callback.call(this, data, currentList);
 }
 
-function removList(id, callback1, callback2) {
-  if (id !== "1") {
-    clearList(id, showTask);
+function removList(id, callback) {
+  clearList(id, showTask);
 
-    var data = JSON.parse(localStorage.getItem(dbName));
-    var callback1 = callback1 || function() {};
-    var callback2 = callback2 || function() {};
+  var data = JSON.parse(localStorage.getItem(dbName));
+  var callback = callback || function() {};
 
-    for (var i = data.lists.length - 1; i >= 0; i--) {
-      if (data.lists[i].id === id) {
-        data.lists.splice(i, 1);
-        break;
-      }
+  for (var i = data.lists.length - 1; i >= 0; i--) {
+    if (data.lists[i].id === id) {
+      data.lists.splice(i, 1);
+      break;
     }
-
-    currentListInput.value = "1";
-    var currentList = currentListInput.value;
-
-    localStorage.setItem(dbName, JSON.stringify(data));
-    callback1.call(this, data, currentList);
-    callback2.call(this, data.lists, currentList);
   }
+
+  var currentList = currentListInput.value;
+
+  localStorage.setItem(dbName, JSON.stringify(data));
+  callback.call(this, data.lists, currentList);
 }
 
 tasksInput.addEventListener('focus', function() {
@@ -328,6 +328,7 @@ document.body.addEventListener('click', function() {
   var mainNav = document.getElementById('main-nav');
   mainNav.classList.remove('todoApp-mainNav-open');
   saveListDialog.classList.remove('todoApp-dialogContainer-visible');
+  listViewOptions.classList.remove('listView-options-show');
 })
 
 mainNavContent.addEventListener('click', function(evt) {
@@ -350,9 +351,34 @@ listViewButtons.forEach(function(button) {
     var data = JSON.parse(localStorage.getItem(dbName));
     var value = this.value;
     var currentList = currentListInput.value;
-    showTask(data, currentList, value);
+    var currentViewInput = document.getElementById('current-list-view');
+
+    listViewButtons.forEach(function(button) {
+      button.classList.remove('todoApp-listSection-actionButton-active');
+    });
+
+    this.classList.add('todoApp-listSection-actionButton-active');
+
+    currentViewInput.value = value;
+    showTask(data, currentList);
   });
 });
+
+moreListOptionsButton.addEventListener('click', function(evt) {
+  evt.stopPropagation();
+  listViewOptions.classList.toggle('listView-options-show');
+});
+
+clearListButton.addEventListener('click', function() {
+  var listId = currentListInput.value;
+  clearList(listId, showTask);
+});
+
+deleteListButton.addEventListener('click', function() {
+  var listId = currentListInput.value;
+  listView.classList.remove('listView-show');
+  removList(listId, showLists);
+})
 
 //Register service worker if available.
 if ('serviceWorker' in navigator) {
