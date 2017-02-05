@@ -37,6 +37,10 @@ body {
 	background-color: #fafafa;
 }
 
+a:focus,
+button:focus {
+	outline: 0;
+}
 ::-webkit-input-placeholder {
 	color: #bdbdbd;
 };
