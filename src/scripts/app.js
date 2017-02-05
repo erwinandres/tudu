@@ -115,6 +115,13 @@ function showTask(data, listId) {
     }
   }
 
+  listViewButtons.forEach(function(button) {
+    button.classList.remove('todoApp-listSection-actionButton-active');
+  });
+
+  var tabToActive = document.querySelector('.todoApp-listSection-actionButton[value="' + filter + '"]');
+  tabToActive.classList.add('todoApp-listSection-actionButton-active');
+
   var count = 0;
 
   data.tasks.forEach(function(task) {
@@ -210,6 +217,9 @@ function addTask(text) {
     list: '1'
   }
 
+  var currentViewInput = document.getElementById('current-list-view');
+
+  currentViewInput.value = 'active';
   saveTasks(data, showTask);
 }
 
@@ -352,12 +362,6 @@ listViewButtons.forEach(function(button) {
     var value = this.value;
     var currentList = currentListInput.value;
     var currentViewInput = document.getElementById('current-list-view');
-
-    listViewButtons.forEach(function(button) {
-      button.classList.remove('todoApp-listSection-actionButton-active');
-    });
-
-    this.classList.add('todoApp-listSection-actionButton-active');
 
     currentViewInput.value = value;
     showTask(data, currentList);
