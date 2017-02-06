@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Tudú App</title>
+	<meta name="author" content="Erwin Larios">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="manifest.json">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#f44336">
+	<meta name="theme-color" content="#f44336">
+
+	<link rel="stylesheet" href="css/main.css">
+
+</head>
+<body class="todoApp">
+	<header class="todoApp-header">
+		<button class="todoApp-menuButton" id="menu-button">Menu</button>
+		<h1 class="todoApp-header-title">Tudú</h1>
+	</header>
+
+	<div id="lists-list"></div>
+
+	<div class="todoApp-startScreen">
+		<div class="todoApp-addButton" id="open-savelist-dialog-button">
+			<i class="todoApp-addButton-icon">
+				<img class="todoApp-addButton-icon-img" src="img/add.svg">
+			</i>
+		</div>
+	</div>
+
+	<div class="listView" id="list-view">
+		<header class="listView-header">
+			<button class="listView-header-button listView-closeButton" id="close-list-view">Close</button>
+			<h2 class="listView-header-title" id="task-list-title"></h2>
+			<button class="listView-header-button listView-moreButton" id="more-list-options">More options</button>
+			<div class="listView-options" id="list-view-options">
+				<ul class="listView-options-list">
+					<li class="listView-options-list-item" id="clear-list">Clear list</li>
+					<li class="listView-options-list-item" id="delete-list">Delete list</li>
+				</ul>
+			</div>
+		</header>
+
+		<div class="todoApp-newTask">
+			<label class="todoApp-newTask-label" for="new-task-input">Task</label>
+			<input class="todoApp-newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" autofocus>
+			<input id="current-list-input" type="hidden" value="1">
+		</div>
+
+		<div class="todoApp-listSection">
+			<div class="todoApp-listSection-actions">
+				<input id="current-list-view" type="hidden" value="active">
+				<button class="todoApp-listSection-actionButton todoApp-listSection-actionButton-active" value="active">Active</button>
+				<button class="todoApp-listSection-actionButton" value="completed">Completed</button>
+				<button class="todoApp-listSection-actionButton" value="all">All</button>
+			</div>
+
+			<ul class="todoApp-listSection-list todoApp-list" id="task-list"></ul>
+		</div>
+	</div>
+
+	<div class="todoApp-mainNav" id="main-nav">
+		<nav class="todoApp-mainNav-content" id="main-nav-content">
+			<div class="todoApp-mainNav-header">
+				<h2 class="todoApp-mainNav-title">Tudú</h2>
+			</div>
+			<ul class="todoApp-mainNav-list">
+				<ul class="todoApp-listsList">
+					<h3 class="todoApp-mainNav-list-title">My lists</h3>
+					<div id="lists-list"></div>
+				</ul>
+			</ul>
+			<p class="todoApp-mainNav-versionMark">Version 0.5.3 (beta)</p>
+		</nav>
+	</div>
+
+	<div class="todoApp-dialogContainer" id="save-list-dialog">
+		<div class="todoApp-newList todoApp-dialogContainer-content" id="save-list-dialog-content">
+			<div class="todoApp-newList-header todoApp-dialogContainer-header">
+				<h2 class="todoApp-dialogContainer-header-title">Create a list</h2>
+			</div>
+			<div class="todoApp-newList-body todoApp-dialogContainer-body">
+				<div class="todoApp-newList-fromGroup">
+					<label  class="todoApp-newList-label" for="save-list-input">List name</label>
+					<input class="todoApp-newList-name" id="save-list-input" type="text" placeholder="E.g.: Groceries">
+				</div>
+			</div>
+			<div class="todoApp-newList-actions">
+				<button class="todoApp-newList-button todoApp-newList-cancel" id="cancel-save-list-button">Cancel</button>
+				<button class="todoApp-newList-button todoApp-newList-save" id="save-list-button">Create list</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/app.js"></script>
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-90456357-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+</body>
+</html>
