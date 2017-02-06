@@ -450,6 +450,7 @@ button:focus {
 	pointer-events: none;
 	opacity:0;
 	z-index:3;
+    transition: opacity 133ms cubic-bezier(0,0,.21,1);
 }
 
 .todoApp-dialogContainer-visible {
@@ -468,7 +469,14 @@ button:focus {
 	border-radius: 3px;
 	box-shadow: 0 0 8px rgba(0,0,0,.18),
 		0 8px 16px rgba(0,0,0,.36);
+	opacity: 0;
 	transform: translate(-50%,-50%) translate(0,40px);
+    transition: transform 333ms cubic-bezier(0,0,.21,1) .15s,opacity 333ms cubic-bezier(0,0,.21,1) .15s;
+}
+
+.todoApp-dialogContainer-visible .todoApp-dialogContainer-content {
+	transform: translate(-50%,-50%);
+	opacity: 1;
 }
 
 .todoApp-dialogContainer-header {
