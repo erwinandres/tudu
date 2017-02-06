@@ -309,6 +309,18 @@ tasksInput.onkeyup = function(event) {
   }
 }
 
+saveListInput.onkeyup = function() {
+  if (event.keyCode == 13) {
+    var value = this.value.trim();
+
+    if (value !== '') {
+      saveList(value, showTask, showLists);
+      this.value = '';
+      saveListDialog.classList.remove('todoApp-dialogContainer-visible');
+    }
+  }
+}
+
 openSaveListDialogButton.addEventListener('click', function(evt) {
   evt.stopPropagation();
 

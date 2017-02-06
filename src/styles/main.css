@@ -465,6 +465,7 @@ button:focus {
 	width: 90%;
 	padding: 0;
 	background: #fafafa;
+	border-radius: 3px;
 	box-shadow: 0 0 8px rgba(0,0,0,.18),
 		0 8px 16px rgba(0,0,0,.36);
 	transform: translate(-50%,-50%) translate(0,40px);
