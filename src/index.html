@@ -19,18 +19,18 @@
 	<!--endbuild-->
 
 </head>
-<body class="todoApp">
-	<header class="todoApp-header">
-		<button class="todoApp-menuButton" id="menu-button">Menu</button>
-		<h1 class="todoApp-header-title">Tudú</h1>
+<body>
+	<header class="appHeader">
+		<button class="appHeader-menuButton" id="menu-button">Menu</button>
+		<h1 class="appHeader-title">Tudú</h1>
 	</header>
-
-	<div id="lists-list"></div>
-
-	<div class="todoApp-startScreen">
-		<div class="todoApp-addButton" id="open-savelist-dialog-button">
-			<i class="todoApp-addButton-icon">
-				<img class="todoApp-addButton-icon-img" src="img/add.svg">
+		
+	<div class="homeView">
+		<div id="lists-list"></div>
+		
+		<div class="addListButton" id="open-savelist-dialog-button">
+			<i class="addListButton-icon">
+				<img class="addListButton-icon-img" src="img/add.svg">
 			</i>
 		</div>
 	</div>
@@ -48,53 +48,53 @@
 			</div>
 		</header>
 
-		<div class="todoApp-newTask">
-			<label class="todoApp-newTask-label" for="new-task-input">Task</label>
-			<input class="todoApp-newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" autofocus>
+		<div class="newTask">
+			<label class="newTask-label" for="new-task-input">Task</label>
+			<input class="newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" autofocus>
 			<input id="current-list-input" type="hidden" value="1">
 		</div>
 
-		<div class="todoApp-listSection">
-			<div class="todoApp-listSection-actions">
+		<div class="listSection">
+			<div class="listSection-actions">
 				<input id="current-list-view" type="hidden" value="active">
-				<button class="todoApp-listSection-actionButton todoApp-listSection-actionButton-active" value="active">Active</button>
-				<button class="todoApp-listSection-actionButton" value="completed">Completed</button>
-				<button class="todoApp-listSection-actionButton" value="all">All</button>
+				<button class="listSection-actionButton listSection-actionButton-active" value="active">Active</button>
+				<button class="listSection-actionButton" value="completed">Completed</button>
+				<button class="listSection-actionButton" value="all">All</button>
 			</div>
 
-			<ul class="todoApp-listSection-list todoApp-list" id="task-list"></ul>
+			<ul class="listSection-list list" id="task-list"></ul>
 		</div>
 	</div>
 
-	<div class="todoApp-mainNav" id="main-nav">
-		<nav class="todoApp-mainNav-content" id="main-nav-content">
-			<div class="todoApp-mainNav-header">
-				<h2 class="todoApp-mainNav-title">Tudú</h2>
+	<div class="mainNav" id="main-nav">
+		<nav class="mainNav-content" id="main-nav-content">
+			<div class="mainNav-header">
+				<h2 class="mainNav-title">Tudú</h2>
 			</div>
-			<ul class="todoApp-mainNav-list">
-				<ul class="todoApp-listsList">
-					<h3 class="todoApp-mainNav-list-title">My lists</h3>
+			<ul class="mainNav-list">
+				<ul class="listsList">
+					<h3 class="mainNav-list-title">My lists</h3>
 					<div id="lists-list"></div>
 				</ul>
 			</ul>
-			<p class="todoApp-mainNav-versionMark">Version 0.5.3 (beta)</p>
+			<p class="mainNav-versionMark">Version 0.5.3 (beta)</p>
 		</nav>
 	</div>
 
-	<div class="todoApp-dialogContainer" id="save-list-dialog">
-		<div class="todoApp-newList todoApp-dialogContainer-content" id="save-list-dialog-content">
-			<div class="todoApp-newList-header todoApp-dialogContainer-header">
-				<h2 class="todoApp-dialogContainer-header-title">Create a list</h2>
+	<div class="dialog" id="save-list-dialog">
+		<div class="newList dialog-content" id="save-list-dialog-content">
+			<div class="newList-header dialog-header">
+				<h2 class="dialog-header-title">Create a list</h2>
 			</div>
-			<div class="todoApp-newList-body todoApp-dialogContainer-body">
-				<div class="todoApp-newList-fromGroup">
-					<label  class="todoApp-newList-label" for="save-list-input">List name</label>
-					<input class="todoApp-newList-name" id="save-list-input" type="text" placeholder="E.g.: Groceries">
+			<div class="newList-body dialog-body">
+				<div class="newList-fromGroup">
+					<label  class="newList-label" for="save-list-input">List name</label>
+					<input class="newList-name" id="save-list-input" type="text" placeholder="E.g.: Groceries">
 				</div>
 			</div>
-			<div class="todoApp-newList-actions">
-				<button class="todoApp-newList-button todoApp-newList-cancel" id="cancel-save-list-button">Cancel</button>
-				<button class="todoApp-newList-button todoApp-newList-save" id="save-list-button">Create list</button>
+			<div class="newList-actions dialog-footer">
+				<button class="newList-button newList-cancel" id="cancel-save-list-button">Cancel</button>
+				<button class="newList-button newList-save" id="save-list-button">Create list</button>
 			</div>
 		</div>
 	</div>

@@ -14,7 +14,7 @@ var cancelSaveListButton = document.getElementById('cancel-save-list-button');
 var saveListButton = document.getElementById('save-list-button');
 var listView = document.getElementById('list-view');
 var closeListViewButton = document.getElementById('close-list-view');
-var listViewButtons = document.querySelectorAll('.todoApp-listSection-actionButton');
+var listViewButtons = document.querySelectorAll('.listSection-actionButton');
 var listViewOptions = document.getElementById('list-view-options');
 var moreListOptionsButton = document.getElementById('more-list-options');
 var clearListButton = document.getElementById('clear-list');
@@ -116,11 +116,11 @@ function showTask(data, listId) {
   }
 
   listViewButtons.forEach(function(button) {
-    button.classList.remove('todoApp-listSection-actionButton-active');
+    button.classList.remove('listSection-actionButton-active');
   });
 
-  var tabToActive = document.querySelector('.todoApp-listSection-actionButton[value="' + filter + '"]');
-  tabToActive.classList.add('todoApp-listSection-actionButton-active');
+  var tabToActive = document.querySelector('.listSection-actionButton[value="' + filter + '"]');
+  tabToActive.classList.add('listSection-actionButton-active');
 
   var count = 0;
 
@@ -134,12 +134,12 @@ function showTask(data, listId) {
 
       count++;
       var taskLabel = document.createElement('label');
-      taskLabel.className = 'todoApp-list-item-label';
+      taskLabel.className = 'list-item-label';
       taskLabel.appendChild(document.createTextNode(task.text));
 
       //Create the checkbox
       var circle = document.createElement('input');
-      circle.className = 'todoApp-list-item-check';
+      circle.className = 'list-item-check';
       circle.setAttribute('type', 'checkbox');
       circle.addEventListener('click', function() {
         completeTask(task)
@@ -147,7 +147,7 @@ function showTask(data, listId) {
 
       //Create the delete button
       var destroy = document.createElement('button');
-      destroy.className = 'todoApp-list-item-destroy';
+      destroy.className = 'list-item-destroy';
       destroy.addEventListener('click', function() {
         removeTask(task.id, showTask);
       });
@@ -155,7 +155,7 @@ function showTask(data, listId) {
       //Create the list item
       var li = document.createElement('li');
       li.id = task.id;
-      li.className = 'todoApp-list-item';
+      li.className = 'list-item';
       if (task.completed) {
         li.classList.add('completed');
         circle.setAttribute('checked', true);
@@ -171,7 +171,7 @@ function showTask(data, listId) {
   if (count <= 0) {
       var message = document.createTextNode('There is nothing here.');
       var p = document.createElement('p');
-      p.className = 'todoApp-list-message';
+      p.className = 'list-message';
 
       p.appendChild(message);
 
@@ -188,14 +188,14 @@ function showLists(lists) {
     var listText = document.createTextNode(list.name);
     var li = document.createElement('li');
 
-    li.className = 'todoApp-listsList-item';
+    li.className = 'listsList-item';
     li.id = list.id;
     li.appendChild(listText);
 
     listsList.appendChild(li);
   });
 
-  var listItems = listsList.querySelectorAll('.todoApp-listsList-item');
+  var listItems = listsList.querySelectorAll('.listsList-item');
   listItems.forEach(function(item) {
     item.addEventListener('click', function() {
       var listId = this.id;
@@ -203,7 +203,7 @@ function showLists(lists) {
 
       currentListInput.value = listId;
 
-      mainNav.classList.remove('todoApp-mainNav-open');
+      mainNav.classList.remove('mainNav-open');
       listView.classList.add('listView-show');
       showTask(data, listId);
     })
@@ -291,11 +291,11 @@ function removList(id, callback) {
 }
 
 tasksInput.addEventListener('focus', function() {
-  this.parentElement.classList.add('todoApp-newTask-active');
+  this.parentElement.classList.add('newTask-active');
 });
 
 tasksInput.addEventListener('blur', function() {
-  this.parentElement.classList.remove('todoApp-newTask-active');
+  this.parentElement.classList.remove('newTask-active');
 });
 
 tasksInput.onkeyup = function(event) {
@@ -316,7 +316,7 @@ saveListInput.onkeyup = function() {
     if (value !== '') {
       saveList(value, showTask, showLists);
       this.value = '';
-      saveListDialog.classList.remove('todoApp-dialogContainer-visible');
+      saveListDialog.classList.remove('dialog-visible');
     }
   }
 }
@@ -324,7 +324,7 @@ saveListInput.onkeyup = function() {
 openSaveListDialogButton.addEventListener('click', function(evt) {
   evt.stopPropagation();
 
-  saveListDialog.classList.add('todoApp-dialogContainer-visible');
+  saveListDialog.classList.add('dialog-visible');
 });
 
 saveListDialogContent.addEventListener('click', function(evt) {
@@ -333,7 +333,7 @@ saveListDialogContent.addEventListener('click', function(evt) {
 
 cancelSaveListButton.addEventListener('click', function(evt) {
   saveListInput.value = '';
-  saveListDialog.classList.remove('todoApp-dialogContainer-visible');
+  saveListDialog.classList.remove('dialog-visible');
 });
 
 saveListButton.addEventListener('click', function() {
@@ -342,14 +342,14 @@ saveListButton.addEventListener('click', function() {
   if (newListName !== '') {
     saveList(newListName, showTask, showLists);    
     saveListInput.value = '';
-    saveListDialog.classList.remove('todoApp-dialogContainer-visible');
+    saveListDialog.classList.remove('dialog-visible');
   }
 });
 
 document.body.addEventListener('click', function() {
   var mainNav = document.getElementById('main-nav');
-  mainNav.classList.remove('todoApp-mainNav-open');
-  saveListDialog.classList.remove('todoApp-dialogContainer-visible');
+  mainNav.classList.remove('mainNav-open');
+  saveListDialog.classList.remove('dialog-visible');
   listViewOptions.classList.remove('listView-options-show');
 })
 
@@ -360,8 +360,8 @@ mainNavContent.addEventListener('click', function(evt) {
 menuButton.addEventListener('click', function(evt) {
   evt.stopPropagation();
 
-  this.classList.toggle('todoApp-menuButton-open');
-  mainNav.classList.toggle('todoApp-mainNav-open');
+  this.classList.toggle('menuButton-open');
+  mainNav.classList.toggle('mainNav-open');
 });
 
 closeListViewButton.addEventListener('click', function() {

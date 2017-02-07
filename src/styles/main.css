@@ -34,6 +34,7 @@ html {
 
 body {
 	margin: 0;
+	color: #212121;
 	background-color: #fafafa;
 }
 
@@ -43,18 +44,13 @@ button:focus {
 }
 ::-webkit-input-placeholder {
 	color: #bdbdbd;
-};
+}
 
 /********
 * Main *
 *********/
-.todoApp {
-	margin: 0 auto;
-	color:#212121;
-}
-
 /* Header */
-.todoApp-header {
+.appHeader {
 	position: relative;
 	color: #fff;
 	background-color: #f44336;
@@ -70,7 +66,7 @@ button:focus {
 	z-index: 1;
 }
 
-.todoApp-menuButton {
+.appHeader-menuButton {
 	background:url(../img/menu.svg) center no-repeat;
 	border:0;
 	width: 24px;
@@ -78,21 +74,21 @@ button:focus {
 	text-indent: -3000px;
 }
 
-.todoApp-header-title {
+.appHeader-title {
 	margin: 0;
 	font-size: 2em;
 	line-height: 1;
 	flex:1;
 }
 
-.todoApp-addButton {
+.addListButton {
 	display: inline-block;
 	position: fixed;
 	right: 24px;
 	bottom: 24px;
 }
 
-.todoApp-addButton-icon {
+.addListButton-icon {
 	display: inline-block;
 	position: relative;
 	width: 56px;
@@ -104,7 +100,7 @@ button:focus {
 	transition: all .2s ease;
 }
 
-.todoApp-addButton-icon-img {
+.addListButton-icon-img {
 	margin-top: 16px;
 }
 
@@ -182,20 +178,20 @@ button:focus {
 }
 
 /* New Task form */
-.todoApp-newTask {
+.newTask {
 	margin: 30px 1em;
 }
 
-.todoApp-newTask-label {
+.newTask-label {
 	color: #757575;
 	transition: color .3s;
 }
 
-.todoApp-newTask-active .todoApp-newTask-label {
+.newTask-active .newTask-label {
 	color: #ffc107;
 }
 
-.todoApp-newTask-input {
+.newTask-input {
 	padding: 0;
 	width: 100%;
 	height: 60px;
@@ -209,32 +205,32 @@ button:focus {
 	transition: all .3s;
 }
 
-.todoApp-newTask-input:focus {
+.newTask-input:focus {
 	border-bottom: 1px solid #ffc107;
 	box-shadow: 0 1px 0 0 #ffc107;
 }
 
 /* Tasks list */
-.todoApp-listSection {
+.listSection {
 	margin: 0 1em 56px;
 	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
 		0 1px 5px 0 rgba(0,0,0,0.12),
 		0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
-.todoApp-listSection-title {
+.listSection-title {
 	margin: 0;
 	padding: .5em 1em;
 }
 
-.todoApp-listSection-actions {
+.listSection-actions {
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
 	border-bottom: 1px solid #bdbdbd;
 }
 
-.todoApp-listSection-actionButton{
+.listSection-actionButton{
 	position: relative;
 	border: 0;
 	font-size: 1em;
@@ -246,7 +242,7 @@ button:focus {
 	width: 33.333%;
 }
 
-.todoApp-listSection-actionButton-active:after {
+.listSection-actionButton-active:after {
     content: '';
     height: 2px;
     width: 100%;
@@ -257,12 +253,12 @@ button:focus {
     left: 0;
 }
 
-.todoApp-list {
+.list {
 	margin: 0;
 	padding: 0;
 }
 
-.todoApp-list-item {
+.list-item {
 	display: flex;
 	text-align: left;
 	font-size: 1em;
@@ -271,7 +267,7 @@ button:focus {
 	border-bottom: 1px solid #bdbdbd;
 }
 
-.todoApp-list-item-check {
+.list-item-check {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -282,26 +278,26 @@ button:focus {
 	appearance: none;
 }
 
-.todoApp-list-item-check:before {
+.list-item-check:before {
 	content: url(../img/check-blank.svg);
 }
 
-.todoApp-list-item-check:checked:before {
+.list-item-check:checked:before {
 	content: url(../img/check-marked.svg);
 }
 
-.todoApp-list-item-label {
+.list-item-label {
 	display: block;
 	padding: .3em 0;
 	flex-grow: 1;
 }
 
-.todoApp-list-item.completed .todoApp-list-item-label {
+.list-item.completed .list-item-label {
 	text-decoration: line-through;
 	color: #bdbdbd;
 }
 
-.todoApp-list-item-destroy {
+.list-item-destroy {
 	display: block;
 	min-width: 56px;
 	width: 56px;
@@ -312,17 +308,17 @@ button:focus {
 	color: #f44336;
 }
 
-.todoApp-list-item-destroy:before {
+.list-item-destroy:before {
 	content: '×';
 }
 
-.todoApp-list-message {
+.list-message {
 	font-style: italic;
 	margin: 0;
 	padding: 0 1em;
 }
 
-.todoApp-mainNav {
+.mainNav {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -332,7 +328,7 @@ button:focus {
 	z-index:2;
 }
 
-.todoApp-mainNav:before {
+.mainNav:before {
 	content: '';
 	display: block;
 	width: 100%;
@@ -343,7 +339,7 @@ button:focus {
 	transition: opacity 233ms cubic-bezier(0,0,.21,1);
 }
 
-.todoApp-mainNav-content {
+.mainNav-content {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -356,26 +352,26 @@ button:focus {
 	transition: all 233ms cubic-bezier(0,0,.21,1);
 }
 
-.todoApp-mainNav-open {
+.mainNav-open {
 	pointer-events: auto;
 }
 
-.todoApp-mainNav-open.todoApp-mainNav:before {
+.mainNav-open.mainNav:before {
 	opacity: .7;
 }
 
-.todoApp-mainNav-open .todoApp-mainNav-content {
+.mainNav-open .mainNav-content {
 	left:0;
 }
 
-.todoApp-mainNav-header {
+.mainNav-header {
 	position: relative;
 	height: 170px;
 	width: 100%;
 	background-color: #f44336;
 }
 
-.todoApp-mainNav-title {
+.mainNav-title {
 	position: absolute;
 	bottom: .5em;
 	left:1em;
@@ -385,14 +381,14 @@ button:focus {
 	color:#fff;
 }
 
-.todoApp-mainNav-list {
+.mainNav-list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	padding-top: .5em;
 }
 
-.todoApp-mainNav-list-title {
+.mainNav-list-title {
 	margin: 0;
 	padding: .5em 0 .5em 0;
 	margin-left: 1em;
@@ -400,16 +396,16 @@ button:focus {
 	color:#f44336;
 }
 
-.todoApp-mainNav-list-item {
+.mainNav-list-item {
 	cursor: default;
 	padding: .5em 0 .5em 1em;
 }
 
-.todoApp-mainNav-list-item:hover {
+.mainNav-list-item:hover {
 	background: #bdbdbd;
 }
 
-.todoApp-mainNav-versionMark {
+.mainNav-versionMark {
 	color: #757575;
 	position: absolute;
 	bottom: .5em;
@@ -417,14 +413,14 @@ button:focus {
 	margin: 0;
 }
 
-.todoApp-listsList {
+.listsList {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	border-bottom: 1px solid #bdbdbd;
 }
 
-.todoApp-listsList-item {
+.listsList-item {
     cursor: pointer;
     list-style: none;
     width: 90%;
@@ -440,7 +436,7 @@ button:focus {
     font-weight: bold;
 }
 
-.todoApp-dialogContainer {
+.dialog {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -453,12 +449,12 @@ button:focus {
     transition: opacity 133ms cubic-bezier(0,0,.21,1);
 }
 
-.todoApp-dialogContainer-visible {
+.dialog-visible {
 	opacity: 1;
 	pointer-events: auto;
 }
 
-.todoApp-dialogContainer-content {
+.dialog-content {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -474,33 +470,33 @@ button:focus {
     transition: transform 333ms cubic-bezier(0,0,.21,1) .15s,opacity 333ms cubic-bezier(0,0,.21,1) .15s;
 }
 
-.todoApp-dialogContainer-visible .todoApp-dialogContainer-content {
+.dialog-visible .dialog-content {
 	transform: translate(-50%,-50%);
 	opacity: 1;
 }
 
-.todoApp-dialogContainer-header {
+.dialog-header {
 	padding: 1.5rem 1.5rem 0;
 }
 
-.todoApp-dialogContainer-header-title {
+.dialog-header-title {
 	margin: 0 0 1.25rem;
 }
 
-.todoApp-dialogContainer-body {
+.dialog-body {
 	padding: 0 1.5rem;
 }
 
-.todoApp-newList-fromGroup {
+.newList-fromGroup {
 	margin-bottom: 1.5rem;
 }
 
-.todoApp-newList-label {
+.newList-label {
 	color: #757575;
 	transition: color .3s;
 }
 
-.todoApp-newList-name {
+.newList-name {
 	padding: 0;
 	width: 100%;
 	height: 3.75em;
@@ -514,17 +510,17 @@ button:focus {
 	transition: all .3s;
 }
 
-.todoApp-newList-name:focus {
+.newList-name:focus {
 	border-bottom: 1px solid #ffc107;
 	box-shadow: 0 1px 0 0 #ffc107;
 }
 
-.todoApp-newList-actions {
+.newList-actions {
 	text-align: right;
 	padding: .5em;
 }
 
-.todoApp-newList-button {
+.newList-button {
 	color: #f44336;
 	background:none;
 	border:0;
@@ -536,7 +532,6 @@ button:focus {
 	text-transform: uppercase;
 }
 
-.todoApp-newList-cancel {
+.newList-cancel {
 	/*color: #757575;*/
 }
-
