@@ -165,16 +165,9 @@ var dbName = 'tuduDB';
  * Create a fake database using localStorage and JSON.
  */
 function setDB() {
-  var tasks = '';
-  var lists = '';
   var db = {
     tasks: [],
-    lists: [
-      {
-        id: '1',
-        name: 'Default'
-      }
-    ]
+    lists: []
   };
 
   db = JSON.stringify(db);
