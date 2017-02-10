@@ -80,27 +80,6 @@ tasksInput.onkeyup = function(event) {
   }
 }
 
-//Input: save list
-var saveListInput = document.getElementById('save-list-input');
-
-saveListInput.onkeyup = function() {
-  if (event.keyCode == 13) {
-    var value = this.value.trim();
-
-    if (value !== '') {
-      var color = getRandomColor();
-      var data = {
-        name: newListName,
-        color: color
-      }
-
-      saveList(data);
-      this.value = '';
-      saveListDialog.classList.remove('dialog-visible');
-    }
-  }
-}
-
 //Button: create list
 var saveListButton = document.getElementById('save-list-button');
 
@@ -119,6 +98,15 @@ saveListButton.addEventListener('click', function() {
     saveListDialog.classList.remove('dialog-visible');
   }
 });
+
+//Input: save list
+var saveListInput = document.getElementById('save-list-input');
+
+saveListInput.onkeyup = function() {
+  if (event.keyCode == 13) {
+    saveListButton.click();
+  }
+}
 
 //Button: open save list dialog
 var openSaveListDialogButton = document.getElementById('open-savelist-dialog-button');
