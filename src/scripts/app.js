@@ -21,6 +21,28 @@ function createEl(type, inner, className, id) {
   return el;
 }
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomColor() {
+  var colors = [
+    '#FFCDD2',
+    '#E1BEE7',
+    '#D1C4E9',
+    '#C5CAE9',
+    '#BBDEFB',
+    '#B2DFDB',
+    '#F0F4C3',
+    '#FFECB3'
+  ];
+
+  var index = getRandomInt(0, colors.length);
+  var color = colors[index];
+
+  return color;
+}
+
 // Start with empty db vars.
 var dbName;
 var tuduDb;
@@ -66,13 +88,37 @@ saveListInput.onkeyup = function() {
     var value = this.value.trim();
 
     if (value !== '') {
-      var data = { name: newListName };
+      var color = getRandomColor();
+      var data = {
+        name: newListName,
+        color: color
+      }
+
       saveList(data);
       this.value = '';
       saveListDialog.classList.remove('dialog-visible');
     }
   }
 }
+
+//Button: create list
+var saveListButton = document.getElementById('save-list-button');
+
+saveListButton.addEventListener('click', function() {
+  var newListName = saveListInput.value.trim();
+
+  if (newListName !== '') {
+    var color = getRandomColor();
+    var data = {
+      name: newListName,
+      color: color
+    }
+
+    saveList(data);
+    saveListInput.value = '';
+    saveListDialog.classList.remove('dialog-visible');
+  }
+});
 
 //Button: open save list dialog
 var openSaveListDialogButton = document.getElementById('open-savelist-dialog-button');
@@ -89,20 +135,6 @@ var cancelSaveListButton = document.getElementById('cancel-save-list-button');
 cancelSaveListButton.addEventListener('click', function(evt) {
   saveListInput.value = '';
   saveListDialog.classList.remove('dialog-visible');
-});
-
-//Button: create list
-var saveListButton = document.getElementById('save-list-button');
-
-saveListButton.addEventListener('click', function() {
-  var newListName = saveListInput.value.trim();
-
-  if (newListName !== '') {
-    var data = { name: newListName };
-    saveList(data);
-    saveListInput.value = '';
-    saveListDialog.classList.remove('dialog-visible');
-  }
 });
 
 //Save list dialog
@@ -209,7 +241,7 @@ function loadHome() {
   lists.forEach(function(list) {
     var list = list;
     var li = createEl('li', list.name, 'listsList-item', list.id);
-
+    li.style.backgroundColor = list.color;
     li.addEventListener('click', function() {
       openList(list.id);
     });
