@@ -1,6 +1,6 @@
 /**
  * Database implementation for Tudú app.
- * v0.1 (beta).
+ * v0.1.1 (beta).
  * Developed by Erwin Larios.
  */
 (function() {
@@ -68,7 +68,7 @@
         rowData.id = objectId();
         this.data[table].push(rowData);
       } else {
-        console.error('Database erro: table doesn\'t exists');
+        console.error('Database error: table doesn\'t exists');
       }
     }
 
@@ -149,7 +149,7 @@
      * @param {string} rowId - id of the row to delete.
      * @param {string} table - name of the table.
      */
-    this.deleteRow = function(rowId, table) {
+    this.removeRow = function(rowId, table) {
       var table = this.data[table];
       var row;
 
@@ -216,7 +216,7 @@
        * Convert to string for better compatibility with html elements
        * atributes.
        */
-      id.toString();
+      id = id.toString();
 
       return id;
     }
