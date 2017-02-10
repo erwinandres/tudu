@@ -535,3 +535,14 @@ button:focus {
 .newList-cancel {
 	/*color: #757575;*/
 }
+
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.loader-hidden {
+	display: none;
+}

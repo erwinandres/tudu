@@ -226,6 +226,9 @@ function setDB() {
 function loadHome() {
   listsList.innerHTML = '';
 
+  var loader = document.getElementById('loader');
+  loader.classList.add('loader-hidden');
+
   var lists = tuduDb.getTable('lists');
   lists.forEach(function(list) {
     var list = list;
