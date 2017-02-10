@@ -1,10 +1,39 @@
-var taskList = document.getElementById('task-list');
+"use strict";
+
+/** Create an HMTL element */
+function createEl(type, inner, className, id) {
+  var el = document.createElement(type);
+
+  if (inner.nodeType !== 1) {
+    inner =  document.createTextNode(inner);
+  }
+
+  el.appendChild(inner);
+
+  if (className) {
+    el.className = className;
+  }
+
+  if (id) {
+    el.id = id;
+  }
+
+  return el;
+}
+
+// Start with empty db vars.
+var dbName;
+var tuduDb;
+
+// Page elements
 var listsList = document.getElementById('lists-list');
-var currentListInput = document.getElementById('current-list-input');
-var taskListTitle = document.getElementById('task-list-title');
 var saveListDialog = document.getElementById('save-list-dialog');
 var listView = document.getElementById('list-view');
 var listViewOptions = document.getElementById('list-view-options');
+var taskListTitle = document.getElementById('task-list-title');
+var taskList = document.getElementById('task-list');
+var currentListInput = document.getElementById('current-list-input');
+var filter = document.getElementById('current-list-filter');
 
 //Input: new task
 var tasksInput = document.getElementById('new-task-input');
@@ -22,7 +51,8 @@ tasksInput.onkeyup = function(event) {
     var value = this.value.trim();
 
     if (value !== '') {
-      addTask(value);
+      var data = { text: value };
+      saveTask(data);
       this.value = '';
     }
   }
@@ -36,7 +66,8 @@ saveListInput.onkeyup = function() {
     var value = this.value.trim();
 
     if (value !== '') {
-      saveList(value, showTask, showLists);
+      var data = { name: newListName };
+      saveList(data);
       this.value = '';
       saveListDialog.classList.remove('dialog-visible');
     }
@@ -67,7 +98,8 @@ saveListButton.addEventListener('click', function() {
   var newListName = saveListInput.value.trim();
 
   if (newListName !== '') {
-    saveList(newListName, showTask, showLists);    
+    var data = { name: newListName };
+    saveList(data);
     saveListInput.value = '';
     saveListDialog.classList.remove('dialog-visible');
   }
@@ -78,6 +110,49 @@ var saveListDialogContent = document.getElementById('save-list-dialog-content');
 
 saveListDialogContent.addEventListener('click', function(evt) {
   evt.stopPropagation();
+});
+
+//Button: close list view
+var closeListViewButton = document.getElementById('close-list-view');
+
+closeListViewButton.addEventListener('click', function() {
+  listView.classList.remove('listView-show');
+});
+
+//Button: more list options
+var moreListOptionsButton = document.getElementById('more-list-options');
+
+moreListOptionsButton.addEventListener('click', function(evt) {
+  evt.stopPropagation();
+  listViewOptions.classList.toggle('listView-options-show');
+});
+
+//Button: clear list
+var clearListButton = document.getElementById('clear-list');
+
+clearListButton.addEventListener('click', function() {
+  clearList(currentListInput.value);
+});
+
+//Button: delete list
+var deleteListButton = document.getElementById('delete-list');
+
+deleteListButton.addEventListener('click', function() {
+  listView.classList.remove('listView-show');
+  deleteList(currentListInput.value);
+});
+
+//Buttons: list view actions
+var listTabsButtons = document.querySelectorAll('.listSection-actionButton');
+
+listTabsButtons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    var value = this.value;
+
+    filter.value = value;
+    setTabs();
+    writeListTasks();
+  });
 });
 
 //Main menu
@@ -98,53 +173,6 @@ menuButton.addEventListener('click', function(evt) {
   mainNav.classList.toggle('mainNav-open');
 });
 
-//Button: close list view
-var closeListViewButton = document.getElementById('close-list-view');
-
-closeListViewButton.addEventListener('click', function() {
-  listView.classList.remove('listView-show');
-});
-
-//Buttons: list view actions
-var listViewButtons = document.querySelectorAll('.listSection-actionButton');
-
-listViewButtons.forEach(function(button) {
-  button.addEventListener('click', function() {
-    var data = JSON.parse(localStorage.getItem(dbName));
-    var value = this.value;
-    var currentList = currentListInput.value;
-    var currentViewInput = document.getElementById('current-list-view');
-
-    currentViewInput.value = value;
-    showTask(data, currentList);
-  });
-});
-
-//Button: more list options
-var moreListOptionsButton = document.getElementById('more-list-options');
-
-moreListOptionsButton.addEventListener('click', function(evt) {
-  evt.stopPropagation();
-  listViewOptions.classList.toggle('listView-options-show');
-});
-
-//Button: clear list
-var clearListButton = document.getElementById('clear-list');
-
-clearListButton.addEventListener('click', function() {
-  var listId = currentListInput.value;
-  clearList(listId, showTask);
-});
-
-//Button: delete list
-var deleteListButton = document.getElementById('delete-list');
-
-deleteListButton.addEventListener('click', function() {
-  var listId = currentListInput.value;
-  listView.classList.remove('listView-show');
-  removList(listId, showLists);
-});
-
 /**
  * Close all menus and dialgos when clicking anywhere in the
  * body.
@@ -155,62 +183,119 @@ document.body.addEventListener('click', function() {
   listViewOptions.classList.remove('listView-options-show');
 });
 
-/**************************************
- * App functions
- **************************************/
-//Database name
-var dbName = 'tuduDB';
 
 /**
- * Create a fake database using localStorage and JSON.
+ * Initialize the database.
  */
 function setDB() {
-  var db = {
+  // Database name.
+  dbName = 'tuduDBv0.2';
+  // Start the database.
+  tuduDb = new DB();
+
+  var dbData = {
     tasks: [],
     lists: []
   };
 
-  db = JSON.stringify(db);
-
-  localStorage.setItem(dbName, db);
+  tuduDb.connect(dbName, dbData);
 }
 
-/**
- * Load saved lists from the database.
- */
-function loadtasksList() {
-  var data = JSON.parse(localStorage.getItem(dbName));
-  showTask(data, "1");
-  showLists(data.lists);
+
+function loadHome() {
+  listsList.innerHTML = '';
+
+  var lists = tuduDb.getTable('lists');
+  lists.forEach(function(list) {
+    var list = list;
+    var li = createEl('li', list.name, 'listsList-item', list.id);
+
+    li.addEventListener('click', function() {
+      openList(list.id);
+    });
+
+    listsList.appendChild(li);
+  });
 }
 
-/**
- * Write tasks from a list in the HTML document.
- */
-function showTask(data, listId) {
-  taskList.innerHTML = '';
+function writeListTitle(listName) {
   taskListTitle.innerHTML = '';
 
-  var currentViewInput = document.getElementById('current-list-view');
-  var filter = currentViewInput.value;
-  var listTitle;
-  for (var i = data.lists.length - 1; i >= 0; i--) {
-    if (data.lists[i].id === listId) {
-      listTitle = data.lists[i].name;
-      break;
-    }
-  }
+  var list = tuduDb.getRow(currentListInput.value, 'lists');
 
-  listViewButtons.forEach(function(button) {
+  var titleText = document.createTextNode(list.name);
+  taskListTitle.appendChild(titleText);
+}
+
+function setTabs() {
+  listTabsButtons.forEach(function(button) {
     button.classList.remove('listSection-actionButton-active');
   });
 
-  var tabToActive = document.querySelector('.listSection-actionButton[value="' + filter + '"]');
-  tabToActive.classList.add('listSection-actionButton-active');
+  var tabToActivate = document.querySelector('.listSection-actionButton[value="' + filter.value + '"]');
+  tabToActivate.classList.add('listSection-actionButton-active');
+}
 
+function writeListTasks() {
+  taskList.innerHTML = '';
+  var listId = currentListInput.value;
+  var tasks = getTasksFromList(listId, filter.value);
+
+  if (tasks.length > 0) {
+    tasks.forEach(function(task) {
+      // The label
+      var textLabel = createEl('label', task.text, 'list-item-label');
+
+      // The checkbox input
+      var checkbox = createEl('input', '', 'list-item-check');
+      checkbox.setAttribute('type', 'checkbox');
+      checkbox.addEventListener('click', function() {
+        completeTask(task.id);
+      });
+
+      // The delete button
+      var destroyButton = createEl('button', '', 'list-item-destroy');
+      destroyButton.addEventListener('click', function() {
+        deleteTask(task.id);
+      });
+
+      // The list item element
+      var li = createEl('li', '', 'list-item', task.id);
+      if (task.completed) {
+        li.classList.add('completed');
+        checkbox.setAttribute('checked', true);
+      }
+      li.appendChild(checkbox);
+      li.appendChild(textLabel);
+      li.appendChild(destroyButton);
+
+      taskList.appendChild(li);
+    });
+  } else {
+    var message = 'There is nothing here.';
+    var p = createEl('p', message, 'list-message');
+
+    taskList.appendChild(p);
+  }
+}
+
+function openList(listId) {
+  listView.classList.add('listView-show');
+
+  currentListInput.value = listId;
+
+  writeListTitle();
+  setTabs();
+  writeListTasks();
+}
+
+function getTasksFromList(listId, filter) {
+  var filter = filter || 'all';
   var count = 0;
+  var allTasks = tuduDb.getTable('tasks');
+  var listTasks = [];
 
-  data.tasks.forEach(function(task) {
+  allTasks.forEach(function(task) {
     if (task.list === listId) {
       if (filter === 'active' && task.completed) {
         return;
@@ -218,253 +303,76 @@ function showTask(data, listId) {
         return;
       }
 
+      listTasks.push(task);
+
       count++;
-      var taskLabel = document.createElement('label');
-      taskLabel.className = 'list-item-label';
-      taskLabel.appendChild(document.createTextNode(task.text));
-
-      //Create the checkbox
-      var circle = document.createElement('input');
-      circle.className = 'list-item-check';
-      circle.setAttribute('type', 'checkbox');
-      circle.addEventListener('click', function() {
-        completeTask(task)
-      });
-
-      //Create the delete button
-      var destroy = document.createElement('button');
-      destroy.className = 'list-item-destroy';
-      destroy.addEventListener('click', function() {
-        removeTask(task.id, showTask);
-      });
-
-      //Create the list item
-      var li = document.createElement('li');
-      li.id = task.id;
-      li.className = 'list-item';
-      if (task.completed) {
-        li.classList.add('completed');
-        circle.setAttribute('checked', true);
-      }
-      li.appendChild(circle);
-      li.appendChild(taskLabel);
-      li.appendChild(destroy);
-
-      taskList.appendChild(li);
     }
   });
 
-  if (count <= 0) {
-      var message = document.createTextNode('There is nothing here.');
-      var p = document.createElement('p');
-      p.className = 'list-message';
-
-      p.appendChild(message);
-
-      taskList.appendChild(p);
-  }
-
-  listTitle = document.createTextNode(listTitle);
-  taskListTitle.appendChild(listTitle);
+  return listTasks;
 }
 
-/**
- * Write lists in the HTML document.
- */
-function showLists(lists) {
-  listsList.innerHTML = '';
-  lists.forEach(function(list) {
-    var listText = document.createTextNode(list.name);
-    var li = document.createElement('li');
-
-    li.className = 'listsList-item';
-    li.id = list.id;
-    li.appendChild(listText);
-
-    listsList.appendChild(li);
-  });
-
-  var listItems = listsList.querySelectorAll('.listsList-item');
-  listItems.forEach(function(item) {
-    item.addEventListener('click', function() {
-      var listId = this.id;
-      var data = JSON.parse(localStorage.getItem(dbName));
-
-      currentListInput.value = listId;
-
-      mainNav.classList.remove('mainNav-open');
-      listView.classList.add('listView-show');
-      showTask(data, listId);
-    })
-  });
-}
-
-/**
- * Save task to the current list.
- */
-function saveTasks(updateData, callback, id) {
-  var data = JSON.parse(localStorage.getItem(dbName));
-  var callback = callback || function() {};
-
-  var currentList = currentListInput.value;
-  var taskToShow = [];
-
-  if (id) {
-    for (var i = data.tasks.length - 1; i >= 0; i--) {
-      if (data.tasks[i].id === id) {
-        for (var key in updateData) {
-          data.tasks[i][key] = updateData[key];
-        }
-        break;
-      }
-    }
-
-    localStorage.setItem(dbName, JSON.stringify(data)); 
-    callback.call(this, data, currentList);
-
+function saveTask(data, taskId) {
+  if (taskId) {
+    tuduDb.updateRow(data, 'tasks');
   } else {
-    updateData.id = new Date().getTime().toString();
-    updateData.list = currentList;
+    data.completed = false;
+    data.list = currentListInput.value;
 
-    data.tasks.push(updateData);
-
-    localStorage.setItem(dbName, JSON.stringify(data));
-    callback.call(this, data, currentList);
+    tuduDb.addRow(data, 'tasks');
   }
+
+  tuduDb.save();
+  writeListTasks();
 }
 
-/**
- * Create list and save it to the database.
- */
-function saveList(listName, callback1, callback2) {
-  var data = JSON.parse(localStorage.getItem(dbName));
-  var callback1 = callback1 || function() {};
-  var callback2 = callback2 || function() {};
+function completeTask(taskId) {
+  var task = tuduDb.getRow(taskId, 'tasks');
+  var data;
 
-  var id = new Date().getTime().toString();
-
-  var newData = {
-    id: id,
-    name: listName
+  if (task.completed) {
+    data = { completed: false };
+  } else {
+    data = { completed: true };
   }
+  
+  tuduDb.updateRow(data, taskId, 'tasks');
+  tuduDb.save();
 
-  data.lists.push(newData);
-
-  currentListInput.value = id;
-  var currentList = currentListInput.value;
-
-  listView.classList.add('listView-show');
-
-  localStorage.setItem(dbName, JSON.stringify(data));
-  callback1.call(this, data, currentList);
-  callback2.call(this, data.lists);
+  writeListTasks();
 }
 
-/**
- * Add a task to the current list.
- */
-function addTask(text) {
-  var data = {
-    text: text,
-    completed: false,
-    list: '1'
-  }
+function clearList(listId) {
+  var allListTasks = getTasksFromList(listId);
+  allListTasks.forEach(function(task) {
+    tuduDb.removeRow(task.id, 'tasks');
+  });
 
-  var currentViewInput = document.getElementById('current-list-view');
-
-  currentViewInput.value = 'active';
-  saveTasks(data, showTask);
+  tuduDb.save();
+  writeListTasks();
 }
 
-/**
- * Mark a task as completed.
- */
-function completeTask(task) {
-  var data = JSON.parse(localStorage.getItem(dbName));
+function deleteList(listId) {
+  tuduDb.removeRow(listId, 'lists');
 
-  for (var i = data.tasks.length - 1; i >= 0; i--) {
-    if (data.tasks[i].id === task.id) {
-      if (task.completed) {
-        task.completed = false;
-      } else {
-        task.completed = true;  
-      }
-
-      saveTasks(task, showTask, task.id);
-      break;
-    }
-  }
+  tuduDb.save();
+  loadHome();
 }
 
-/**
- * Remove an specific tag from the database.
- */
-function removeTask(id, callback) {
-  var data = JSON.parse(localStorage.getItem(dbName));
-  var currentList = currentListInput.value;
-  var callback = callback || function() {};
-
-  for (var i = data.tasks.length - 1; i >= 0; i--) {
-    if (data.tasks[i].id === id) {
-      data.tasks.splice(i, 1);
-      break;
-    }
+function saveList(data, listId) {
+  if (listId) {
+    tuduDb.updateRow(data, 'lists');
+  } else {
+    tuduDb.addRow(data, 'lists');
   }
 
-  localStorage.setItem(dbName, JSON.stringify(data));
-  callback.call(this, data, currentList);
-}
-
-/**
- * Delete al tags from a list.
- */
-function clearList(listId, callback) {
-  var data = JSON.parse(localStorage.getItem(dbName));
-  var currentList = currentListInput.value;
-  var callback = callback || function() {};
-
-  for (var i = data.tasks.length - 1; i >= 0; i--) {
-    if (data.tasks[i].list === listId) {
-      data.tasks.splice(i, 1);
-    }
-  }
-
-  localStorage.setItem(dbName, JSON.stringify(data));
-  callback.call(this, data, currentList);
-}
-
-/**
- * Delete a list.
- */
-function removList(id, callback) {
-  clearList(id, showTask);
-
-  var data = JSON.parse(localStorage.getItem(dbName));
-  var callback = callback || function() {};
-
-  for (var i = data.lists.length - 1; i >= 0; i--) {
-    if (data.lists[i].id === id) {
-      data.lists.splice(i, 1);
-      break;
-    }
-  }
-
-  var currentList = currentListInput.value;
-
-  localStorage.setItem(dbName, JSON.stringify(data));
-  callback.call(this, data.lists, currentList);
+  tuduDb.save();
+  loadHome();
 }
 
 document.body.onload = function() {
-  /**
-   * Create the database if doesn't exits, then load the saved
-   * lists.
-   */
-  if (!localStorage.getItem(dbName)) {
-    setDB();
-  }
-
-  loadtasksList();
+  setDB();
+  loadHome();
 }
 
 //Register service worker if available.
