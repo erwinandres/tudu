@@ -51,6 +51,7 @@ var tuduDb;
 var listsList = document.getElementById('lists-list');
 var saveListDialog = document.getElementById('save-list-dialog');
 var listView = document.getElementById('list-view');
+var listViewHeader = document.getElementById('list-view-header');
 var listViewOptions = document.getElementById('list-view-options');
 var taskListTitle = document.getElementById('task-list-title');
 var taskList = document.getElementById('task-list');
@@ -243,6 +244,7 @@ function writeListTitle(listName) {
 
   var list = tuduDb.getRow(currentListInput.value, 'lists');
 
+  listViewHeader.style.backgroundColor = list.color;
   var titleText = document.createTextNode(list.name);
   taskListTitle.appendChild(titleText);
 }
@@ -301,7 +303,6 @@ function writeListTasks() {
 
 function openList(listId) {
   listView.classList.add('listView-show');
-
   currentListInput.value = listId;
 
   writeListTitle();
