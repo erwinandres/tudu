@@ -26,7 +26,14 @@
 	</header>
 		
 	<div class="homeView">
-		<div id="lists-list"></div>
+		<ul class="myLists" id="lists-list">
+			<li class="addListButton" id="open-savelist-dialog-button">
+				<i class="addListButton-icon">
+					<img class="addListButton-icon-img" width="48" height="48" src="img/add.svg">
+				</i>
+				<span>Create list</span>
+			</li>
+		</ul>
 
 		<div class="loader" id="loader">
 			<svg viewBox="0 0 32 32" width="32" height="32">
@@ -71,12 +78,6 @@
 				</style>
 				<circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
 			</svg>
-		</div>
-		
-		<div class="addListButton" id="open-savelist-dialog-button">
-			<i class="addListButton-icon">
-				<img class="addListButton-icon-img" src="img/add.svg">
-			</i>
 		</div>
 	</div>
 

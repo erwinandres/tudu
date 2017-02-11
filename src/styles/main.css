@@ -82,26 +82,19 @@ button:focus {
 }
 
 .addListButton {
-	display: inline-block;
-	position: fixed;
-	right: 24px;
-	bottom: 24px;
-}
-
-.addListButton-icon {
-	display: inline-block;
-	position: relative;
-	width: 56px;
-	height: 56px;
-	text-align: center;
-	background-color: #ffc107;
-	border-radius:50%;
-	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
-	transition: all .2s ease;
-}
-
-.addListButton-icon-img {
-	margin-top: 16px;
+	display: flex;
+    cursor: pointer;
+    width: 90%;
+    max-width: 150px;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #ebeef0;
+    margin: 4px;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+    font-weight: bold;
 }
 
 .listView {
@@ -410,6 +403,14 @@ button:focus {
 	position: absolute;
 	bottom: .5em;
 	right: .5em;
+	margin: 0;
+}
+
+.myLists {
+	display: flex;
+	flex-wrap:wrap;
+	list-style: none;
+	padding: 0;
 	margin: 0;
 }
 

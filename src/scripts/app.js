@@ -224,7 +224,10 @@ function setDB() {
 
 
 function loadHome() {
-  listsList.innerHTML = '';
+  var listItems = document.getElementsByClassName('listsList-item');
+  for (var i = listItems.length - 1; i >= 0; i--) {
+    listsList.removeChild(listItems[i]);
+  }
 
   var loader = document.getElementById('loader');
   loader.classList.add('loader-hidden');
@@ -237,8 +240,7 @@ function loadHome() {
     li.addEventListener('click', function() {
       openList(list.id);
     });
-
-    listsList.appendChild(li);
+    listsList.insertBefore(li, openSaveListDialogButton);
   });
 }
 
