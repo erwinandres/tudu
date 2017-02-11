@@ -131,7 +131,6 @@ button:focus {
     align-items: center;
     justify-content: space-between;
     height: 56px;
-    border-bottom: 1px solid #bdbdbd;
 }
 
 .listView-header-button {

@@ -37,7 +37,7 @@ function getRandomColor() {
     '#FFECB3'
   ];
 
-  var index = getRandomInt(0, colors.length);
+  var index = getRandomInt(0, colors.length-1);
   var color = colors[index];
 
   return color;
