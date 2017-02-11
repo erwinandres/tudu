@@ -53,10 +53,8 @@ button:focus {
 .appHeader {
 	position: relative;
 	color: #fff;
-	background-color: #f44336;
+	background-color: #8fa3ad;
 	text-align: center;
-	box-shadow: 0 1px 15px 0px #9e9e9e;
-	padding: .5em 1em;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -66,18 +64,25 @@ button:focus {
 	z-index: 1;
 }
 
+.appHeader:after {
+	content: '';
+	width: 48px;
+}
+
 .appHeader-menuButton {
+	cursor: pointer;
 	background:url(../img/menu.svg) center no-repeat;
 	border:0;
-	width: 24px;
-	height: 24px;
+	width: 48px;
+	height: 48px;
 	text-indent: -3000px;
+	padding: 0;
 }
 
 .appHeader-title {
 	margin: 0;
 	font-size: 2em;
-	line-height: 1;
+	line-height: 1.5;
 	flex:1;
 }
 
