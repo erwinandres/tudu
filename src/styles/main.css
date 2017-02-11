@@ -516,10 +516,13 @@ button:focus {
 	transition: color .3s;
 }
 
+.newList-fromGroup-active .newList-label {
+	color: #ffc107;
+}
+
 .newList-name {
-	padding: 0;
+	padding: 1.5em 0 .5em;
 	width: 100%;
-	height: 3.75em;
 	font-size: 1em;
 	border: 0;
 	color: #212121;

@@ -103,6 +103,14 @@ saveListButton.addEventListener('click', function() {
 //Input: save list
 var saveListInput = document.getElementById('save-list-input');
 
+saveListInput.addEventListener('focus', function() {
+  this.parentElement.classList.add('newList-fromGroup-active');
+});
+
+saveListInput.addEventListener('blur', function() {
+  this.parentElement.classList.remove('newList-fromGroup-active');
+});
+
 saveListInput.onkeyup = function() {
   if (event.keyCode == 13) {
     saveListButton.click();
