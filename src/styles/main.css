@@ -190,9 +190,8 @@ button:focus {
 }
 
 .newTask-input {
-	padding: 0;
+	padding: 1.5em 0 .5em;
 	width: 100%;
-	height: 60px;
 	font-size: 1em;
 	border: 0;
 	color: #212121;
