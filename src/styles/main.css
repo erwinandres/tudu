@@ -86,6 +86,10 @@ button:focus {
 	flex:1;
 }
 
+.homeView {
+	padding: .5rem 0;
+}
+
 .addListButton {
 	display: flex;
     cursor: pointer;
@@ -98,8 +102,11 @@ button:focus {
     background-color: #ebeef0;
     margin: 4px;
     border-radius: 3px;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
     font-weight: bold;
+}
+
+.addListButton-caption {
+	color: #8fa3ad;
 }
 
 .listView {
@@ -418,6 +425,7 @@ button:focus {
 .myLists {
 	display: flex;
 	flex-wrap:wrap;
+	justify-content: center;
 	list-style: none;
 	padding: 0;
 	margin: 0;
@@ -442,7 +450,6 @@ button:focus {
     background-color: #FFCDD2;
     margin: 4px;
     border-radius: 3px;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
     font-weight: bold;
 }
 
