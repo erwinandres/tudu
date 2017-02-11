@@ -209,7 +209,7 @@ button:focus {
 
 /* Tasks list */
 .listSection {
-	margin: 0 1em 56px;
+	margin: 0 1em 80px;
 	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
 		0 1px 5px 0 rgba(0,0,0,0.12),
 		0 3px 1px -2px rgba(0,0,0,0.2);
@@ -224,7 +224,11 @@ button:focus {
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
-	border-bottom: 1px solid #bdbdbd;
+	border-top: 1px solid #bdbdbd;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 
 .listSection-actionButton{
@@ -235,17 +239,17 @@ button:focus {
 	border-radius: 3px;
 	line-height: 1.7em;
 	height: 48px;
-	background: transparent;
+	background: #fff;
 	width: 33.333%;
 }
 
-.listSection-actionButton-active:after {
+.listSection-actionButton-active:before {
     content: '';
     height: 2px;
     width: 100%;
     background-color: #f44336;
     position: absolute;
-    right: 0;
+    top: 0;
     bottom: 0;
     left: 0;
 }
