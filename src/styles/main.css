@@ -277,6 +277,7 @@ button:focus {
 }
 
 .list-item-check {
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -293,6 +294,9 @@ button:focus {
 
 .list-item-check:checked:after {
 	content: url(../img/check.svg);
+	position: absolute;
+	top: 6px;
+	right: 13px;
 }
 
 .list-item-label {
