@@ -210,9 +210,6 @@ button:focus {
 /* Tasks list */
 .listSection {
 	margin: 0 1em 80px;
-	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
-		0 1px 5px 0 rgba(0,0,0,0.12),
-		0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
 .listSection-title {
@@ -264,8 +261,12 @@ button:focus {
 	text-align: left;
 	font-size: 1em;
 	list-style: none;
-	margin: 0;
-	border-bottom: 1px solid #bdbdbd;
+	margin-bottom: .5em;
+	background-color: #fafafa;
+}
+
+.list-item:last-child {
+	margin-bottom: 0;
 }
 
 .list-item-check {
@@ -283,13 +284,13 @@ button:focus {
 	content: url(../img/check-blank.svg);
 }
 
-.list-item-check:checked:before {
-	content: url(../img/check-marked.svg);
+.list-item-check:checked:after {
+	content: url(../img/check.svg);
 }
 
 .list-item-label {
 	display: block;
-	padding: .3em 0;
+	padding: .8em 0;
 	flex-grow: 1;
 }
 
