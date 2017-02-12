@@ -99,8 +99,9 @@ html {
 
 .appHeader-title {
 	margin: 0;
-	font-size: 2em;
-	line-height: 1.5;
+	font-size: 1.5em;
+	font-weight: 500;
+	line-height: 2;
 	flex:1;
 }
 
@@ -119,7 +120,7 @@ html {
     margin: 4px;
     border-radius: 3px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
     box-sizing: border-box;
     cursor: pointer;
 
@@ -152,6 +153,11 @@ html {
     align-items: center;
     justify-content: space-between;
     height: 56px;
+}
+
+.listView-header-title {
+	font-size: 1em;
+	font-weight: 500;
 }
 
 .listView-header-button {
@@ -473,7 +479,7 @@ html {
     margin: 4px;
     border-radius: 3px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
     box-sizing: border-box;
     cursor: pointer;
 }
@@ -523,6 +529,7 @@ html {
 
 .dialog-header-title {
 	margin: 0 0 1.25rem;
+	font-weight: 500;
 }
 
 .dialog-body {
@@ -573,8 +580,7 @@ html {
 	padding: 0 .5em;
 	margin-left: .5em;
 	font-size: 1em;
-	font-weight: 700;
-	text-transform: uppercase;
+	font-weight: 500;
 }
 
 .newList-cancel {
