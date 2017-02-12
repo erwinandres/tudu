@@ -476,6 +476,7 @@ html {
     align-items: center;
     justify-content: center;
     background-color: #FFCDD2;
+    padding: .5em;
     margin: 4px;
     border-radius: 3px;
     text-align: center;
