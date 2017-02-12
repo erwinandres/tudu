@@ -590,6 +590,27 @@ html {
 	/*color: #757575;*/
 }
 
+.abouDialog-body {
+    font-size: .8em;
+    line-height: 1.5;
+}
+
+.aboutDialog-footer {
+	text-align: right;
+	padding: .5em;
+}
+
+.dialog-closeButton {
+	color: #f44336;
+	background:none;
+	border:0;
+	height: 2.25em;
+	padding: 0 .5em;
+	margin-left: .5em;
+	font-size: 1em;
+	font-weight: 500;
+}
+
 .loader {
     position: fixed;
     top: 50%;

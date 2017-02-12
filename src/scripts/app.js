@@ -117,30 +117,37 @@ saveListInput.onkeyup = function() {
   }
 }
 
-//Button: open save list dialog
-var openSaveListDialogButton = document.getElementById('open-savelist-dialog-button');
-
-openSaveListDialogButton.addEventListener('click', function(evt) {
-  evt.stopPropagation();
-
-  saveListDialog.classList.add('dialog-visible');
+//All dialogs
+var dialogs = document.querySelectorAll('[data-dialog]');
+dialogs.forEach(function(dialog) {
+  dialog.addEventListener('click', function(evt) {
+    evt.stopPropagation();
+  });
 });
 
-//Button: cancel save list
-var cancelSaveListButton = document.getElementById('cancel-save-list-button');
+//Buttons: open dialog
+var openDialogButtons = document.querySelectorAll('[data-dialog-open]');
+openDialogButtons.forEach(function(button) {
+  button.addEventListener('click', function(evt) {
+    evt.stopPropagation();
 
-cancelSaveListButton.addEventListener('click', function(evt) {
-  saveListInput.value = '';
-  saveListDialog.classList.remove('dialog-visible');
+    var target = this.getAttribute(['data-dialog-open']);
+    var element = document.querySelector('[data-dialog=' + target + ']');
+
+    element.classList.add('dialog-visible');
+  });
 });
 
-//Save list dialog
-var saveListDialogContent = document.getElementById('save-list-dialog-content');
 
-saveListDialogContent.addEventListener('click', function(evt) {
-  evt.stopPropagation();
-});
-
+//Button: close about dialog
+var closeAboutButtons = document.getElementsByClassName('dialog-closeButton');
+for (var i = closeAboutButtons.length - 1; i >= 0; i--) {
+  closeAboutButtons[i].addEventListener('click', function() {
+    var closeTarget = this.getAttribute(['data-dialog-close']);
+    var closeElement = document.querySelector('[data-dialog=' + closeTarget + ']');
+    closeElement.classList.remove('dialog-visible');
+  });
+}
 //Button: close list view
 var closeListViewButton = document.getElementById('close-list-view');
 
@@ -208,7 +215,9 @@ menuButton.addEventListener('click', function(evt) {
  */
 document.body.addEventListener('click', function() {
   mainNav.classList.remove('mainNav-open');
-  saveListDialog.classList.remove('dialog-visible');
+  dialogs.forEach(function(dialog) {
+    dialog.classList.remove('dialog-visible');
+  });
   listViewOptions.classList.remove('listView-options-show');
 });
 
@@ -240,6 +249,7 @@ function loadHome() {
   var loader = document.getElementById('loader');
   loader.classList.add('loader-hidden');
 
+  var openSaveListDialogButton = document.getElementById('open-savelist-dialog-button');
   var lists = tuduDb.getTable('lists');
   lists.forEach(function(list) {
     var list = list;

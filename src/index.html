@@ -27,7 +27,7 @@
 		
 	<div class="homeView">
 		<ul class="myLists" id="lists-list">
-			<li class="addListButton" id="open-savelist-dialog-button">
+			<li class="addListButton" data-dialog-open="save-list" id="open-savelist-dialog-button">
 				<i class="addListButton-icon">
 					<img class="addListButton-icon-img" width="48" height="48" src="img/add.svg">
 				</i>
@@ -119,13 +119,13 @@
 			<ul class="mainNav-list">
 				<li class="mainNav-list-item">Delete all lists</li>
 				<li class="mainNav-list-item"><a class="mainNav-list-item-link" href="/">Source code</a></li>
-				<li class="mainNav-list-item">About the app</li>
+				<li class="mainNav-list-item" data-dialog-open="about">About the app</li>
 			</ul>
 			<p class="mainNav-versionMark">Version 0.7.0 (beta)</p>
 		</nav>
 	</div>
 
-	<div class="dialog" id="save-list-dialog">
+	<div class="dialog" data-dialog="save-list">
 		<div class="newList dialog-content" id="save-list-dialog-content">
 			<div class="newList-header dialog-header">
 				<h2 class="dialog-header-title">Create a list</h2>
@@ -137,8 +137,24 @@
 				</div>
 			</div>
 			<div class="newList-actions dialog-footer">
-				<button class="newList-button newList-cancel" id="cancel-save-list-button">Cancel</button>
+				<button class="newList-button newList-cancel dialog-closeButton" data-dialog-close="save-list" id="cancel-save-list-button">Cancel</button>
 				<button class="newList-button newList-save" id="save-list-button">Create list</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="dialog" data-dialog="about">
+		<div class="aboutDialog dialog-content" id="about-dialog-content">
+			<div class="dialog-header">
+				<h2 class="dialog-header-title">Tudú</h2>
+			</div>
+			<div class="abouDialog-body dialog-body">
+				<p>A lightweight TO-DO app.</p>
+				<p>Developed by Erwin Larios. Design by Kenyi Larios.</p>
+				<p>&copy;2017.</p>
+			</div>
+			<div class="aboutDialog-footer dialog-footer">
+				<button class="dialog-closeButton" data-dialog-close="about">Close</button>
 			</div>
 		</div>
 	</div>
