@@ -354,7 +354,9 @@ html {
 .list-message {
 	font-style: italic;
 	margin: 0;
-	padding: 0 1em;
+	padding: .8em .5em;
+	line-height: 1.5;
+	background-color: #fafafa;
 }
 
 .mainNav {
