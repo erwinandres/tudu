@@ -91,18 +91,22 @@ button:focus {
 }
 
 .addListButton {
-	display: flex;
-    cursor: pointer;
-    width: 90%;
-    max-width: 150px;
-    height: 150px;
+    width: 46%;
+    max-width: 15rem;
+    height: 9rem;
+    display: flex;
+    flex: 1 0 auto;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    background-color: #ebeef0;
     margin: 4px;
     border-radius: 3px;
+    text-align: center;
     font-weight: bold;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    flex-direction: column;
+    background-color: #ebeef0;
 }
 
 .addListButton-caption {
@@ -423,6 +427,15 @@ button:focus {
 	margin: 0;
 }
 
+.myLists:after {
+    content: '';
+    width: 46%;
+    max-width: 15rem;
+    margin: 4px;
+    box-sizing: border-box;
+    flex: 1 0 auto;
+}
+
 .listsList {
 	list-style: none;
 	margin: 0;
@@ -431,18 +444,20 @@ button:focus {
 }
 
 .listsList-item {
-    cursor: pointer;
-    list-style: none;
-    width: 90%;
-    max-width: 150px;
-    height: 150px;
-    display: inline-flex;
+    width: 46%;
+    max-width: 15rem;
+    height: 9rem;
+    display: flex;
+    flex: 1 0 auto;
     align-items: center;
     justify-content: center;
     background-color: #FFCDD2;
     margin: 4px;
     border-radius: 3px;
+    text-align: center;
     font-weight: bold;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
 .dialog {
