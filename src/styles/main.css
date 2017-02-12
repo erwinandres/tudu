@@ -112,10 +112,8 @@ button:focus {
 .listView {
 	display: none;
 	position: absolute;
-	top: 0;
-	bottom: -3em;
+	top: 3em;
 	left: 0;
-	padding-top: 3em;
 	width: 100%;
 	min-height: 100%;
 	background: #fff;
