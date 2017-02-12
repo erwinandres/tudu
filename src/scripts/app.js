@@ -386,6 +386,13 @@ function completeTask(taskId) {
   writeListTasks();
 }
 
+function deleteTask(taskId) {
+  tuduDb.removeRow(taskId, 'tasks');
+  tuduDb.save();
+
+  writeListTasks();
+}
+
 function clearList(listId) {
   var allListTasks = getTasksFromList(listId);
   allListTasks.forEach(function(task) {
