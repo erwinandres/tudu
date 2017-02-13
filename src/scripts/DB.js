@@ -1,6 +1,6 @@
 /**
  * Database implementation for Tudú app.
- * v0.1.1 (beta).
+ * v0.1.2 (beta).
  * Developed by Erwin Larios.
  */
 (function() {
@@ -65,7 +65,12 @@
      */
     this.addRow = function(rowData, table) {
       if (this.data[table]) {
-        rowData.id = objectId();
+
+        // Asign an ID if hasn't already.
+        if (!rowData.id) {
+          rowData.id = objectId();
+        }
+
         this.data[table].push(rowData);
       } else {
         console.error('Database error: table doesn\'t exists');
