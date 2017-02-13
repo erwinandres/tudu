@@ -401,13 +401,35 @@ function clearList(listId) {
 
   tuduDb.save();
   writeListTasks();
+
+  function undo() {
+    allListTasks.forEach(function(task) {
+      tuduDb.addRow(task, 'tasks');
+    });
+
+    tuduDb.save();
+    writeListTasks();
+  }
+
+  toast.action('List cleared.', 'Undo', undo);
 }
 
 function deleteList(listId) {
+  var cachedList = tuduDb.getRow(listId, 'lists');
+
   tuduDb.removeRow(listId, 'lists');
 
   tuduDb.save();
   loadHome();
+
+  function undo() {
+    tuduDb.addRow(cachedList, 'lists');
+
+    tuduDb.save();
+    loadHome();
+  }
+
+  toast.action('List deleted.', 'Undo', undo);
 }
 
 function saveList(data, listId) {
@@ -436,7 +458,10 @@ function Toast(container) {
     var toast = createToast(text);
 
     var button = createEl('button', buttonText, 'toast-action');
-    button.addEventListener('click', buttonAction);
+    button.addEventListener('click', function() {
+      buttonAction();
+      container.removeChild(toast);
+    });
 
     toast.appendChild(button);
 
@@ -456,7 +481,9 @@ function Toast(container) {
 
   function deleteToast (toast, delay) {
     setTimeout(function() {
-      container.removeChild(toast);
+      if (container.contains(toast)) {
+        container.removeChild(toast);        
+      }
     }, delay);
   }
 }
