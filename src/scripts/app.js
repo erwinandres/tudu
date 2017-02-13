@@ -140,9 +140,9 @@ openDialogButtons.forEach(function(button) {
 
 
 //Button: close about dialog
-var closeAboutButtons = document.getElementsByClassName('dialog-closeButton');
-for (var i = closeAboutButtons.length - 1; i >= 0; i--) {
-  closeAboutButtons[i].addEventListener('click', function() {
+var closeDialogButton = document.getElementsByClassName('dialog-closeButton');
+for (var i = closeDialogButton.length - 1; i >= 0; i--) {
+  closeDialogButton[i].addEventListener('click', function() {
     var closeTarget = this.getAttribute(['data-dialog-close']);
     var closeElement = document.querySelector('[data-dialog=' + closeTarget + ']');
     closeElement.classList.remove('dialog-visible');
@@ -441,6 +441,8 @@ function saveList(data, listId) {
 
   tuduDb.save();
   loadHome();
+
+  toast.simple('List ' + data.name + ' created');
 }
 
 function Toast(container) {
