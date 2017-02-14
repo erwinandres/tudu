@@ -131,6 +131,8 @@ openDialogButtons.forEach(function(button) {
   button.addEventListener('click', function(evt) {
     evt.stopPropagation();
 
+    mainNav.classList.remove('mainNav-open');
+
     var target = this.getAttribute(['data-dialog-open']);
     var element = document.querySelector('[data-dialog=' + target + ']');
 
@@ -209,6 +211,12 @@ menuButton.addEventListener('click', function(evt) {
   mainNav.classList.toggle('mainNav-open');
 });
 
+var deleteAllListsButton = document.getElementById('delete-all-lists-button');
+deleteAllListsButton.addEventListener('click', function() {
+  mainNav.classList.remove('mainNav-open');
+  deleteAll();
+});
+
 /**
  * Close all menus and dialgos when clicking anywhere in the
  * body.
@@ -239,7 +247,6 @@ function setDB() {
   tuduDb.connect(dbName, dbData);
 }
 
-
 function loadHome() {
   var listItems = document.getElementsByClassName('listsList-item');
   for (var i = listItems.length - 1; i >= 0; i--) {
@@ -251,15 +258,17 @@ function loadHome() {
 
   var openSaveListDialogButton = document.getElementById('open-savelist-dialog-button');
   var lists = tuduDb.getTable('lists');
-  lists.forEach(function(list) {
-    var list = list;
-    var li = createEl('li', list.name, 'listsList-item', list.id);
-    li.style.backgroundColor = list.color;
-    li.addEventListener('click', function() {
-      openList(list.id);
+  if (lists) {
+    lists.forEach(function(list) {
+      var list = list;
+      var li = createEl('li', list.name, 'listsList-item', list.id);
+      li.style.backgroundColor = list.color;
+      li.addEventListener('click', function() {
+        openList(list.id);
+      });
+      listsList.insertBefore(li, openSaveListDialogButton);
     });
-    listsList.insertBefore(li, openSaveListDialogButton);
-  });
+  }
 }
 
 function writeListTitle(listName) {
@@ -430,6 +439,27 @@ function deleteList(listId) {
   }
 
   toast.action('List deleted.', 'Undo', undo);
+}
+
+function deleteAll() {
+  var cacheData = tuduDb.fetch();
+
+  tuduDb.clear();
+  tuduDb.data = {
+    tasks: [],
+    lists: []
+  }
+  tuduDb.save();
+  loadHome();
+
+  function undo() {
+    tuduDb.data = cacheData;
+
+    tuduDb.save();
+    loadHome();
+  }
+
+  toast.action('All lists deleted.', 'Undo', undo);
 }
 
 function saveList(data, listId) {
