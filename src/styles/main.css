@@ -540,6 +540,11 @@ html {
 	padding: 0 1.5rem;
 }
 
+.dialog-footer {
+	text-align: right;
+	padding: .5em;
+}
+
 .newList-fromGroup {
 	margin-bottom: 1.5rem;
 }
@@ -571,11 +576,6 @@ html {
 	box-shadow: 0 1px 0 0 #ffc107;
 }
 
-.newList-actions {
-	text-align: right;
-	padding: .5em;
-}
-
 .newList-button {
 	color: #f44336;
 	background:none;
@@ -587,21 +587,23 @@ html {
 	font-weight: 500;
 }
 
-.newList-cancel {
-	/*color: #757575;*/
-}
-
 .abouDialog-body {
     font-size: .8em;
     line-height: 1.5;
 }
 
-.aboutDialog-footer {
-	text-align: right;
-	padding: .5em;
+.dialog-closeButton {
+	color: #f44336;
+	background:none;
+	border:0;
+	height: 2.25em;
+	padding: 0 .5em;
+	margin-left: .5em;
+	font-size: 1em;
+	font-weight: 500;
 }
 
-.dialog-closeButton {
+.confirmDialog-button {
 	color: #f44336;
 	background:none;
 	border:0;

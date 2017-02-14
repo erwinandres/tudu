@@ -215,7 +215,9 @@ menuButton.addEventListener('click', function(evt) {
 var deleteAllListsButton = document.getElementById('delete-all-lists-button');
 deleteAllListsButton.addEventListener('click', function(evt) {
   evt.preventDefault();
-  mainNav.classList.remove('mainNav-open');
+  
+  var confirmDialog = document.querySelector('[data-dialog="confirm"]');
+  confirmDialog.classList.remove('dialog-visible');
   deleteAll();
 });
 
