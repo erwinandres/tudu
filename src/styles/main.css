@@ -158,6 +158,11 @@ html {
 .listView-header-title {
 	font-size: 1em;
 	font-weight: 500;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
 }
 
 .listView-header-button {
