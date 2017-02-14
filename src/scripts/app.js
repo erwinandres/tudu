@@ -73,7 +73,7 @@ tasksInput.onkeyup = function(event) {
   if (event.keyCode == 13) {
     var value = this.value.trim();
 
-    if (value !== '') {
+    if (value !== '' && value.length <= 90) {
       var data = { text: value };
       saveTask(data);
       this.value = '';
