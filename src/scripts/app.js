@@ -221,6 +221,39 @@ deleteAllListsButton.addEventListener('click', function(evt) {
   deleteAll();
 });
 
+var editListTitleButton = document.getElementById('edit-list-title-button');
+
+editListTitleButton.addEventListener('click', function() {
+  listViewHeader.classList.add('listView-header-edit');
+
+  var listTitle = taskListTitle.innerText;
+  var input = createEl('input', '', 'listView-header-titleEdit');
+  input.value = listTitle;
+  input.type = 'text';
+  input.maxlength = '60';
+
+  input.addEventListener('blur', function() {
+      listViewHeader.classList.remove('listView-header-edit');
+      listViewHeader.removeChild(input);  
+  });
+
+  input.onkeyup = function(evt) {
+    if (evt.keyCode === 13) {
+      var value = input.value.trim();
+
+      if (value !== '' && value.length <= 60) {
+        editListTitle(value, currentListInput.value);
+      }
+
+      input.blur();
+    }
+  }
+
+  listViewHeader.insertBefore(input, moreListOptionsButton);
+  input.focus();
+});
+
+
 /**
  * Close all menus and dialgos when clicking anywhere in the
  * body.
@@ -275,7 +308,7 @@ function loadHome() {
   }
 }
 
-function writeListTitle(listName) {
+function writeListTitle() {
   taskListTitle.innerHTML = '';
 
   var list = tuduDb.getRow(currentListInput.value, 'lists');
@@ -463,7 +496,7 @@ function deleteAll() {
     loadHome();
   }
 
-  toast.action('All lists deleted.', 'Undo', undo);
+  toast.action('All lists deleted', 'Undo', undo);
 }
 
 function saveList(data, listId) {
@@ -477,6 +510,18 @@ function saveList(data, listId) {
   loadHome();
 
   toast.simple('List ' + data.name + ' created');
+}
+
+function editListTitle(newTitle, listId) {
+  var data = {
+    name: newTitle
+  }
+
+  tuduDb.updateRow(data, listId, 'lists');
+  tuduDb.save();
+  writeListTitle();
+
+  toast.simple('List title edited');
 }
 
 function Toast(container) {

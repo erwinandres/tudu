@@ -165,6 +165,26 @@ html {
     flex: 1;
 }
 
+.listView-header-titleEdit {
+	display: none;
+	flex: 1;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: 0;
+    border-bottom: 1px solid #212121;
+    font: inherit;
+    background-color: transparent;
+    outline: 0;
+}
+
+.listView-header-edit .listView-header-title {
+	display: none;
+}
+
+.listView-header-edit .listView-header-titleEdit {
+	display: block;
+}
+
 .listView-header-button {
 	height: 48px;
 	width: 48px;
