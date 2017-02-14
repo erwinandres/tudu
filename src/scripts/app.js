@@ -130,6 +130,7 @@ var openDialogButtons = document.querySelectorAll('[data-dialog-open]');
 openDialogButtons.forEach(function(button) {
   button.addEventListener('click', function(evt) {
     evt.stopPropagation();
+    evt.preventDefault();
 
     mainNav.classList.remove('mainNav-open');
 
@@ -212,7 +213,8 @@ menuButton.addEventListener('click', function(evt) {
 });
 
 var deleteAllListsButton = document.getElementById('delete-all-lists-button');
-deleteAllListsButton.addEventListener('click', function() {
+deleteAllListsButton.addEventListener('click', function(evt) {
+  evt.preventDefault();
   mainNav.classList.remove('mainNav-open');
   deleteAll();
 });
