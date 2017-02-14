@@ -87,7 +87,7 @@ var saveListButton = document.getElementById('save-list-button');
 saveListButton.addEventListener('click', function() {
   var newListName = saveListInput.value.trim();
 
-  if (newListName !== '') {
+  if (newListName !== '' && newListName.length <= 60) {
     var color = getRandomColor();
     var data = {
       name: newListName,
