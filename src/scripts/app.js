@@ -286,6 +286,8 @@ function setDB() {
 }
 
 function loadHome() {
+  document.body.classList.remove('listOpen');
+
   var listItems = document.getElementsByClassName('listsList-item');
   for (var i = listItems.length - 1; i >= 0; i--) {
     listsList.removeChild(listItems[i]);
