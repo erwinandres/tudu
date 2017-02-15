@@ -55,17 +55,30 @@
 	padding: .5em;
 }
 
-.newList-fromGroup {
+.dialog-actionButton {
+	color: #f44336;
+	background:none;
+	border:0;
+	height: 2.25em;
+	padding: 0 .5em;
+	margin-left: .5em;
+	font-size: 1em;
+	font-weight: 500;
+}
+
+
+/* New List Dialog */
+.newList-formGroup {
 	margin-bottom: 1.5rem;
+}
+
+.newList-formGroup-active .newList-label {
+	color: #ffc107;
 }
 
 .newList-label {
 	color: #757575;
 	transition: color .3s;
-}
-
-.newList-fromGroup-active .newList-label {
-	color: #ffc107;
 }
 
 .newList-name {
@@ -86,40 +99,8 @@
 	box-shadow: 0 1px 0 0 #ffc107;
 }
 
-.newList-button {
-	color: #f44336;
-	background:none;
-	border:0;
-	height: 2.25em;
-	padding: 0 .5em;
-	margin-left: .5em;
-	font-size: 1em;
-	font-weight: 500;
-}
-
+/* About Dialog */
 .abouDialog-body {
     font-size: .8em;
     line-height: 1.5;
-}
-
-.dialog-closeButton {
-	color: #f44336;
-	background:none;
-	border:0;
-	height: 2.25em;
-	padding: 0 .5em;
-	margin-left: .5em;
-	font-size: 1em;
-	font-weight: 500;
-}
-
-.confirmDialog-button {
-	color: #f44336;
-	background:none;
-	border:0;
-	height: 2.25em;
-	padding: 0 .5em;
-	margin-left: .5em;
-	font-size: 1em;
-	font-weight: 500;
 }

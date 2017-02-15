@@ -32,7 +32,7 @@
 		<h1 class="appHeader-title">Tudú</h1>
 	</header>
 		
-	<div class="homeView">
+	<div class="home">
 		<ul class="myLists" id="lists-list">
 			<li class="addListButton" data-dialog-open="save-list" id="open-savelist-dialog-button">
 				<i class="addListButton-icon">
@@ -109,17 +109,17 @@
 				<input id="current-list-input" type="hidden" value="1">
 			</div>
 
-			<div class="listSection">
-				<ul class="listSection-list list" id="task-list"></ul>
+			<div class="tasksList">
+				<ul class="tasksList-list" id="task-list"></ul>
 			</div>
 		</div>
 
 		<div class="listView-footer">
-			<div class="listSection-actions">
+			<div class="taskTabs">
 				<input id="current-list-filter" type="hidden" value="active">
-				<button class="listSection-actionButton listSection-actionButton-active" value="active">Active</button>
-				<button class="listSection-actionButton" value="completed">Completed</button>
-				<button class="listSection-actionButton" value="all">All</button>
+				<button class="taskTabs-button taskTabs-button-active" value="active">Active</button>
+				<button class="taskTabs-button" value="completed">Completed</button>
+				<button class="taskTabs-button" value="all">All</button>
 			</div>
 		</div>
 	</div>
@@ -144,14 +144,14 @@
 				<h2 class="dialog-header-title">Create a list</h2>
 			</div>
 			<div class="newList-body dialog-body">
-				<div class="newList-fromGroup">
+				<div class="newList-form">
 					<label  class="newList-label" for="save-list-input">List name</label>
 					<input class="newList-name" id="save-list-input" type="text" placeholder="E.g.: Groceries" maxlength="60">
 				</div>
 			</div>
 			<div class="newList-actions dialog-footer">
-				<button class="newList-button newList-cancel dialog-closeButton" data-dialog-close="save-list" id="cancel-save-list-button">Cancel</button>
-				<button class="newList-button newList-save" id="save-list-button">Create list</button>
+				<button class="newList-button newList-cancel dialog-actionButton" data-dialog-close="save-list" id="cancel-save-list-button">Cancel</button>
+				<button class="newList-button newList-save dialog-actionButton" id="save-list-button">Create list</button>
 			</div>
 		</div>
 	</div>
@@ -167,7 +167,7 @@
 				<p>&copy;2017.</p>
 			</div>
 			<div class="aboutDialog-footer dialog-footer">
-				<button class="dialog-closeButton" data-dialog-close="about">Close</button>
+				<button class="dialog-actionButton" data-dialog-close="about">Close</button>
 			</div>
 		</div>
 	</div>
@@ -181,8 +181,8 @@
 				<p>Are you sure you want to delete all lists?</p>
 			</div>
 			<div class="dialog-footer">
-				<button class="dialog-closeButton" data-dialog-close="confirm">Cancel</button>
-				<button class="confirmDialog-button" id="delete-all-lists-button">Delete lists</button>
+				<button class="dialog-actionButton" data-dialog-close="confirm">Cancel</button>
+				<button class="dialog-actionButton" id="delete-all-lists-button">Delete lists</button>
 			</div>
 		</div>
 	</div>

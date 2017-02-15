@@ -10,7 +10,7 @@
 	z-index: 3;
 }
 
-.listView-show {
+.listView-open {
 	display: block;
 }
 
@@ -151,51 +151,24 @@
 }
 
 /* Tasks list */
-.listSection {
+.tasksList {
 	margin: 0 1em 80px;
 }
 
-.listSection-title {
-	margin: 0;
-	padding: .5em 1em;
-}
-
-.listSection-actions {
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-	border-top: 1px solid #bdbdbd;
-}
-
-.listSection-actionButton{
-	position: relative;
-	border: 0;
-	font-size: 1em;
-	padding: 0 .5em;
-	border-radius: 3px;
-	line-height: 1.7em;
-	height: 48px;
-	background: #fff;
-	width: 33.333%;
-}
-
-.listSection-actionButton-active:before {
-    content: '';
-    height: 4px;
-    width: 100%;
-    background-color: #8fa3ad;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-}
-
-.list {
+.tasksList-list {
 	margin: 0;
 	padding: 0;
 }
 
-.list-item {
+.tasksList-message {
+	font-style: italic;
+	margin: 0;
+	padding: .8em .5em;
+	line-height: 1.5;
+	background-color: #fafafa;
+}
+
+.task {
 	display: flex;
 	text-align: left;
 	font-size: 1em;
@@ -204,11 +177,11 @@
 	background-color: #fafafa;
 }
 
-.list-item:last-child {
+.task:last-child {
 	margin-bottom: 0;
 }
 
-.list-item-check {
+.task-check {
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -220,26 +193,26 @@
 	appearance: none;
 }
 
-.list-item-check:before {
+.task-check:before {
 	content: url(../img/check-blank.svg);
 }
 
-.list-item-check:checked:before {
+.task-check:checked:before {
 	content: url(../img/check-marked.svg);
 }
 
-.list-item-label {
+.task-label {
 	display: block;
 	padding: .8em 0;
 	flex-grow: 1;
 }
 
-.list-item.completed .list-item-label {
+.task.completed .task-label {
 	text-decoration: line-through;
 	color: #bdbdbd;
 }
 
-.list-item-destroy {
+.task-destroy {
 	display: block;
 	min-width: 56px;
 	width: 56px;
@@ -250,14 +223,36 @@
 	color: #f44336;
 }
 
-.list-item-destroy:before {
+.task-destroy:before {
 	content: '×';
 }
 
-.list-message {
-	font-style: italic;
-	margin: 0;
-	padding: .8em .5em;
-	line-height: 1.5;
-	background-color: #fafafa;
+.taskTabs {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	border-top: 1px solid #bdbdbd;
+}
+
+.taskTabs-button{
+	position: relative;
+	border: 0;
+	font-size: 1em;
+	padding: 0 .5em;
+	border-radius: 3px;
+	line-height: 1.7em;
+	height: 48px;
+	background: #fff;
+	width: 33.333%;
+}
+
+.taskTabs-button-active:before {
+    content: '';
+    height: 4px;
+    width: 100%;
+    background-color: #8fa3ad;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
 }

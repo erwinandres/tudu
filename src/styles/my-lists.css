@@ -16,14 +16,7 @@
     flex: 1 0 auto;
 }
 
-.listsList {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	border-bottom: 1px solid #bdbdbd;
-}
-
-.listsList-item {
+.myLists-list {
     width: 46%;
     max-width: 15rem;
     height: 9rem;

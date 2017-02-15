@@ -2,7 +2,7 @@ html {
 	font-family: 'Roboto';
 }
 
-body.listOpen {
+.listOpen {
 	overflow: hidden;
 }
 
@@ -44,7 +44,7 @@ body.listOpen {
 	flex:1;
 }
 
-.homeView {
+.home {
 	padding: .5rem 0;
 }
 
