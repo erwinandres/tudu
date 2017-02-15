@@ -362,11 +362,8 @@ body.listOpen {
 	content: url(../img/check-blank.svg);
 }
 
-.list-item-check:checked:after {
-	content: url(../img/check.svg);
-	position: absolute;
-	top: 6px;
-	right: 13px;
+.list-item-check:checked:before {
+	content: url(../img/check-marked.svg);
 }
 
 .list-item-label {
