@@ -1,0 +1,83 @@
+html {
+	font-family: 'Roboto';
+}
+
+body.listOpen {
+	overflow: hidden;
+}
+
+/* Header */
+.appHeader {
+	position: relative;
+	color: #fff;
+	background-color: #8fa3ad;
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-content: center;
+	justify-content: flex-start;
+	align-items: stretch;
+	z-index: 1;
+}
+
+.appHeader:after {
+	content: '';
+	width: 48px;
+}
+
+.appHeader-menuButton {
+	cursor: pointer;
+	background:url(../img/menu.svg) center no-repeat;
+	border:0;
+	width: 48px;
+	height: 48px;
+	text-indent: -3000px;
+	padding: 0;
+}
+
+.appHeader-title {
+	margin: 0;
+	font-size: 1.5em;
+	font-weight: 500;
+	line-height: 2;
+	flex:1;
+}
+
+.homeView {
+	padding: .5rem 0;
+}
+
+.addListButton {
+    width: 46%;
+    max-width: 15rem;
+    height: 9rem;
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: 500;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    flex-direction: column;
+    background-color: #ebeef0;
+}
+
+.addListButton-caption {
+	color: #8fa3ad;
+}
+
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.loader-hidden {
+	display: none;
+}

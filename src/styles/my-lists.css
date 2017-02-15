@@ -1,0 +1,46 @@
+.myLists {
+	display: flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.myLists:after {
+    content: '';
+    width: 46%;
+    max-width: 15rem;
+    margin: 4px;
+    box-sizing: border-box;
+    flex: 1 0 auto;
+}
+
+.listsList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #bdbdbd;
+}
+
+.listsList-item {
+    width: 46%;
+    max-width: 15rem;
+    height: 9rem;
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFCDD2;
+    padding: .5em;
+    margin: 4px;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: 500;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    word-break: break-word;
+    cursor: pointer;
+}
