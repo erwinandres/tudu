@@ -156,6 +156,7 @@ var closeListViewButton = document.getElementById('close-list-view');
 
 closeListViewButton.addEventListener('click', function() {
   listView.classList.remove('listView-show');
+  document.body.classList.remove('listOpen');
 });
 
 //Button: more list options
@@ -372,6 +373,8 @@ function writeListTasks() {
 
 function openList(listId) {
   listView.classList.add('listView-show');
+  document.body.classList.add('listOpen');
+
   currentListInput.value = listId;
 
   writeListTitle();

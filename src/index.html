@@ -95,14 +95,19 @@
 			</div>
 		</header>
 
-		<div class="newTask">
-			<label class="newTask-label" for="new-task-input">Task</label>
-			<input class="newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" maxlength="90" autofocus>
-			<input id="current-list-input" type="hidden" value="1">
+		<div class="listView-body">
+			<div class="newTask">
+				<label class="newTask-label" for="new-task-input">Task</label>
+				<input class="newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" maxlength="90" autofocus>
+				<input id="current-list-input" type="hidden" value="1">
+			</div>
+
+			<div class="listSection">
+				<ul class="listSection-list list" id="task-list"></ul>
+			</div>
 		</div>
 
-		<div class="listSection">
-			<ul class="listSection-list list" id="task-list"></ul>
+		<div class="listView-footer">
 			<div class="listSection-actions">
 				<input id="current-list-filter" type="hidden" value="active">
 				<button class="listSection-actionButton listSection-actionButton-active" value="active">Active</button>
