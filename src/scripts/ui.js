@@ -19,29 +19,9 @@ var taskList = document.getElementById('task-list');
 var currentListInput = document.getElementById('current-list-input');
 var filter = document.getElementById('current-list-filter');
 
-//Input: new task
-var tasksInput = document.getElementById('new-task-input');
-
-tasksInput.addEventListener('focus', function() {
-  this.parentElement.classList.add('newTask-active');
-});
-
-tasksInput.addEventListener('blur', function() {
-  this.parentElement.classList.remove('newTask-active');
-});
-
-tasksInput.onkeyup = function(event) {
-  if (event.keyCode == 13) {
-    var value = this.value.trim();
-
-    if (value !== '' && value.length <= 90) {
-      var data = { text: value };
-      saveTask(data);
-      this.value = '';
-    }
-  }
-}
-
+/**************************************************************
+ * Lists
+ **************************************************************/
 //Input: save list
 var saveListInput = document.getElementById('save-list-input');
 
@@ -78,7 +58,111 @@ saveListButton.addEventListener('click', function() {
   }
 });
 
+/**************************************************************
+ * Tasks/List view
+ **************************************************************/
+//Button: close list view
+var closeListViewButton = document.getElementById('close-list-view');
 
+closeListViewButton.addEventListener('click', function() {
+  listView.classList.remove('listView-open');
+  document.body.classList.remove('listOpen');
+});
+
+//Button: more list options
+var moreListOptionsButton = document.getElementById('more-list-options');
+
+moreListOptionsButton.addEventListener('click', function(evt) {
+  evt.stopPropagation();
+  listViewOptions.classList.toggle('listView-options-show');
+});
+
+//Button: clear list
+var clearListButton = document.getElementById('clear-list');
+
+clearListButton.addEventListener('click', function() {
+  clearList(currentListInput.value);
+});
+
+//Button: delete list
+var deleteListButton = document.getElementById('delete-list');
+
+deleteListButton.addEventListener('click', function() {
+  listView.classList.remove('listView-open');
+  deleteList(currentListInput.value);
+});
+
+var editListTitleButton = document.getElementById('edit-list-title-button');
+
+editListTitleButton.addEventListener('click', function() {
+  listViewHeader.classList.add('listView-header-edit');
+
+  var listTitle = taskListTitle.innerText;
+  var input = createEl('input', '', 'listView-header-titleEdit');
+  input.value = listTitle;
+  input.type = 'text';
+  input.maxlength = '60';
+
+  input.addEventListener('blur', function() {
+      listViewHeader.classList.remove('listView-header-edit');
+      listViewHeader.removeChild(input);  
+  });
+
+  input.onkeyup = function(evt) {
+    if (evt.keyCode === 13) {
+      var value = input.value.trim();
+
+      if (value !== '' && value.length <= 60) {
+        editListTitle(value, currentListInput.value);
+      }
+
+      input.blur();
+    }
+  }
+
+  listViewHeader.insertBefore(input, moreListOptionsButton);
+  input.focus();
+});
+
+//Input: new task
+var tasksInput = document.getElementById('new-task-input');
+
+tasksInput.addEventListener('focus', function() {
+  this.parentElement.classList.add('newTask-active');
+});
+
+tasksInput.addEventListener('blur', function() {
+  this.parentElement.classList.remove('newTask-active');
+});
+
+tasksInput.onkeyup = function(event) {
+  if (event.keyCode == 13) {
+    var value = this.value.trim();
+
+    if (value !== '' && value.length <= 90) {
+      var data = { text: value };
+      saveTask(data);
+      this.value = '';
+    }
+  }
+}
+
+//Buttons: list view actions
+var listTabsButtons = document.querySelectorAll('.taskTabs-button');
+
+listTabsButtons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    var value = this.value;
+
+    filter.value = value;
+    setTabs();
+    writeListTasks();
+  });
+});
+
+/**************************************************************
+ * Dialogs
+ **************************************************************/
 //All dialogs
 var dialogs = document.querySelectorAll('[data-dialog]');
 dialogs.forEach(function(dialog) {
@@ -113,50 +197,10 @@ for (var i = closeDialogButton.length - 1; i >= 0; i--) {
     closeElement.classList.remove('dialog-visible');
   });
 }
-//Button: close list view
-var closeListViewButton = document.getElementById('close-list-view');
 
-closeListViewButton.addEventListener('click', function() {
-  listView.classList.remove('listView-open');
-  document.body.classList.remove('listOpen');
-});
-
-//Button: more list options
-var moreListOptionsButton = document.getElementById('more-list-options');
-
-moreListOptionsButton.addEventListener('click', function(evt) {
-  evt.stopPropagation();
-  listViewOptions.classList.toggle('listView-options-show');
-});
-
-//Button: clear list
-var clearListButton = document.getElementById('clear-list');
-
-clearListButton.addEventListener('click', function() {
-  clearList(currentListInput.value);
-});
-
-//Button: delete list
-var deleteListButton = document.getElementById('delete-list');
-
-deleteListButton.addEventListener('click', function() {
-  listView.classList.remove('listView-open');
-  deleteList(currentListInput.value);
-});
-
-//Buttons: list view actions
-var listTabsButtons = document.querySelectorAll('.taskTabs-button');
-
-listTabsButtons.forEach(function(button) {
-  button.addEventListener('click', function() {
-    var value = this.value;
-
-    filter.value = value;
-    setTabs();
-    writeListTasks();
-  });
-});
-
+/**************************************************************
+ * Main menu
+ **************************************************************/
 //Main menu
 var mainNav = document.getElementById('main-nav');
 var mainNavContent = document.getElementById('main-nav-content');
@@ -182,38 +226,6 @@ deleteAllListsButton.addEventListener('click', function(evt) {
   var confirmDialog = document.querySelector('[data-dialog="confirm"]');
   confirmDialog.classList.remove('dialog-visible');
   deleteAll();
-});
-
-var editListTitleButton = document.getElementById('edit-list-title-button');
-
-editListTitleButton.addEventListener('click', function() {
-  listViewHeader.classList.add('listView-header-edit');
-
-  var listTitle = taskListTitle.innerText;
-  var input = createEl('input', '', 'listView-header-titleEdit');
-  input.value = listTitle;
-  input.type = 'text';
-  input.maxlength = '60';
-
-  input.addEventListener('blur', function() {
-      listViewHeader.classList.remove('listView-header-edit');
-      listViewHeader.removeChild(input);  
-  });
-
-  input.onkeyup = function(evt) {
-    if (evt.keyCode === 13) {
-      var value = input.value.trim();
-
-      if (value !== '' && value.length <= 60) {
-        editListTitle(value, currentListInput.value);
-      }
-
-      input.blur();
-    }
-  }
-
-  listViewHeader.insertBefore(input, moreListOptionsButton);
-  input.focus();
 });
 
 
