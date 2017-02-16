@@ -166,7 +166,8 @@ listTabsButtons.forEach(function(button) {
 //All dialogs
 var dialogs = document.querySelectorAll('[data-dialog]');
 dialogs.forEach(function(dialog) {
-  dialog.addEventListener('click', function(evt) {
+  var dialogContent = dialog.querySelector('[data-dialog-content]');
+  dialogContent.addEventListener('click', function(evt) {
     evt.stopPropagation();    
   });
 });
