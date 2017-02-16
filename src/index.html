@@ -114,76 +114,80 @@
 			</div>
 		</div>
 
-		<div class="listView-footer">
+		<footer class="listView-footer">
 			<div class="taskTabs">
 				<input id="current-list-filter" type="hidden" value="active">
 				<button class="taskTabs-button taskTabs-button-active" value="active">Active</button>
 				<button class="taskTabs-button" value="completed">Completed</button>
 				<button class="taskTabs-button" value="all">All</button>
 			</div>
-		</div>
+		</footer>
 	</div>
 
 	<div class="mainNav" id="main-nav">
 		<nav class="mainNav-content" id="main-nav-content">
-			<div class="mainNav-header">
+			<header class="mainNav-header">
 				<img class="mainNav-logo" src="img/tudu-logo.svg" width="60" height="21">
-			</div>
+			</header>
+
 			<ul class="mainNav-list">
 				<li class="mainNav-list-item" ><a class="mainNav-list-item-link" href="#" data-dialog-open="confirm">Delete all lists</a></li>
 				<li class="mainNav-list-item"><a class="mainNav-list-item-link" href="//github.com/erwinandres/tudu" target="_blank">Source code</a></li>
 				<li class="mainNav-list-item"><a class="mainNav-list-item-link" href="#" data-dialog-open="about">About the app</a></li>
 			</ul>
-			<p class="mainNav-versionMark">Version 0.8.2 (beta)</p>
+
+			<footer>
+				<p class="mainNav-versionMark">Version 0.8.2 (beta)</p>
+			</footer>
 		</nav>
 	</div>
 
 	<div class="dialog" data-dialog="save-list" id="save-list-dialog">
 		<div class="newList dialog-content" data-dialog-content id="save-list-dialog-content">
-			<div class="newList-header dialog-header">
+			<header class="newList-header dialog-header">
 				<h2 class="dialog-header-title">Create a list</h2>
-			</div>
+			</header>
 			<div class="newList-body dialog-body">
 				<div class="newList-form">
 					<label  class="newList-label" for="save-list-input">List name</label>
 					<input class="newList-name" id="save-list-input" type="text" placeholder="E.g.: Groceries" maxlength="60">
 				</div>
 			</div>
-			<div class="newList-actions dialog-footer">
+			<footer class="newList-actions dialog-footer">
 				<button class="newList-button newList-cancel dialog-actionButton" data-dialog-close="save-list" id="cancel-save-list-button">Cancel</button>
 				<button class="newList-button newList-save dialog-actionButton" id="save-list-button">Create list</button>
-			</div>
+			</footer>
 		</div>
 	</div>
 
 	<div class="dialog" data-dialog="about">
 		<div class="aboutDialog dialog-content" data-dialog-content id="about-dialog-content">
-			<div class="dialog-header">
+			<header class="dialog-header">
 				<h2 class="dialog-header-title">Tudú</h2>
-			</div>
+			</header>
 			<div class="abouDialog-body dialog-body">
 				<p>A lightweight TO-DO app.</p>
 				<p>Developed by Erwin Larios. Design by Kenyi Larios.</p>
 				<p>&copy;2017.</p>
 			</div>
-			<div class="aboutDialog-footer dialog-footer">
+			<footer class="aboutDialog-footer dialog-footer">
 				<button class="dialog-actionButton" data-dialog-close="about">Close</button>
-			</div>
+			</footer>
 		</div>
 	</div>
 
 	<div class="dialog" data-dialog="confirm">
 		<div class="confirmDialog dialog-content" data-dialog-content>
-			<div class="dialog-header">
+			<header class="dialog-header">
 				<h2 class="dialog-header-title">Delete all lists?</h2>
-			</div>
+			</header>
 			<div class="dialog-body">
 				<p>Are you sure you want to delete all lists?</p>
 			</div>
-			<div class="dialog-footer">
+			<footer class="dialog-footer">
 				<button class="dialog-actionButton" data-dialog-close="confirm">Cancel</button>
 				<button class="dialog-actionButton" id="delete-all-lists-button">Delete lists</button>
-			</div>
+			</footer>
 		</div>
 	</div>
 
