@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
+    height: 3.5rem;
 }
 
 .listView-header-title {
@@ -52,8 +52,8 @@
 }
 
 .listView-header-button {
-	height: 48px;
-	width: 48px;
+	height: 3rem;
+	width: 3rem;
 }
 
 .listView-closeButton {
@@ -106,8 +106,8 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
-	margin-top: 56px;
-	margin-bottom: 49px;
+	margin-top: 3.5rem;
+	margin-bottom: 3rem;
 	overflow: auto;
 }
 
@@ -120,7 +120,7 @@
 
 /* New Task form */
 .newTask {
-	margin: 30px 1em;
+	margin: 1.8rem 1rem;
 }
 
 .newTask-label {
@@ -152,7 +152,7 @@
 
 /* Tasks list */
 .tasksList {
-	margin: 0 1em 80px;
+	margin: 0 1em 5rem;
 }
 
 .tasksList-list {
@@ -186,7 +186,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-width: 56px;
 	width: 56px;
 	margin: 0;
 	-webkit-appearance: none;
@@ -214,7 +213,6 @@
 
 .task-destroy {
 	display: block;
-	min-width: 56px;
 	width: 56px;
 	padding: 0;
 	background: none;
@@ -241,7 +239,7 @@
 	padding: 0 .5em;
 	border-radius: 3px;
 	line-height: 1.7em;
-	height: 48px;
+	height: 3rem;
 	background: #fff;
 	width: 33.333%;
 }
