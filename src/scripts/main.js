@@ -2,13 +2,18 @@
 
 /**
  * Initialize the database.
+ *
+ * Connects to the database or create one if dosn't exits using
+ * the DB class.
  */
 function setDB() {
   // Database name.
   dbName = 'tuduDBv0.2';
+
   // Start the database.
   tuduDb = new DB();
 
+  // Database initial values.
   var dbData = {
     tasks: [],
     lists: []
@@ -17,20 +22,28 @@ function setDB() {
   tuduDb.connect(dbName, dbData);
 }
 
+/**
+ * Render the home screen.
+ *
+ * Cleans and rewrites all saved lists in the home page.
+ */
 function loadHome() {
   document.body.classList.remove('listOpen');
 
+  // Cean the home screen.
   var listItems = document.getElementsByClassName('myLists-list');
   for (var i = listItems.length - 1; i >= 0; i--) {
     listsList.removeChild(listItems[i]);
   }
 
+  // Hide the loader animation.
   var loader = document.getElementById('loader');
   loader.classList.add('loader-hidden');
 
   var openSaveListDialogButton = document.getElementById('open-savelist-dialog-button');
   var lists = tuduDb.getTable('lists');
   if (lists) {
+    // Create an HTML element for each list
     lists.forEach(function(list) {
       var list = list;
       var li = createEl('li', list.name, 'myLists-list', list.id);
@@ -38,11 +51,15 @@ function loadHome() {
       li.addEventListener('click', function() {
         openList(list.id);
       });
+      // Insert the list element before the save list button
       listsList.insertBefore(li, openSaveListDialogButton);
     });
   }
 }
 
+/**
+ * Write the list's title
+ */
 function writeListTitle() {
   taskListTitle.innerHTML = '';
 
@@ -53,6 +70,7 @@ function writeListTitle() {
   taskListTitle.appendChild(titleText);
 }
 
+/** Set the active tab */
 function setTabs() {
   listTabsButtons.forEach(function(button) {
     button.classList.remove('taskTabs-button-active');
@@ -62,7 +80,14 @@ function setTabs() {
   tabToActivate.classList.add('taskTabs-button-active');
 }
 
+/**
+ * Write the list's tasks.
+ *
+ * Writes the tasks for the current list and the current active
+ * tab. If the list is empty, write an 'empty list' message insetad.
+ */
 function writeListTasks() {
+  // Clean the task view first
   taskList.innerHTML = '';
   var listId = currentListInput.value;
   var tasks = getTasksFromList(listId, filter.value);
@@ -98,6 +123,7 @@ function writeListTasks() {
       taskList.appendChild(li);
     });
   } else {
+    // If there is no task
     var message = 'There is nothing here.';
     var p = createEl('p', message, 'tasksList-message');
 
@@ -105,6 +131,11 @@ function writeListTasks() {
   }
 }
 
+/**
+ * Open the list view
+ *
+ * @param {string} listId - The id of the list to open.
+ */
 function openList(listId) {
   listView.classList.add('listView-open');
   document.body.classList.add('listOpen');
@@ -116,9 +147,19 @@ function openList(listId) {
   writeListTasks();
 }
 
+/**
+ * Get tasks from a list.
+ *
+ * Use 'active' or 'completed' to filter the tasks. If no
+ * filter is set, returns all the tasks from de list.
+ *
+ * @param {string} listId - The id of the list.
+ * @param {string} [filter=all] - The name of the filter to use.
+ *
+ * @return {object} An object with the tasks.
+ */
 function getTasksFromList(listId, filter) {
   var filter = filter || 'all';
-  var count = 0;
   var allTasks = tuduDb.getTable('tasks');
   var listTasks = [];
 
@@ -131,14 +172,19 @@ function getTasksFromList(listId, filter) {
       }
 
       listTasks.push(task);
-
-      count++;
     }
   });
 
   return listTasks;
 }
 
+/**
+ * Save or update (if an id is passed) a task. Then, rewrite the
+ * tasks element.
+ *
+ * @param {object} data - The task's data to save or update.
+ * @param {string} [taskId] - The id of the task to update.
+ */
 function saveTask(data, taskId) {
   if (taskId) {
     tuduDb.updateRow(data, 'tasks');
@@ -153,6 +199,11 @@ function saveTask(data, taskId) {
   writeListTasks();
 }
 
+/**
+ * Mark a task as completed. Then, rewrite the tasks element.
+ *
+ * @param {string} taskId - The id of the task.
+ */
 function completeTask(taskId) {
   var task = tuduDb.getRow(taskId, 'tasks');
   var data;
@@ -169,6 +220,11 @@ function completeTask(taskId) {
   writeListTasks();
 }
 
+/**
+ * Delete a task. Then, rewrite the task element.
+ *
+ * @param {string} taskId - The id of the task
+ */
 function deleteTask(taskId) {
   tuduDb.removeRow(taskId, 'tasks');
   tuduDb.save();
@@ -176,6 +232,12 @@ function deleteTask(taskId) {
   writeListTasks();
 }
 
+/**
+ * Delete all tasks from a list. Then, rewrites the tasks
+ * element and show a toast with a 'undo' action.
+ *
+ * @param {string} listId - The id of the list.
+ */
 function clearList(listId) {
   var allListTasks = getTasksFromList(listId);
   allListTasks.forEach(function(task) {
@@ -185,6 +247,7 @@ function clearList(listId) {
   tuduDb.save();
   writeListTasks();
 
+  // Creates the undo action for the toast
   function undo() {
     allListTasks.forEach(function(task) {
       tuduDb.addRow(task, 'tasks');
@@ -194,29 +257,51 @@ function clearList(listId) {
     writeListTasks();
   }
 
+  // Fire the toast
   toast.action('List cleared.', 'Undo', undo);
 }
 
+/**
+ * Delete a list. Then reload the home an show a toast with an
+ * 'undo' action.
+ *
+ * @param {string} listId - The id of the list.
+ */
 function deleteList(listId) {
-  var cachedList = tuduDb.getRow(listId, 'lists');
+  // Makes a backup of the list.
+  var backUpList = tuduDb.getRow(listId, 'lists');
 
   tuduDb.removeRow(listId, 'lists');
 
   tuduDb.save();
   loadHome();
 
+  /**
+   * Creates the 'undo' action for the toast.
+   *
+   * Saves the backup version of the list in the database, then
+   * rewrites the home view.
+   */
   function undo() {
-    tuduDb.addRow(cachedList, 'lists');
+    tuduDb.addRow(backUpList, 'lists');
 
     tuduDb.save();
     loadHome();
   }
 
+  // Fires the toast
   toast.action('List deleted.', 'Undo', undo);
 }
 
+/**
+ * Reset the data base.
+ *
+ * Deletes all tasks and lists in the database, then rewrites
+ * the home view and fire a toast with an 'undo' action.
+ */
 function deleteAll() {
-  var cacheData = tuduDb.fetch();
+  // Backup the previous data.
+  var backUpData = tuduDb.fetch();
 
   tuduDb.clear();
   tuduDb.data = {
@@ -226,16 +311,30 @@ function deleteAll() {
   tuduDb.save();
   loadHome();
 
+  /**
+   * Creates the 'undo' action for the toast.
+   *
+   * Saves the data from the backup in the database, then
+   * rewrites the home view.
+   */
   function undo() {
-    tuduDb.data = cacheData;
+    tuduDb.data = backUpData;
 
     tuduDb.save();
     loadHome();
   }
 
+  // Fire a toast.
   toast.action('All lists deleted', 'Undo', undo);
 }
 
+/**
+ * Creates or updates (if an id is passed) a list. Then rewrite
+ * the home and fire a toast.
+ *
+ * @param {object} data - The data to save or update.
+ * @param {string} listId - The id of the list to update.
+ */
 function saveList(data, listId) {
   if (listId) {
     tuduDb.updateRow(data, 'lists');
@@ -246,9 +345,16 @@ function saveList(data, listId) {
   tuduDb.save();
   loadHome();
 
-  toast.simple('List ' + data.name + ' created');
+  toast.simple('List "' + data.name + '" created');
 }
 
+/**
+ * Edits a list name. Then rewrites the HTML list title element
+ * and fire a toast.
+ *
+ * @param {string} newTitle - The new name of the list.
+ * @param {string} listId - The id of the list.
+ */
 function editListTitle(newTitle, listId) {
   var data = {
     name: newTitle
@@ -261,6 +367,10 @@ function editListTitle(newTitle, listId) {
   toast.simple('List title edited');
 }
 
+/**
+ * Set the db connection and load the home view when the
+ * document is ready.
+ */
 document.body.onload = function() {
   setDB();
   loadHome();
