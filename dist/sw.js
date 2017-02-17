@@ -13,6 +13,7 @@ var cacheFiles = [
   'js/close.svg',
   'js/menu.svg',
   'js/more.svg',
+  'img/more-w.svg',
   'js/tudu-logo.svg'
 ]
 
