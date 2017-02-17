@@ -21,13 +21,16 @@ html {
 	z-index: 1;
 }
 
-.appHeader:after {
-	content: '';
+.appHeader-moreButton {
+	background:url(../img/more-w.svg) center no-repeat;
+	border:0;
 	width: 48px;
+	height: 48px;
+	text-indent: -3000px;
+	padding: 0;
 }
 
 .appHeader-menuButton {
-	cursor: pointer;
 	background:url(../img/menu.svg) center no-repeat;
 	border:0;
 	width: 48px;

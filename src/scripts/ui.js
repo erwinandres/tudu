@@ -69,14 +69,6 @@ closeListViewButton.addEventListener('click', function() {
   document.body.classList.remove('listOpen');
 });
 
-//Button: more list options
-var moreListOptionsButton = document.getElementById('more-list-options');
-
-moreListOptionsButton.addEventListener('click', function(evt) {
-  evt.stopPropagation();
-  listViewOptions.classList.toggle('listView-options-show');
-});
-
 //Button: clear list
 var clearListButton = document.getElementById('clear-list');
 
@@ -119,7 +111,8 @@ editListTitleButton.addEventListener('click', function() {
       input.blur();
     }
   }
-
+  
+  var moreListOptionsButton = document.getElementById('more-list-options');
   listViewHeader.insertBefore(input, moreListOptionsButton);
   input.focus();
 });
@@ -229,6 +222,21 @@ deleteAllListsButton.addEventListener('click', function(evt) {
   deleteAll();
 });
 
+/**************************************************************
+ * Dropdowns
+ **************************************************************/
+var dropdowns = document.querySelectorAll('[data-dropdown]');
+
+var dropdownOpenButtons = document.querySelectorAll('[data-dropdown-open]');
+dropdownOpenButtons.forEach(function(button) {
+  button.addEventListener('click', function(evt) {
+    evt.stopPropagation();
+
+    var target = button.getAttribute(['data-dropdown-open']);
+    var targetElement = document.querySelector('[data-dropdown=' + target + ']');
+    targetElement.classList.add('dropdown-visible');
+  });
+});
 
 /**
  * Close all menus and dialgos when clicking anywhere in the
@@ -236,8 +244,14 @@ deleteAllListsButton.addEventListener('click', function(evt) {
  */
 document.body.addEventListener('click', function() {
   mainNav.classList.remove('mainNav-open');
+
+  dropdowns.forEach(function(dropdown) {
+    dropdown.classList.remove('dropdown-visible');
+  });
+
   dialogs.forEach(function(dialog) {
     dialog.classList.remove('dialog-visible');
   });
+
   listViewOptions.classList.remove('listView-options-show');
 });
