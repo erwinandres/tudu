@@ -1,5 +1,5 @@
 //Cache version name
-var cacheName = 'v0.3:static';
+var cacheName = 'v0.4:static';
 
 var cacheFiles = [
   'index.html',
@@ -10,11 +10,11 @@ var cacheFiles = [
   'img/add.svg',
   'img/check-blank.svg',
   'img/check-marked.svg',
-  'js/close.svg',
-  'js/menu.svg',
-  'js/more.svg',
+  'img/close.svg',
+  'img/menu.svg',
+  'img/more.svg',
   'img/more-w.svg',
-  'js/tudu-logo.svg'
+  'img/tudu-logo.svg'
 ]
 
 //Cache static assets during installation
