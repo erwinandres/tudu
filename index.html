@@ -22,6 +22,12 @@
 	<header class="appHeader">
 		<button class="appHeader-menuButton" id="menu-button">Menu</button>
 		<h1 class="appHeader-title">Tudú</h1>
+		<button class="appHeader-moreButton" data-dropdown-open="home">More</button>
+		<div class="dropdown" data-dropdown="home">
+			<ul class="dropdown-list">
+				<li class="dropdown-list-item" data-dialog-open="confirm">Delete all lists</li>
+			</ul>
+		</div>
 	</header>
 		
 	<div class="home">
@@ -32,6 +38,8 @@
 				</i>
 				<span class="addListButton-caption">Create list</span>
 			</li>
+			<li class="myLists-holder"></li>
+			<li class="myLists-holder"></li>
 		</ul>
 
 		<div class="loader" id="loader">
@@ -84,8 +92,8 @@
 		<header class="listView-header" id="list-view-header">
 			<button class="listView-header-button listView-closeButton" id="close-list-view">Close</button>
 			<h2 class="listView-header-title" id="task-list-title"></h2>
-			<button class="listView-header-button listView-moreButton" id="more-list-options">More options</button>
-			<div class="listView-options" id="list-view-options">
+			<button class="listView-header-button listView-moreButton" data-dropdown-open="list-options" id="more-list-options">More options</button>
+			<div class="listView-options" data-dropdown="list-options" id="list-view-options">
 				<ul class="listView-options-list">
 					<li class="listView-options-list-item" id="edit-list-title-button">Edit list title</li>
 					<li class="listView-options-list-item" id="clear-list">Clear list</li>
@@ -123,13 +131,13 @@
 			</header>
 
 			<ul class="mainNav-list">
-				<li class="mainNav-list-item" ><a class="mainNav-list-item-link" href="#" data-dialog-open="confirm">Delete all lists</a></li>
+				<li class="mainNav-list-item"><a class="mainNav-list-item-link" href="//github.com/erwinandres/tudu/issues/new" target="_blank">Report a bug</a></li>
 				<li class="mainNav-list-item"><a class="mainNav-list-item-link" href="//github.com/erwinandres/tudu" target="_blank">Source code</a></li>
 				<li class="mainNav-list-item"><a class="mainNav-list-item-link" href="#" data-dialog-open="about">About the app</a></li>
 			</ul>
 
 			<footer>
-				<p class="mainNav-versionMark">Version 0.9.1 (beta)</p>
+				<p class="mainNav-versionMark">Version 1.0</p>
 			</footer>
 		</nav>
 	</div>
@@ -158,9 +166,9 @@
 				<h2 class="dialog-header-title">Tudú</h2>
 			</header>
 			<div class="abouDialog-body dialog-body">
-				<p>A lightweight TO-DO app.</p>
-				<p>Developed by Erwin Larios. Design by Kenyi Larios.</p>
-				<p>&copy;2017.</p>
+				<p>A lightweight TO-DO List progressive web app.</p>
+				<p>Development: Erwin Larios. Design: Kenyi Larios.</p>
+				<p>&copy; 2017.</p>
 			</div>
 			<footer class="aboutDialog-footer dialog-footer">
 				<button class="dialog-actionButton" data-dialog-close="about">Close</button>
