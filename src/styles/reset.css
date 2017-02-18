@@ -1,10 +1,6 @@
 /********
 * RESET *
 *********/
-body, html {
-	min-height: 100%;
-}
-
 html {
 	font-family:
 		-apple-system,
@@ -36,6 +32,7 @@ body {
 	margin: 0;
 	color: #212121;
 	background-color: #fafafa;
+	min-height: 100vh;
 }
 
 a:focus,
