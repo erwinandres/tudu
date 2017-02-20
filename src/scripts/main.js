@@ -363,6 +363,7 @@ function editListTitle(newTitle, listId) {
   tuduDb.updateRow(data, listId, 'lists');
   tuduDb.save();
   writeListTitle();
+  loadHome();
 
   toast.simple('List title edited');
 }
