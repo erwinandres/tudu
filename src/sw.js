@@ -1,5 +1,5 @@
 //Cache version name
-var cacheName = 'v0.4:static';
+var cacheName = 'v0.5:static';
 
 var cacheFiles = [
   'index.html',
