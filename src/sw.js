@@ -44,14 +44,21 @@ self.addEventListener('activate', function(e) {
 
 //Fetch the page or load from cache
 self.addEventListener('fetch', function(e) {
-  e.respondWith(
-    caches.match(e.request).then(function(response) {
-      if (response) {
-        //retrieve from cache
-        return response;
-      }
-      //fetch as normal
-      return fetch(e.request);
-    })
-  );
+  if (e.request.mode === 'navigate') {
+    e.respondWith(
+      fetch(e.request).catch(function(exception) {
+        console.error('Fetch failed; returning offline page instead.', exception);
+
+        return caches.open(cacheName).then(function(cache) {
+          return cache.match('/');
+        });
+      })
+    )
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(function(response) {
+        return response || fetch(e.request);
+      })
+    );
+  }
 });
