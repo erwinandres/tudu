@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
+var autoprefixer = require('gulp-autoprefixer');
 var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
@@ -20,6 +21,7 @@ gulp.task('useref', function() {
   return gulp.src('src/*.html')
     .pipe(useref())
     .pipe(gulpIf('*.js', uglify()))
+    .pipe(gulpIf('*.css', autoprefixer({ browsers: ['last 2 versions'], cascade: false })))
     .pipe(gulpIf('*.css', cssnano()))
     .pipe(gulp.dest('dist/'))
 });
