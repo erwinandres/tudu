@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
-var cleanCSS = require('gulp-clean-css');
+var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cache = require('gulp-cache');
@@ -20,7 +20,7 @@ gulp.task('useref', function() {
   return gulp.src('src/*.html')
     .pipe(useref())
     .pipe(gulpIf('*.js', uglify()))
-    .pipe(gulpIf('*.css', cleanCSS({ compatibility: 'ie8' })))
+    .pipe(gulpIf('*.css', cssnano()))
     .pipe(gulp.dest('dist/'))
 });
 
