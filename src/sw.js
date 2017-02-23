@@ -1,5 +1,5 @@
 //Cache version name
-var cacheName = 'v0.5:static';
+var cacheName = 'v0.6:static';
 
 var cacheFiles = [
   'index.html',
@@ -8,6 +8,7 @@ var cacheFiles = [
   'fonts/Roboto/Roboto-400.woff',
   'fonts/Roboto/Roboto-500.woff',
   'img/add.svg',
+  'img/arrow-forward.svg',
   'img/check-blank.svg',
   'img/check-marked.svg',
   'img/close.svg',
