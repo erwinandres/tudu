@@ -60,12 +60,14 @@
 	background: url(../img/close.svg) transparent center no-repeat;
 	border:0;
 	text-indent: -3000px;
+	font-size: 0;
 }
 
 .listView-moreButton {
 	background: url(../img/more.svg) transparent center no-repeat;
 	border:0;
 	text-indent: -3000px;
+	font-size: 0;
 }
 
 .listView-options {
@@ -163,6 +165,7 @@
 	border:none;
 	border-radius: 50%;
 	text-indent: -3000px;
+	font-size: 0;
 	font-size: 0;
 	position: absolute;
 	right: 0;
