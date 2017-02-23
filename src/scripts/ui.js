@@ -104,7 +104,7 @@ editListTitleButton.addEventListener('click', function() {
     if (evt.keyCode === 13) {
       var value = input.value.trim();
 
-      if (value !== '' && value.length <= 60) {
+      if (value !== '' && value.length <= 190) {
         editListTitle(value, currentListInput.value);
       }
 
@@ -139,7 +139,7 @@ var newTaskButton = document.getElementById('new-task-button');
 newTaskButton.addEventListener('click', function(evt) {
   var value = tasksInput.value.trim();
 
-  if (value !== '' && value.length <= 90) {
+  if (value !== '' && value.length <= 200) {
     var data = { text: value };
     saveTask(data);
     tasksInput.value = '';
