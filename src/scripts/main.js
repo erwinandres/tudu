@@ -229,10 +229,22 @@ function completeTask(taskId) {
  * @param {string} taskId - The id of the task
  */
 function deleteTask(taskId) {
+  var backUpTask = tuduDb.getRow(taskId, 'tasks');
+
   tuduDb.removeRow(taskId, 'tasks');
   tuduDb.save();
 
   writeListTasks();
+
+  function undo() {
+    tuduDb.addRow(backUpTask, 'tasks');
+    tuduDb.save();
+
+    writeListTasks();
+  }
+
+  var textToShow = truncate(backUpTask.text, 12);
+  toast.action('Task "' + textToShow +'" deleted.', 'Undo', undo);
 }
 
 /**
