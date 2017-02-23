@@ -6,6 +6,7 @@
 	padding: 0;
 	margin: 0 auto;
     max-width: 46em;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .myLists-holder {
