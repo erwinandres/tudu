@@ -105,7 +105,10 @@
 		<div class="listView-body">
 			<div class="newTask">
 				<label class="newTask-label" for="new-task-input">Task</label>
-				<input class="newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" maxlength="90" autofocus>
+				<div class="newTask-group">
+					<input class="newTask-input" id="new-task-input" type="text" name="new-task" placeholder="What do you need to do?" maxlength="90" autofocus>
+					<button class="newTask-button" id="new-task-button">Add</button>
+				</div>
 				<input id="current-list-input" type="hidden" value="1">
 			</div>
 
@@ -137,7 +140,7 @@
 			</ul>
 
 			<footer>
-				<p class="mainNav-versionMark">Version 1.0.5</p>
+				<p class="mainNav-versionMark">Version 1.0.6</p>
 			</footer>
 		</nav>
 	</div>
