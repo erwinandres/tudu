@@ -360,7 +360,8 @@ function saveList(data, listId) {
   tuduDb.save();
   loadHome();
 
-  toast.simple('List "' + data.name + '" created');
+  var textToShow = truncate(data.name, 12);
+  toast.simple('List "' + textToShow + '" created');
 }
 
 /**
