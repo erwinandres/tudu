@@ -78,3 +78,24 @@ function getRandomColor() {
 
   return color;
 }
+
+/**
+ * Truncate text
+ *
+ * @param {string} text - The text to truncate.
+ * @param {Number} max - The maximum number of characters in the
+ *   text.
+ *
+ * @returns The text truncated if the length is longer than the
+ *   max number plus an elypsis, or the normal text if is
+ *   shorter than the max number.
+ */
+function truncate(text, max) {
+  var textLen = text.length;
+
+  if (textLen > max) {
+    return text.substring(0, max) + '…';
+  } else {
+    return text;
+  }
+}

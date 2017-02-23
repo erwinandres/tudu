@@ -197,6 +197,9 @@ function saveTask(data, taskId) {
 
   tuduDb.save();
   writeListTasks();
+
+  var textToShow = truncate(data.text, 12);
+  toast.simple('New task "' + textToShow +'" created.');
 }
 
 /**
