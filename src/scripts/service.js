@@ -12,5 +12,6 @@ if ('serviceWorker' in navigator) {
     });
   navigator.serviceWorker.ready.then(function(reg) {
     console.log('Service worker ready');
+    toast.simple('App ready to work offline.');
   });
 }
