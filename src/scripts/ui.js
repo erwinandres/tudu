@@ -121,24 +121,31 @@ editListTitleButton.addEventListener('click', function() {
 var tasksInput = document.getElementById('new-task-input');
 
 tasksInput.addEventListener('focus', function() {
-  this.parentElement.classList.add('newTask-active');
+  this.parentElement.parentElement.classList.add('newTask-active');
 });
 
 tasksInput.addEventListener('blur', function() {
-  this.parentElement.classList.remove('newTask-active');
+  this.parentElement.parentElement.classList.remove('newTask-active');
 });
 
 tasksInput.onkeyup = function(event) {
   if (event.keyCode == 13) {
-    var value = this.value.trim();
-
-    if (value !== '' && value.length <= 90) {
-      var data = { text: value };
-      saveTask(data);
-      this.value = '';
-    }
+    newTaskButton.click();
   }
 }
+
+//Button: new task
+var newTaskButton = document.getElementById('new-task-button');
+newTaskButton.addEventListener('click', function(evt) {
+  var value = tasksInput.value.trim();
+
+  if (value !== '' && value.length <= 90) {
+    var data = { text: value };
+    saveTask(data);
+    tasksInput.value = '';
+    tasksInput.blur();
+  }
+});
 
 //Buttons: list view actions
 var listTabsButtons = document.querySelectorAll('.taskTabs-button');
