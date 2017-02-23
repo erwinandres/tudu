@@ -304,8 +304,9 @@ function deleteList(listId) {
     loadHome();
   }
 
+  var textToShow = truncate(backUpList.name, 12);
   // Fires the toast
-  toast.action('List deleted.', 'Undo', undo);
+  toast.action('List "' + textToShow + '" deleted.', 'Undo', undo);
 }
 
 /**
