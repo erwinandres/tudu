@@ -44,7 +44,7 @@
       return decode(localStorage.getItem(this.dbName));
     }
 
-    /** 
+    /**
      * Create a new table
      *
      * @oaram {string} tableName - the name of the table to add.
@@ -89,7 +89,7 @@
       } else {
         console.error('Database error: table doesn\'t exists.');
         return;
-      }      
+      }
     }
 
     /**
@@ -217,7 +217,7 @@
     /** Create id for objects/rows */
     function objectId() {
       var id = new Date().getTime();
-      /** 
+      /**
        * Convert to string for better compatibility with html elements
        * atributes.
        */
