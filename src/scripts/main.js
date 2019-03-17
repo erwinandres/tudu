@@ -385,6 +385,13 @@ function editListTitle(newTitle, listId) {
   toast.simple('List title edited');
 }
 
+Router.config({ mode: 'history'});
+Router
+  .add(/list\/(.*)/, function() {
+    console.log('list', arguments);
+  })
+  .check();
+
 /**
  * Set the db connection and load the home view when the
  * document is ready.
