@@ -8,6 +8,7 @@ var cache = require('gulp-cache');
 var imagemin = require('gulp-imagemin');
 var useref = require('gulp-useref');
 var del = require('del');
+var spaServer = require('spa-server');
 
 var assets = [
   'src/**',
@@ -41,6 +42,17 @@ gulp.task('clean', function(){
     return del('dist/**/*');
 });
 
-gulp.task('default', ['clean'], function() {
-  gulp.start('useref', 'images', 'copy');
+gulp.task('serve', () => {
+  const server = spaServer.create({
+    path: './dist',
+    port: 80,
+    fallback: {
+      'text/html' : '/200.html'
+    }
+  });
+
+  server.start();
 });
+
+gulp.task('build', ['clean'], () => gulp.start('useref', 'images', 'copy'));
+gulp.task('default', ['build', 'serve']);
