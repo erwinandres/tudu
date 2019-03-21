@@ -12,7 +12,7 @@ var spaServer = require('spa-server');
 
 var assets = [
   'src/**',
-  '!src/index.html',
+  '!src/200.html',
   '!src/styles{,/**}',
   '!src/img{,/**}',
   '!src/scripts{,/**}'
