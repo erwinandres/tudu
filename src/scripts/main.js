@@ -289,7 +289,7 @@ function deleteList(listId) {
   tuduDb.removeRow(listId, 'lists');
 
   tuduDb.save();
-  loadHome();
+  Router.navigate();
 
   /**
    * Creates the 'undo' action for the toast.
@@ -301,7 +301,7 @@ function deleteList(listId) {
     tuduDb.addRow(backUpList, 'lists');
 
     tuduDb.save();
-    loadHome();
+    Router.navigate();
   }
 
   var textToShow = truncate(backUpList.name, 12);
@@ -325,7 +325,7 @@ function deleteAll() {
     lists: []
   }
   tuduDb.save();
-  loadHome();
+  Router.navigate();
 
   /**
    * Creates the 'undo' action for the toast.
@@ -337,7 +337,7 @@ function deleteAll() {
     tuduDb.data = backUpData;
 
     tuduDb.save();
-    loadHome();
+    Router.navigate();
   }
 
   // Fire a toast.
@@ -359,7 +359,7 @@ function saveList(data, listId) {
   }
 
   tuduDb.save();
-  loadHome();
+  Router.navigate();
 
   var textToShow = truncate(data.name, 12);
   toast.simple('List "' + textToShow + '" created');
@@ -380,7 +380,7 @@ function editListTitle(newTitle, listId) {
   tuduDb.updateRow(data, listId, 'lists');
   tuduDb.save();
   writeListTitle();
-  loadHome();
+  Router.navigate();
 
   toast.simple('List title edited');
 }
@@ -389,8 +389,11 @@ Router.config({ mode: 'history'});
 Router
   .add(/list\/(.*)/, function() {
     console.log('list', arguments);
+    loadHome();
   })
-  .check();
+  .add(function() {
+    loadHome();
+  })
 
 /**
  * Set the db connection and load the home view when the
@@ -398,5 +401,5 @@ Router
  */
 document.body.onload = function() {
   setDB();
-  loadHome();
+  Router.check();
 }
