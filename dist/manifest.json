@@ -1,0 +1,20 @@
+{
+  "short_name": "Tud\u00fa",
+  "name": "Tud\u00fa Progressive Web App",
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png?v=2",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-256x256.png?v=2",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html?utm_source=web_app_manifest",
+  "theme_color": "#607d8b",
+  "background_color": "#607d8b",
+  "display": "standalone"
+}
