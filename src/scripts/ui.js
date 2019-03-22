@@ -65,8 +65,7 @@ saveListButton.addEventListener('click', function() {
 var closeListViewButton = document.getElementById('close-list-view');
 
 closeListViewButton.addEventListener('click', function() {
-  listView.classList.remove('listView-open');
-  document.body.classList.remove('listOpen');
+  Router.navigate().check();
 });
 
 //Button: clear list

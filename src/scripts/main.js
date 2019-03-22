@@ -28,6 +28,8 @@ function setDB() {
  * Cleans and rewrites all saved lists in the home page.
  */
 function loadHome() {
+  closeList();
+
   document.body.classList.remove('listOpen');
 
   // Cean the home screen.
@@ -49,7 +51,8 @@ function loadHome() {
       var li = createEl('li', list.name, 'myLists-list', list.id);
       li.style.backgroundColor = list.color;
       li.addEventListener('click', function() {
-        openList(list.id);
+        Router.navigate('/list/' + list.id + '/')
+          .check();
       });
       // Insert the list element before the save list button
       listsList.insertBefore(li, openSaveListDialogButton);
@@ -145,6 +148,16 @@ function openList(listId) {
   writeListTitle();
   setTabs();
   writeListTasks();
+}
+
+/**
+ * Close the list view
+ */
+function closeList() {
+  listView.classList.remove('listView-open');
+  document.body.classList.remove('listOpen');
+
+  currentListInput.value = '';
 }
 
 /**
@@ -389,9 +402,10 @@ Router.config({ mode: 'history'});
 Router
   .add(/list\/(.*)/, function() {
     console.log('list', arguments);
-    loadHome();
+    openList(arguments[0]);
   })
   .add(function() {
+    console.log('default');
     loadHome();
   })
 
@@ -403,3 +417,7 @@ document.body.onload = function() {
   setDB();
   Router.check();
 }
+
+window.addEventListener('popstate', function(e) {
+  Router.check();
+});
