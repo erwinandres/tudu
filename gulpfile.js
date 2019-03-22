@@ -42,6 +42,8 @@ gulp.task('clean', function(){
     return del('dist/**/*');
 });
 
+gulp.task('clearCache', () => cache.clearAll());
+
 gulp.task('serve', () => {
   const server = spaServer.create({
     path: './dist',
