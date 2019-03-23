@@ -248,7 +248,7 @@
 }
 
 .task-destroy:before {
-	content: '×';
+	content: '\00d7';
 }
 
 .taskTabs {
