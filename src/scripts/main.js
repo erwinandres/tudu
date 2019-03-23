@@ -438,3 +438,9 @@ document.body.onload = function() {
 window.addEventListener('popstate', function(e) {
   Router.check();
 });
+
+window.addEventListener('keydown', function(e) {
+  if (e.keyCode === 27) {
+    Router.navigate().check();
+  }
+});
