@@ -155,7 +155,7 @@ listTabsButtons.forEach(function(button) {
 
     filter.value = value;
     setTabs();
-    writeListTasks();
+    writeListTasks(getTasksFromList(currentListInput.value));
   });
 });
 

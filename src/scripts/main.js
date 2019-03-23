@@ -60,16 +60,24 @@ function loadHome() {
   }
 }
 
+function notFound() {
+  // Open '404 List not found' view
+}
+
 /**
  * Write the list's title
+ *
+ * @param {string} name - The name of the list.
+ * @param {string} color - The hex color of the list.
  */
-function writeListTitle() {
+function writeListTitle(name, color) {
   taskListTitle.innerHTML = '';
 
-  var list = tuduDb.getRow(currentListInput.value, 'lists');
+  if (color) {
+    listViewHeader.style.backgroundColor = color;
+  }
 
-  listViewHeader.style.backgroundColor = list.color;
-  var titleText = document.createTextNode(list.name);
+  var titleText = document.createTextNode(name);
   taskListTitle.appendChild(titleText);
 }
 
@@ -88,12 +96,12 @@ function setTabs() {
  *
  * Writes the tasks for the current list and the current active
  * tab. If the list is empty, write an 'empty list' message insetad.
+ *
+ * @param {array} tasks - List of all tasks from current list.
  */
-function writeListTasks() {
+function writeListTasks(tasks) {
   // Clean the task view first
   taskList.innerHTML = '';
-  var listId = currentListInput.value;
-  var tasks = getTasksFromList(listId, filter.value);
 
   if (tasks.length > 0) {
     tasks.forEach(function(task) {
@@ -143,11 +151,20 @@ function openList(listId) {
   listView.classList.add('listView-open');
   document.body.classList.add('listOpen');
 
-  currentListInput.value = listId;
+  var list = tuduDb.getRow(listId, 'lists');
 
-  writeListTitle();
-  setTabs();
-  writeListTasks();
+  if (list) {
+    var tasks = getTasksFromList(listId);
+
+    currentListInput.value = list.id;
+
+    writeListTitle(list.name, list.color);
+    setTabs();
+    writeListTasks(tasks);
+  } else {
+    currentListInput.value = null;
+    Router.navigate().check();
+  }
 }
 
 /**
@@ -167,20 +184,19 @@ function closeList() {
  * filter is set, returns all the tasks from de list.
  *
  * @param {string} listId - The id of the list.
- * @param {string} [filter=all] - The name of the filter to use.
  *
  * @return {object} An object with the tasks.
  */
-function getTasksFromList(listId, filter) {
-  var filter = filter || 'all';
+function getTasksFromList(listId) {
+  var filterValue = filter.value || 'all';
   var allTasks = tuduDb.getTable('tasks');
   var listTasks = [];
 
   allTasks.forEach(function(task) {
     if (task.list === listId) {
-      if (filter === 'active' && task.completed) {
+      if (filterValue === 'active' && task.completed) {
         return;
-      } else if (filter === 'completed' && !task.completed) {
+      } else if (filterValue === 'completed' && !task.completed) {
         return;
       }
 
@@ -209,7 +225,7 @@ function saveTask(data, taskId) {
   }
 
   tuduDb.save();
-  writeListTasks();
+  writeListTasks(getTasksFromList(currentListInput.value));
 
   var textToShow = truncate(data.text, 12);
   toast.simple('New task "' + textToShow +'" created.');
@@ -233,7 +249,7 @@ function completeTask(taskId) {
   tuduDb.updateRow(data, taskId, 'tasks');
   tuduDb.save();
 
-  writeListTasks();
+  writeListTasks(getTasksFromList(currentListInput.value));
 }
 
 /**
@@ -247,13 +263,15 @@ function deleteTask(taskId) {
   tuduDb.removeRow(taskId, 'tasks');
   tuduDb.save();
 
-  writeListTasks();
+  var tasks = getTasksFromList(currentListInput.value);
+
+  writeListTasks(tasks);
 
   function undo() {
     tuduDb.addRow(backUpTask, 'tasks');
     tuduDb.save();
 
-    writeListTasks();
+    writeListTasks(tasks);
   }
 
   var textToShow = truncate(backUpTask.text, 12);
@@ -273,7 +291,7 @@ function clearList(listId) {
   });
 
   tuduDb.save();
-  writeListTasks();
+  writeListTasks(getTasksFromList(listId));
 
   // Creates the undo action for the toast
   function undo() {
@@ -282,7 +300,7 @@ function clearList(listId) {
     });
 
     tuduDb.save();
-    writeListTasks();
+    writeListTasks(getTasksFromList(currentListInput.value));
   }
 
   // Fire the toast
@@ -392,8 +410,7 @@ function editListTitle(newTitle, listId) {
 
   tuduDb.updateRow(data, listId, 'lists');
   tuduDb.save();
-  writeListTitle();
-  Router.navigate();
+  writeListTitle(newTitle);
 
   toast.simple('List title edited');
 }
