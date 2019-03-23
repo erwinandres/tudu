@@ -136,6 +136,7 @@ tasksInput.onkeyup = function(event) {
 //Button: new task
 var newTaskButton = document.getElementById('new-task-button');
 newTaskButton.addEventListener('click', function(evt) {
+  console.log('fire')
   var value = tasksInput.value.trim();
 
   if (value !== '' && value.length <= 200) {
