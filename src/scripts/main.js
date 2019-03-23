@@ -22,6 +22,12 @@ function setDB() {
   tuduDb.connect(dbName, dbData);
 }
 
+function setPageTitle(subPage) {
+  var pageTitle = 'Tudú App';
+
+  document.title = subPage ? subPage + ' | ' + pageTitle : pageTitle;
+}
+
 /**
  * Render the home screen.
  *
@@ -29,8 +35,7 @@ function setDB() {
  */
 function loadHome() {
   closeList();
-
-  document.body.classList.remove('listOpen');
+  setPageTitle();
 
   // Cean the home screen.
   var listItems = document.getElementsByClassName('myLists-list');
@@ -58,10 +63,6 @@ function loadHome() {
       listsList.insertBefore(li, openSaveListDialogButton);
     });
   }
-}
-
-function notFound() {
-  // Open '404 List not found' view
 }
 
 /**
@@ -158,6 +159,7 @@ function openList(listId) {
 
     currentListInput.value = list.id;
 
+    setPageTitle(list.name);
     writeListTitle(list.name, list.color);
     setTabs();
     writeListTasks(tasks);
@@ -320,7 +322,7 @@ function deleteList(listId) {
   tuduDb.removeRow(listId, 'lists');
 
   tuduDb.save();
-  Router.navigate();
+  Router.navigate().check();
 
   /**
    * Creates the 'undo' action for the toast.
@@ -332,7 +334,7 @@ function deleteList(listId) {
     tuduDb.addRow(backUpList, 'lists');
 
     tuduDb.save();
-    Router.navigate();
+    loadHome();
   }
 
   var textToShow = truncate(backUpList.name, 12);
@@ -356,7 +358,7 @@ function deleteAll() {
     lists: []
   }
   tuduDb.save();
-  Router.navigate();
+  loadHome();
 
   /**
    * Creates the 'undo' action for the toast.
@@ -368,7 +370,7 @@ function deleteAll() {
     tuduDb.data = backUpData;
 
     tuduDb.save();
-    Router.navigate();
+    loadHome();
   }
 
   // Fire a toast.
@@ -390,7 +392,7 @@ function saveList(data, listId) {
   }
 
   tuduDb.save();
-  Router.navigate();
+  loadHome();
 
   var textToShow = truncate(data.name, 12);
   toast.simple('List "' + textToShow + '" created');
