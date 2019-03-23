@@ -420,11 +420,9 @@ function editListTitle(newTitle, listId) {
 Router.config({ mode: 'history'});
 Router
   .add(/list\/(.*)/, function() {
-    console.log('list', arguments);
     openList(arguments[0]);
   })
   .add(function() {
-    console.log('default');
     loadHome();
   })
 
