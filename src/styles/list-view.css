@@ -204,6 +204,7 @@
 
 .task {
 	display: flex;
+	flex-flow: row nowrap;
 	text-align: left;
 	font-size: 1em;
 	list-style: none;
@@ -220,7 +221,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 56px;
+	flex-flow: column nowrap;
+	flex: 0 0 48px;
 	margin: 0;
 	appearance: none;
 }
@@ -236,7 +238,9 @@
 .task-label {
 	display: block;
 	padding: .8em 0;
-	flex-grow: 1;
+	flex-flow: column nowrap;
+	flex: 1 1 auto;
+	word-break: break-word;
 }
 
 .task.completed .task-label {
@@ -245,7 +249,11 @@
 }
 
 .task-destroy {
-	display: block;
+	flex-flow: column nowrap;
+	flex: 0 0 48px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 56px;
 	padding: 0;
 	background: none;
