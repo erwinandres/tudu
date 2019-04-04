@@ -66,6 +66,9 @@
 	font-weight: 500;
 }
 
+.dialog-actionButton:hover {
+	background-color: #eee;
+}
 
 /* New List Dialog */
 .newList-formGroup {
