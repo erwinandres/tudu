@@ -31,6 +31,10 @@ html {
 	padding: 0;
 }
 
+.appHeader-moreButton:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
 .appHeader-menuButton {
 	background:url(../img/menu.svg) center no-repeat;
 	border:0;
@@ -39,6 +43,10 @@ html {
 	text-indent: -3000px;
 	font-size:0;
 	padding: 0;
+}
+
+.appHeader-menuButton:hover {
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
 .appHeader-title {

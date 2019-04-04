@@ -18,13 +18,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 3.5rem;
 }
 
 .listView-header-title {
 	font-size: 1em;
 	font-weight: 500;
-    margin: 0;
+    margin: 0 0 0 1rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -54,6 +53,10 @@
 .listView-header-button {
 	height: 3rem;
 	width: 3rem;
+}
+
+.listView-header-button:hover {
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
 .listView-closeButton {
@@ -262,7 +265,7 @@
 	border-top: 1px solid #bdbdbd;
 }
 
-.taskTabs-button{
+.taskTabs-button {
 	position: relative;
 	border: 0;
 	font-size: 1em;
@@ -272,6 +275,10 @@
 	height: 3rem;
 	background: #fff;
 	width: 33.333%;
+}
+
+.taskTabs-button:hover {
+	background-color: rgba(142, 142, 142, .13);
 }
 
 .taskTabs-button-active:before {
