@@ -106,8 +106,20 @@ function writeListTasks(tasks) {
 
   if (tasks.length > 0) {
     tasks.forEach(function(task) {
+      var taskText;
+
+      if (isURL(task.text)) {
+        var anchor = createEl('a', task.text);
+        anchor.href = task.text;
+        anchor.target = "_blank";
+
+        taskText = anchor;
+      } else {
+        taskText = task.text;
+      }
+
       // The label
-      var textLabel = createEl('label', task.text, 'task-label');
+      var textLabel = createEl('label', taskText, 'task-label');
 
       // The checkbox input
       var checkbox = createEl('input', '', 'task-check');
