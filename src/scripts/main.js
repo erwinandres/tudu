@@ -218,7 +218,9 @@ function getTasksFromList(listId) {
     }
   });
 
-  return listTasks;
+  return listTasks.sort(function(a, b) {
+    return a.order - b.order;
+  });
 }
 
 /**
@@ -232,6 +234,9 @@ function saveTask(data, taskId) {
   if (taskId) {
     tuduDb.updateRow(data, 'tasks');
   } else {
+    var list = getTasksFromList(currentListInput.value);
+
+    data.order = list.length > 0 ? list[list.length -1].order + 1 : 1;
     data.completed = false;
     data.list = currentListInput.value;
 
@@ -277,15 +282,13 @@ function deleteTask(taskId) {
   tuduDb.removeRow(taskId, 'tasks');
   tuduDb.save();
 
-  var tasks = getTasksFromList(currentListInput.value);
-
-  writeListTasks(tasks);
+  writeListTasks(getTasksFromList(currentListInput.value));
 
   function undo() {
     tuduDb.addRow(backUpTask, 'tasks');
     tuduDb.save();
 
-    writeListTasks(tasks);
+    writeListTasks(getTasksFromList(currentListInput.value));
   }
 
   var textToShow = truncate(backUpTask.text, 12);
